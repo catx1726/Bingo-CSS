@@ -11,6 +11,7 @@ body {
     margin: 60px auto;
     width: 70%;
 }
+
 nav ul,
 footer ul {
     font-family: 'Helvetica', 'Arial', 'Sans-Serif';
@@ -24,11 +25,13 @@ footer ul li {
     margin-right: 20px;
 }
 a {
+    font-size: 30px;
+    color: white;
     text-decoration: none;
-    color: #999;
+    transition: all 0.3s ease;
 }
 a:hover {
-    text-decoration: underline;
+    opacity: 0.7;
 }
 h1 {
     font-size: 3em;
@@ -54,6 +57,7 @@ ul.posts li {
 }
 
 .div-light {
+    margin-bottom: 10%;
     color: white;
     font-size: 120px;
     font-weight: bolder;
