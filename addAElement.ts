@@ -29,7 +29,7 @@ class FileCheck {
                     if (!check) {
                         console.log('只做了提交当天的文件')
                     } else {
-                        let innerHtml = `<a href="/${this.path}/${item}"></a><br>`
+                        let innerHtml = `<a href="./${this.path}/${item}"></a><br>`
                         this.fs.appendFileSync('index.html', innerHtml, 'utf8')
                     }
                 })
