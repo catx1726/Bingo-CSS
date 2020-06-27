@@ -341,6 +341,18 @@
     const prizes = []
     let userPrizes = []
     const prizeList = ['1000RMB', '1000RBM', '100RMB', '10RMB']
+    const DOC = document
+    let packets = DOC.querySelectorAll('.raffle_item'),
+      packetsFolds = DOC.querySelectorAll('.raffle_fold'),
+      packetsBodys = DOC.querySelectorAll('.raffle_body'),
+      prizeContainers = DOC.querySelectorAll('.prize_container'),
+      uls = DOC.querySelectorAll('.userPrize_container'),
+      nextBtn = DOC.querySelector('.next'),
+      prevBtn = DOC.querySelector('.prev'),
+      raffleItems = DOC.querySelectorAll('.raffle_item'),
+      click = 0,
+      len = raffleItems.length
+
     // DES 奖品 IDX 去重
     function unique(str, array) {
       try {
@@ -418,22 +430,6 @@
     userLottery(1, 1000, userPrizes, 3)
     checkUserLottery(userPrizes, prizes)
 
-    const DOC = document
-
-    let packets = DOC.querySelectorAll('.raffle_item'),
-      packetsFolds = DOC.querySelectorAll('.raffle_fold'),
-      packetsBodys = DOC.querySelectorAll('.raffle_body'),
-      prizeContainers = DOC.querySelectorAll('.prize_container'),
-      uls = DOC.querySelectorAll('.userPrize_container'),
-      nextBtn = DOC.querySelector('.next'),
-      prevBtn = DOC.querySelector('.prev'),
-      raffleItems = DOC.querySelectorAll('.raffle_item'),
-      click = 0,
-      len = raffleItems.length
-
-    // raffleItems.forEach((ele, idx) => {
-    //   raffleItems[idx].style = 'order:' + (idx + 1)
-    // })
     nextBtn.addEventListener('click', () => {
       // 限制点击次数
       if (click < 2) {
