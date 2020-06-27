@@ -112,6 +112,9 @@ class FileCheck {
 
 try {
     let file = new FileCheck()
+    if (typeof process.argv[2] === 'undefined') {
+        throw Error('你需要输入一个文件夹名')
+    }
     let path = process.argv[2]
     console.log('——————即将检索文件夹:', path, '\n')
     file.input(path)
