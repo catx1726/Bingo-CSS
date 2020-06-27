@@ -41,7 +41,7 @@ class FileCheck {
             // TODO 可将项目地址提取成环境变量
             let htmlInner = `<a href="./${this.path}/${item}">${item}</a><br/>`
             // DES markdown超链接的方式 [文件名](地址)
-            let mdInner = `> [${item}](https://www.adba.club/CSS-Inspired-Factory/${this.path}/${item})`
+            let mdInner = `[${item}](https://www.adba.club/CSS-Inspired-Factory/${this.path}/${item}) <br />`
 
             this.fs.appendFileSync('index.html', htmlInner, 'utf8', (fd) => {
               this.fs.close(fd)
