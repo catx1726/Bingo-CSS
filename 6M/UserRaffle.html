@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UserRaffle</title>
     <link rel="stylesheet" href="../css/flexLayout.css" />
+    <link rel="stylesheet" href="../css/media.css" />
     <style>
       /* TODO PC适配没做，手机端没做 */
       * {
         margin: 0;
         padding: 0;
       }
+
       .raffle_container {
-        height: 1200px;
+        height: 100vh;
+        overflow: hidden;
         background-color: #f64747;
       }
       .container-xycenter {
@@ -23,27 +26,28 @@
       }
       .raffle_item {
         z-index: 99;
-        width: 300px;
-        height: 400px;
-        margin-left: 20px;
+        width: 30rem;
+        height: 40rem;
+        margin-top: 35rem;
+        margin-left: 2rem;
         position: relative;
         cursor: pointer;
-        border-radius: 5px;
+        border-radius: 0.5rem;
         transition: all 0.3s ease;
         user-select: none;
-        box-shadow: 0px 10px 20px -5px #00000082;
+        box-shadow: 0rem 1rem 2rem -0.5rem #00000082;
         /* background-color: #f64747; */
       }
       .raffle_title,
       .raffle_num {
         color: white;
-        font-size: 20px;
+        font-size: 2rem;
         font-weight: 700;
         font-family: consolas;
         transition: all 0.3s ease;
       }
       .raffle_num {
-        font-size: 14px;
+        font-size: 1.4rem;
       }
       /* .raffle_item:hover {
         background: white;
@@ -53,13 +57,13 @@
         color: #f64747;
       } */
       .raffle_fold {
-        height: 20px;
+        height: 2rem;
         width: 100%;
-        box-shadow: 0px 5px 10px -4px black;
+        box-shadow: 0px 0.5rem 1rem -4px black;
         /* background-color: white; */
         transition: all 0.3s ease;
         transform-style: preserve-3d;
-        perspective: 800px;
+        perspective: 80rem;
         display: block;
         position: relative;
         z-index: 10;
@@ -82,14 +86,14 @@
       }
       .raffle_body-effect {
         /* border-top: 1px solid black; */
-        box-shadow: 0px -10px 20px -10px black;
+        box-shadow: 0px -1rem 2rem -1rem black;
       }
       .shadow {
         position: absolute;
         top: 110%;
         left: 50%;
-        width: 200px;
-        height: 30px;
+        width: 20rem;
+        height: 3rem;
         transition: 0.4s;
         transform: translateX(-50%);
         -webkit-transition: 0.4s;
@@ -130,18 +134,18 @@
         background-color: rgb(250, 238, 196);
       }
       .article_container {
-        padding: 20px;
+        padding: 2rem;
       }
       .article_title {
-        font-size: 30px;
-        margin-bottom: 10px;
+        font-size: 3rem;
+        margin-bottom: 1rem;
       }
       .article_author {
-        font-size: 12px;
+        font-size: 1.2rem;
       }
       .article_content {
-        font-size: 16px;
-        margin-top: 10px;
+        font-size: 1.6rem;
+        margin-top: 1rem;
       }
 
       /* paper shadow */
@@ -223,7 +227,6 @@
                 Thank you for your efforts. At the beginning of the new year, we have prepared for
                 you：
                 <ul class="userPrize_container">
-                  <li>1000RMB RED PACKET</li>
                   <li>New Computer</li>
                   <li>New Chair</li>
                 </ul>
@@ -254,7 +257,6 @@
                 Thank you for your efforts. At the beginning of the new year, we have prepared for
                 you：
                 <ul class="userPrize_container">
-                  <li>1000RMB RED PACKET</li>
                   <li>New Computer</li>
                   <li>New Chair</li>
                 </ul>
@@ -285,7 +287,6 @@
                 Thank you for your efforts. At the beginning of the new year, we have prepared for
                 you：
                 <ul class="userPrize_container">
-                  <li>1000RMB RED PACKET</li>
                   <li>New Computer</li>
                   <li>New Chair</li>
                 </ul>
@@ -296,6 +297,7 @@
 
         <div class="shadow"></div>
       </div>
+      <div class="trigger_btn"></div>
     </main>
   </body>
   <script>
@@ -308,8 +310,8 @@
     */
     // OK 为了安全性考虑，奖品 INDEX 随机生成
     const prizes = []
-    const userPrizes = []
-    const prizeList = ['隔离一个月', '隔离15天', '红包100元', '红包10元']
+    let userPrizes = []
+    const prizeList = ['1000RMB', '1000RBM', '100RMB', '10RMB']
     // DES 奖品 IDX 去重
     function unique(str, array) {
       try {
@@ -369,16 +371,17 @@
         if (5 <= idx && idx < 10) {
           return prizeList[2]
         }
-        return '嗷~~，没中！'
+        return 'New Environment！'
       })
       // OK 如果，前三个红包都没有中，那么将安排一个 参与奖
-      let consolation = tempArr.every((i) => i === '嗷~~，没中！')
+      let consolation = tempArr.every((i) => i === 'New Environment！')
       if (consolation) {
         tempArr.pop()
         tempArr.push(prizeList[3])
       }
       console.log('check user lottery:', tempArr, 'check consolation:', consolation)
-      return tempArr
+      userPrizes = [...tempArr]
+      return userPrizes
     }
 
     // OK 用户打开页面，是否中奖就已经敲定，random 一个 INDEX 然后去查看是否中将
@@ -387,14 +390,25 @@
     checkUserLottery(userPrizes, prizes)
 
     const DOC = document
-    let packets = DOC.querySelector('.raffle_item'),
-      packetsFold = DOC.querySelector('.raffle_fold'),
-      packetsBody = DOC.querySelector('.raffle_body'),
-      prizeContainer = DOC.querySelector('.prize_container')
-    packets.addEventListener('click', () => {
-      prizeContainer.classList.toggle('prize_container-show')
-      packetsFold.classList.toggle('raffle_fold-effect')
-      packetsBody.classList.toggle('raffle_body-effect')
+
+    let packets = DOC.querySelectorAll('.raffle_item'),
+      packetsFolds = DOC.querySelectorAll('.raffle_fold'),
+      packetsBodys = DOC.querySelectorAll('.raffle_body'),
+      prizeContainers = DOC.querySelectorAll('.prize_container'),
+      uls = DOC.querySelectorAll('.userPrize_container')
+
+    packets.forEach((ele, index) => {
+      let str = userPrizes[index],
+        fragement = DOC.createDocumentFragment()
+      let li = DOC.createElement('li')
+      li.innerHTML = str
+      fragement.appendChild(li)
+      ele.addEventListener('click', () => {
+        uls[index].appendChild(fragement)
+        prizeContainers[index].classList.toggle('prize_container-show')
+        packetsFolds[index].classList.toggle('raffle_fold-effect')
+        packetsBodys[index].classList.toggle('raffle_body-effect')
+      })
     })
   </script>
 </html>
