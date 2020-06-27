@@ -6,8 +6,12 @@
     <title>UserRaffle</title>
     <link rel="stylesheet" href="../css/flexLayout.css" />
     <link rel="stylesheet" href="../css/media.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Give+You+Glory&display=swap"
+    />
     <style>
-      /* TODO PC适配没做，手机端没做 */
+      /* OK PC适配没做，手机端没做 */
       * {
         margin: 0;
         padding: 0;
@@ -103,7 +107,6 @@
         border-radius: 100%;
         background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
       }
-      @import url('https://fonts.googleapis.com/css2?family=Give+You+Glory&display=swap');
       * {
         padding: 0;
         margin: 0;
@@ -432,18 +435,24 @@
     //   raffleItems[idx].style = 'order:' + (idx + 1)
     // })
     nextBtn.addEventListener('click', () => {
+      // 限制点击次数
       if (click < 2) {
-        raffleItems[click].classList.add('slide-effect')
-        raffleItems[click].style = 'order:' + 3
+        raffleItems[click].classList.add('slide-effect') // 淡淡的 transition 效果
+        raffleItems[click].style = 'order:' + 3 // order 默认值是 1 所以只要大于1 即可实现隐藏
         click++
       }
     })
 
     prevBtn.addEventListener('click', () => {
+      // 限制点击次数
       if (click >= 1) {
+        // DES 此处修复 prev 时 画面溢出问题
+        prizeContainers[click].classList.remove('prize_container-show')
+        packetsFolds[click].classList.remove('raffle_fold-effect')
+        packetsBodys[click].classList.remove('raffle_body-effect')
         click--
         raffleItems[click].classList.toggle('slide-effect')
-        raffleItems[click].style = 'order:' + ''
+        raffleItems[click].style = 'order:' + '' // 将其赋为 空 则按照原来的顺序进行 显示
       }
     })
 
