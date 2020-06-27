@@ -28,8 +28,8 @@
         z-index: 99;
         width: 30rem;
         height: 40rem;
-        margin-top: 35rem;
-        margin-left: 2rem;
+        /* margin-top: 35rem; */
+        margin: 35rem 5rem 5rem 5rem;
         position: relative;
         cursor: pointer;
         border-radius: 0.5rem;
@@ -203,6 +203,28 @@
         background-position: right top, left center, left bottom, left top, left top, right top,
           left center, right center, right center, left bottom;
       }
+
+      .next,
+      .prev {
+        z-index: 99;
+        top: 50rem;
+        opacity: 0.4;
+        user-select: none;
+        cursor: pointer;
+        font-size: 3rem;
+        position: absolute;
+      }
+      .next {
+        right: 2rem;
+      }
+      .prev {
+        left: 2rem;
+      }
+      .slide-effect {
+        opacity: 0;
+        cursor: inherit;
+        transform: translateX(-100px);
+      }
     </style>
   </head>
   <body>
@@ -213,7 +235,7 @@
 
         <!-- body -->
         <div class="raffle_body">
-          <div class="raffle_title container-xycenter">Red Packet</div>
+          <div class="raffle_title container-xycenter">Red Packet One</div>
           <div class="raffle_num m-flex flex-jc-center">牛年大吉，牛气冲天</div>
         </div>
 
@@ -243,7 +265,7 @@
 
         <!-- body -->
         <div class="raffle_body">
-          <div class="raffle_title container-xycenter">Red Packet</div>
+          <div class="raffle_title container-xycenter">Red Packet Two</div>
           <div class="raffle_num m-flex flex-jc-center">牛年大吉，牛气冲天</div>
         </div>
 
@@ -273,7 +295,7 @@
 
         <!-- body -->
         <div class="raffle_body">
-          <div class="raffle_title container-xycenter">Red Packet</div>
+          <div class="raffle_title container-xycenter">Red Packet Three</div>
           <div class="raffle_num m-flex flex-jc-center">牛年大吉，牛气冲天</div>
         </div>
 
@@ -297,7 +319,11 @@
 
         <div class="shadow"></div>
       </div>
-      <div class="trigger_btn"></div>
+
+      <div class="trigger_btn">
+        <span class="next">Next</span>
+        <span class="prev">Prev</span>
+      </div>
     </main>
   </body>
   <script>
@@ -386,7 +412,7 @@
 
     // OK 用户打开页面，是否中奖就已经敲定，random 一个 INDEX 然后去查看是否中将
     randomPrizes(1, 100, prizes, 10)
-    userLottery(1, 100, userPrizes, 3)
+    userLottery(1, 1000, userPrizes, 3)
     checkUserLottery(userPrizes, prizes)
 
     const DOC = document
@@ -395,7 +421,31 @@
       packetsFolds = DOC.querySelectorAll('.raffle_fold'),
       packetsBodys = DOC.querySelectorAll('.raffle_body'),
       prizeContainers = DOC.querySelectorAll('.prize_container'),
-      uls = DOC.querySelectorAll('.userPrize_container')
+      uls = DOC.querySelectorAll('.userPrize_container'),
+      nextBtn = DOC.querySelector('.next'),
+      prevBtn = DOC.querySelector('.prev'),
+      raffleItems = DOC.querySelectorAll('.raffle_item'),
+      click = 0,
+      len = raffleItems.length
+
+    // raffleItems.forEach((ele, idx) => {
+    //   raffleItems[idx].style = 'order:' + (idx + 1)
+    // })
+    nextBtn.addEventListener('click', () => {
+      if (click < 2) {
+        raffleItems[click].classList.add('slide-effect')
+        raffleItems[click].style = 'order:' + 3
+        click++
+      }
+    })
+
+    prevBtn.addEventListener('click', () => {
+      if (click >= 1) {
+        click--
+        raffleItems[click].classList.toggle('slide-effect')
+        raffleItems[click].style = 'order:' + ''
+      }
+    })
 
     packets.forEach((ele, index) => {
       let str = userPrizes[index],
