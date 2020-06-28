@@ -1,0 +1,24 @@
+@media screen and (min-width: 300px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+/* 600 - 960 */
+@media screen and (min-width: 600px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+/* 960 - 1264 */
+@media screen and (min-width: 960px) {
+}
+
+/* 1264 - 1900 */
+@media screen and (min-width: 1264px) {
+}
+
+/* 1900 - xxxl */
+@media screen and (min-width: 1900px) {
+}

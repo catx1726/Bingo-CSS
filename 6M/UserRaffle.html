@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UserRaffle</title>
+    <link rel="stylesheet" href="../css/flexLayout.css" />
+    <link rel="stylesheet" href="../css/media.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Give+You+Glory&display=swap"
+    />
+    <style>
+      /* OK PC适配没做，手机端没做 */
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      .raffle_container {
+        height: 100vh;
+        overflow: hidden;
+        background-color: #f64747;
+      }
+      .container-xycenter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .raffle_item {
+        z-index: 99;
+        width: 30rem;
+        height: 40rem;
+        /* margin-top: 35rem; */
+        margin: 35rem 5rem 5rem 5rem;
+        position: relative;
+        cursor: pointer;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        user-select: none;
+        box-shadow: 0rem 1rem 2rem -0.5rem #00000082;
+        /* background-color: #f64747; */
+      }
+      .raffle_title,
+      .raffle_num {
+        color: white;
+        font-size: 2rem;
+        font-weight: 700;
+        font-family: consolas;
+        transition: all 0.3s ease;
+      }
+      .raffle_num {
+        font-size: 1.4rem;
+      }
+      /* .raffle_item:hover {
+        background: white;
+      }
+      .raffle_item:hover .raffle_title,
+      .raffle_item:hover .raffle_num {
+        color: #f64747;
+      } */
+      .raffle_fold {
+        height: 2rem;
+        width: 100%;
+        box-shadow: 0px 0.5rem 1rem -4px black;
+        /* background-color: white; */
+        transition: all 0.3s ease;
+        transform-style: preserve-3d;
+        perspective: 80rem;
+        display: block;
+        position: relative;
+        z-index: 10;
+        transform-origin: center top;
+        border-bottom: 1px dotted white;
+        background-color: #f64747;
+        /* DES 这条语句控制 fold effect */
+        /* transform: rotateX(-180deg) translateZ(10px); */
+      }
+      .raffle_fold-effect {
+        transform: rotateX(-180deg) translateZ(10px);
+      }
+      .raffle_body {
+        height: 110%;
+        width: 100%;
+        z-index: 20;
+        position: relative;
+        background-color: #f64747;
+        transition: all 0.3s ease;
+      }
+      .raffle_body-effect {
+        /* border-top: 1px solid black; */
+        box-shadow: 0px -1rem 2rem -1rem black;
+      }
+      .shadow {
+        position: absolute;
+        top: 110%;
+        left: 50%;
+        width: 20rem;
+        height: 3rem;
+        transition: 0.4s;
+        transform: translateX(-50%);
+        -webkit-transition: 0.4s;
+        -webkit-transform: translateX(-50%);
+        -moz-transition: 0.4s;
+        -moz-transform: translateX(-50%);
+        border-radius: 100%;
+        background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+      }
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      /* OK 卡片的弹出时有BUG */
+      .prize_container {
+        /* opacity: 0; */
+        z-index: 11;
+        top: 10%;
+        position: absolute;
+        transition: all 0.3s ease;
+      }
+      /* DES 控制卡片的弹出与显示 */
+      .prize_container-show {
+        opacity: 1;
+        transform: translateY(-110%);
+      }
+      .paperFold_container {
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+      }
+      .paperItem {
+        font-family: 'Give You Glory', cursive;
+        height: 100%;
+        width: 90%;
+        position: relative;
+        background-color: rgb(250, 238, 196);
+      }
+      .article_container {
+        padding: 2rem;
+      }
+      .article_title {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      .article_author {
+        font-size: 1.2rem;
+      }
+      .article_content {
+        font-size: 1.6rem;
+        margin-top: 1rem;
+      }
+
+      /* paper shadow */
+      .paperItem::before {
+        content: '';
+        width: 100%;
+        height: 4%;
+        left: 0;
+        bottom: -4%;
+        position: absolute;
+        background-repeat: no-repeat;
+        background-image: linear-gradient(177deg, rgba(0, 0, 0, 0.22) 10%, transparent 50%),
+          linear-gradient(-177deg, rgba(0, 0, 0, 0.22) 10%, transparent 50%);
+        background-size: 49% 100%;
+        background-position: 2% 0, 98% 0;
+      }
+
+      /* fold effect */
+      .paperItem::after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        z-index: 2;
+        background-repeat: no-repeat;
+        background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.1) 0.5%,
+            rgba(0, 0, 0, 0.15) 1.2%,
+            transparent 1.2%
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.1) 0.5%,
+            rgba(0, 0, 0, 0.15) 1.2%,
+            transparent 1.2%
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.1) 0.5%,
+            rgba(0, 0, 0, 0.15) 1.2%,
+            transparent 1.2%
+          ),
+          linear-gradient(265deg, rgba(0, 0, 0, 0.2), transparent 10%),
+          linear-gradient(5deg, rgba(0, 0, 0, 0.2), transparent 15%),
+          linear-gradient(-5deg, rgba(0, 0, 0, 0.1), transparent 10%),
+          linear-gradient(5deg, rgba(0, 0, 0, 0.1), transparent 10%),
+          linear-gradient(-265deg, rgba(0, 0, 0, 0.2), transparent 10%),
+          linear-gradient(-5deg, rgba(0, 0, 0, 0.2), transparent 15%),
+          linear-gradient(266deg, rgba(0, 0, 0, 0.2), transparent 10%);
+        background-size: 50% 100%, 100% 33.3333%, 100% 33.3333%, 50% 33.3333%, 50% 33.3333%,
+          50% 33.3333%, 50% 33.3333%, 50% 33.3333%, 50% 33.3333%, 50% 33.3333%;
+        background-position: right top, left center, left bottom, left top, left top, right top,
+          left center, right center, right center, left bottom;
+      }
+
+      .next,
+      .prev {
+        z-index: 99;
+        top: 50rem;
+        opacity: 0.4;
+        user-select: none;
+        cursor: pointer;
+        font-size: 3rem;
+        position: absolute;
+      }
+      .next {
+        right: 2rem;
+      }
+      .prev {
+        left: 2rem;
+      }
+      .slide-effect {
+        opacity: 0;
+        cursor: inherit;
+        transform: translateX(-100px);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="raffle_container container-xycenter">
+      <div class="raffle_item m-flex flex-dir-col flex-jc-between flex-an-center">
+        <!-- fold header -->
+        <div class="raffle_fold"></div>
+
+        <!-- body -->
+        <div class="raffle_body">
+          <div class="raffle_title container-xycenter">Red Packet One</div>
+          <div class="raffle_num m-flex flex-jc-center">牛年大吉，牛气冲天</div>
+        </div>
+
+        <!-- prize body -->
+        <div class="prize_container m-flex flex-jc-center">
+          <div class="paperItem">
+            <div class="article_container">
+              <div class="article_title">Thank You</div>
+              <div class="article_author">posted:Jun.23.2020 | Cad</div>
+              <div class="article_content">
+                Thank you for your efforts. At the beginning of the new year, we have prepared for
+                you：
+                <ul class="userPrize_container">
+                  <li>New Computer</li>
+                  <li>New Chair</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shadow"></div>
+      </div>
+      <div class="raffle_item m-flex flex-dir-col flex-jc-between flex-an-center">
+        <!-- fold header -->
+        <div class="raffle_fold"></div>
+
+        <!-- body -->
+        <div class="raffle_body">
+          <div class="raffle_title container-xycenter">Red Packet Two</div>
+          <div class="raffle_num m-flex flex-jc-center">牛年大吉，牛气冲天</div>
+        </div>
+
+        <!-- prize body -->
+        <div class="prize_container m-flex flex-jc-center">
+          <div class="paperItem">
+            <div class="article_container">
+              <div class="article_title">Thank You</div>
+              <div class="article_author">posted:Jun.23.2020 | Cad</div>
+              <div class="article_content">
+                Thank you for your efforts. At the beginning of the new year, we have prepared for
+                you：
+                <ul class="userPrize_container">
+                  <li>New Computer</li>
+                  <li>New Chair</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shadow"></div>
+      </div>
+      <div class="raffle_item m-flex flex-dir-col flex-jc-between flex-an-center">
+        <!-- fold header -->
+        <div class="raffle_fold"></div>
+
+        <!-- body -->
+        <div class="raffle_body">
+          <div class="raffle_title container-xycenter">Red Packet Three</div>
+          <div class="raffle_num m-flex flex-jc-center">牛年大吉，牛气冲天</div>
+        </div>
+
+        <!-- prize body -->
+        <div class="prize_container m-flex flex-jc-center">
+          <div class="paperItem">
+            <div class="article_container">
+              <div class="article_title">Thank You</div>
+              <div class="article_author">posted:Jun.23.2020 | Cad</div>
+              <div class="article_content">
+                Thank you for your efforts. At the beginning of the new year, we have prepared for
+                you：
+                <ul class="userPrize_container">
+                  <li>New Computer</li>
+                  <li>New Chair</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shadow"></div>
+      </div>
+
+      <div class="trigger_btn">
+        <span class="next">Next</span>
+        <span class="prev">Prev</span>
+      </div>
+    </main>
+  </body>
+  <script>
+    /*
+      奖品分区
+      一等奖 IDX 1-2
+      二等奖 IDX 3-5
+      三等奖 6-10
+      安慰奖
+    */
+    // OK 为了安全性考虑，奖品 INDEX 随机生成
+    const prizes = []
+    let userPrizes = []
+    const prizeList = ['1000RMB', '1000RBM', '100RMB', '10RMB']
+    const DOC = document
+    let packets = DOC.querySelectorAll('.raffle_item'),
+      packetsFolds = DOC.querySelectorAll('.raffle_fold'),
+      packetsBodys = DOC.querySelectorAll('.raffle_body'),
+      prizeContainers = DOC.querySelectorAll('.prize_container'),
+      uls = DOC.querySelectorAll('.userPrize_container'),
+      nextBtn = DOC.querySelector('.next'),
+      prevBtn = DOC.querySelector('.prev'),
+      raffleItems = DOC.querySelectorAll('.raffle_item'),
+      click = 0,
+      len = raffleItems.length
+
+    // DES 奖品 IDX 去重
+    function unique(str, array) {
+      try {
+        let check = array.indexOf(str)
+        return check === -1 ? true : false
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    // OK 生成奖品 IDX
+    function randomPrizes(min, max, array, len) {
+      try {
+        let prizesOK = false
+        while (!prizesOK && len) {
+          let tempIdx = Math.floor(Math.random() * (max - min + 1)) + min
+          if (unique(tempIdx, array)) {
+            array.push(tempIdx)
+            len--
+            prizesOK = len ? false : true
+          }
+        }
+        console.log('prizes ids', prizes)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    // OK 生成用户的 IDX
+    function userLottery(min, max, array, len) {
+      try {
+        // DES 用户抽奖时不用去重
+        // FIXME 不去重的话，用户有可能一个人把 一等奖 全抽走了
+        let tmepIdx = 0
+        while (len) {
+          tempIdx = Math.floor(Math.random() * (max - min + 1)) + min
+          userPrizes.push(tempIdx)
+          len--
+        }
+        console.log('user lottery:', userPrizes)
+        return
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    // OK 检查用户的 IDX 是否中奖
+    function checkUserLottery(userArr, prizesArr) {
+      let tempArr = userArr.map((i) => {
+        let idx = prizesArr.indexOf(i)
+        if (0 <= idx && idx < 2) {
+          return prizeList[0]
+        }
+        if (2 <= idx && idx < 5) {
+          return prizeList[1]
+        }
+        if (5 <= idx && idx < 10) {
+          return prizeList[2]
+        }
+        return 'New Environment！'
+      })
+      // OK 如果，前三个红包都没有中，那么将安排一个 参与奖
+      let consolation = tempArr.every((i) => i === 'New Environment！')
+      if (consolation) {
+        tempArr.pop()
+        tempArr.push(prizeList[3])
+      }
+      console.log('check user lottery:', tempArr, 'check consolation:', consolation)
+      userPrizes = [...tempArr]
+      return userPrizes
+    }
+
+    // OK 用户打开页面，是否中奖就已经敲定，random 一个 INDEX 然后去查看是否中将
+    randomPrizes(1, 100, prizes, 10)
+    userLottery(1, 1000, userPrizes, 3)
+    checkUserLottery(userPrizes, prizes)
+
+    nextBtn.addEventListener('click', () => {
+      // 限制点击次数
+      if (click < 2) {
+        raffleItems[click].classList.add('slide-effect') // 淡淡的 transition 效果
+        raffleItems[click].style = 'order:' + 3 // order 默认值是 1 所以只要大于1 即可实现隐藏
+        click++
+      }
+    })
+
+    prevBtn.addEventListener('click', () => {
+      // 限制点击次数
+      if (click >= 1) {
+        // DES 此处修复 prev 时 画面溢出问题
+        prizeContainers[click].classList.remove('prize_container-show')
+        packetsFolds[click].classList.remove('raffle_fold-effect')
+        packetsBodys[click].classList.remove('raffle_body-effect')
+        click--
+        raffleItems[click].classList.toggle('slide-effect')
+        raffleItems[click].style = 'order:' + '' // 将其赋为 空 则按照原来的顺序进行 显示
+      }
+    })
+
+    packets.forEach((ele, index) => {
+      let str = userPrizes[index],
+        fragement = DOC.createDocumentFragment()
+      let li = DOC.createElement('li')
+      li.innerHTML = str
+      fragement.appendChild(li)
+      ele.addEventListener('click', () => {
+        uls[index].appendChild(fragement)
+        prizeContainers[index].classList.toggle('prize_container-show')
+        packetsFolds[index].classList.toggle('raffle_fold-effect')
+        packetsBodys[index].classList.toggle('raffle_body-effect')
+      })
+    })
+  </script>
+</html>
