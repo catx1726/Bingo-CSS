@@ -228,9 +228,243 @@
         cursor: inherit;
         transform: translateX(-100px);
       }
+
+      .cow {
+        width: 20%;
+        margin: 0 auto;
+        display: block;
+        z-index: 2;
+        position: relative;
+        animation: bounce 2s infinite alternate ease-in-out;
+      }
+
+      .planet {
+        width: 100%;
+        background-color: #fc3a51;
+        display: block;
+        height: 100%;
+        position: absolute;
+        bottom: -75%;
+        border-radius: 50%;
+      }
+
+      @keyframes bounce {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(60vh);
+        }
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      /* %star {
+        display: block;
+        //border-radius: 50%;
+        border: 1px solid #e8d5b7;
+        position: absolute;
+        z-index: -1;
+      } */
+      .header_container {
+        height: 500px;
+        width: 500px;
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        transform: translate(-50%, -50%);
+      }
     </style>
   </head>
   <body>
+    <header class="header_container">
+      <svg
+        class="cow"
+        viewBox="0 0 264 331.3"
+        enable-background="new 0 0 264 331.3"
+        xml:space="preserve"
+      >
+        <defs></defs>
+        <ellipse fill="#E8D5B9" cx="132.2" cy="251.7" rx="101.1" ry="62.2" />
+        <path
+          fill="#0E2430"
+          d="M65.7,192l-8.8,18.2c0,0-11,9-12,10.1c-1,1.1-12.3,11.4,6.7,14.6c19,3.2,17.4,40.2,67.4,5.2
+	S65.7,192,65.7,192z"
+        />
+        <path fill="#0E2430" d="M76.1,84c0,0-61.2-37-56.3-20s44.9,35.8,44.9,35.8L76.1,84z" />
+        <path
+          fill="#0E2430"
+          d="M185.7,79.7c0,0,55.3-37.6,47.7-20.1C225.7,77,197.8,94,197.8,94L185.7,79.7z"
+        />
+        <ellipse fill="#E8D5B9" cx="132.7" cy="153" rx="93.9" ry="96.8" />
+        <path
+          fill="#0E2430"
+          d="M120.8,57c0,0,6.2,133.6-80.8,112c0,0-6.9-44,22.4-77.8S120.8,57,120.8,57z"
+        />
+        <ellipse fill="#FC3A51" cx="132.6" cy="217.3" rx="57.3" ry="33.9" />
+        <circle fill="#FFFFFF" cx="87.3" cy="138.6" r="38.8" />
+        <circle fill="#FFFFFF" cx="176.3" cy="138.6" r="38.8" />
+        <path
+          fill="#F76D85"
+          d="M109.9,213.2c6.5,0,11.8,4.8,12.8,11c0.2-0.9,0.3-1.9,0.3-2.9c0-7.5-6.1-13.5-13.5-13.5
+	c-7.5,0-13.5,6.1-13.5,13.5c0,1.9,0.4,3.8,1.1,5.5c0-0.2,0-0.4,0-0.6C97,219,102.8,213.2,109.9,213.2z"
+        />
+        <path
+          fill="#C6324B"
+          d="M109.5,234.8c6.5,0,11.9-4.6,13.2-10.7c-0.9-6.2-6.3-11-12.8-11c-7.1,0-12.9,5.8-12.9,12.9
+	c0,0.2,0,0.4,0,0.6C99.2,231.5,103.9,234.8,109.5,234.8z"
+        />
+        <path
+          fill="#F76D85"
+          d="M156.9,213.2c6.5,0,11.8,4.8,12.8,11c0.2-0.9,0.3-1.9,0.3-2.9c0-7.5-6.1-13.5-13.5-13.5
+	c-7.5,0-13.5,6.1-13.5,13.5c0,1.9,0.4,3.8,1.1,5.5c0-0.2,0-0.4,0-0.6C144,219,149.8,213.2,156.9,213.2z"
+        />
+        <circle fill="#0E2430" cx="172.4" cy="150.7" r="26.7" />
+        <circle fill="#0E2430" cx="92.4" cy="150.7" r="26.7" />
+        <path
+          fill="#C6324B"
+          d="M156.5,234.8c6.5,0,11.9-4.6,13.2-10.7c-0.9-6.2-6.3-11-12.8-11c-7.1,0-12.9,5.8-12.9,12.9
+	c0,0.2,0,0.4,0,0.6C146.2,231.5,150.9,234.8,156.5,234.8z"
+        />
+        <path
+          fill="#0E2430"
+          d="M132,314.1c0,0,2.6-16.8,19.6-30.8s36.6-14.4,50.1-14.4s26,0,26,0s-3,22.9-39.5,36.1S132,314.1,132,314.1z"
+        />
+        <path
+          fill="#0E2430"
+          d="M10.7,217.2c0,0-11-28.2,12-20.7s30.5,27,30.5,27s-1.7,16-13.8,16S10.7,217.2,10.7,217.2z"
+        />
+        <path
+          fill="#0E2430"
+          d="M52.2,314c0,0-21.1-21.7,3-23.8c24.1-2.1,38.6,12.9,38.6,12.9s4.7,15.4-6.5,20.2S52.2,314,52.2,314z"
+        />
+        <path
+          fill="#0E2430"
+          d="M250.1,224.2c0,0,11-28.2-12-20.7s-30.5,27-30.5,27s1.7,16,13.8,16C233.6,246.5,250.1,224.2,250.1,224.2z"
+        />
+        <path
+          fill="#0E2430"
+          d="M208.6,321c0,0,21.1-21.7-3-23.8c-24.1-2.1-38.6,12.9-38.6,12.9s-4.7,15.4,6.5,20.2
+	C184.7,335.1,208.6,321,208.6,321z"
+        />
+        <circle fill="#FFFFFF" cx="192.1" cy="132" r="11" />
+        <circle fill="#FFFFFF" cx="179.4" cy="143.8" r="4.4" />
+        <circle fill="#FFFFFF" cx="112.1" cy="132" r="11" />
+        <circle fill="#FFFFFF" cx="99.4" cy="143.8" r="4.4" />
+        <circle opacity="0.28" fill="#FFFFFF" cx="132" cy="132" r="132" />
+        <path
+          fill="#FFFFFF"
+          d="M109.5,34.7c0,0-65.8,16-78.9,68.7C30.6,103.3,33.3,39.3,109.5,34.7z"
+        />
+      </svg>
+
+      <div class="planet"></div>
+
+      <ul>
+        <li class="star1"></li>
+        <li class="star2"></li>
+        <li class="star3"></li>
+        <li class="star4"></li>
+        <li class="star5"></li>
+        <li class="star6"></li>
+        <li class="star7"></li>
+        <li class="star8"></li>
+        <li class="star9"></li>
+        <li class="star10"></li>
+        <li class="star11"></li>
+        <li class="star12"></li>
+        <li class="star13"></li>
+        <li class="star14"></li>
+        <li class="star15"></li>
+        <li class="star16"></li>
+        <li class="star17"></li>
+        <li class="star18"></li>
+        <li class="star19"></li>
+        <li class="star20"></li>
+        <li class="star21"></li>
+        <li class="star22"></li>
+        <li class="star23"></li>
+        <li class="star24"></li>
+        <li class="star25"></li>
+        <li class="star26"></li>
+        <li class="star27"></li>
+        <li class="star28"></li>
+        <li class="star29"></li>
+        <li class="star30"></li>
+        <li class="star31"></li>
+        <li class="star32"></li>
+        <li class="star33"></li>
+        <li class="star34"></li>
+        <li class="star35"></li>
+        <li class="star36"></li>
+        <li class="star37"></li>
+        <li class="star38"></li>
+        <li class="star39"></li>
+        <li class="star40"></li>
+        <li class="star41"></li>
+        <li class="star42"></li>
+        <li class="star43"></li>
+        <li class="star44"></li>
+        <li class="star45"></li>
+        <li class="star46"></li>
+        <li class="star47"></li>
+        <li class="star48"></li>
+        <li class="star49"></li>
+        <li class="star50"></li>
+        <li class="star51"></li>
+        <li class="star52"></li>
+        <li class="star53"></li>
+        <li class="star54"></li>
+        <li class="star55"></li>
+        <li class="star56"></li>
+        <li class="star57"></li>
+        <li class="star58"></li>
+        <li class="star59"></li>
+        <li class="star60"></li>
+        <li class="star61"></li>
+        <li class="star62"></li>
+        <li class="star63"></li>
+        <li class="star64"></li>
+        <li class="star65"></li>
+        <li class="star66"></li>
+        <li class="star67"></li>
+        <li class="star68"></li>
+        <li class="star69"></li>
+        <li class="star70"></li>
+        <li class="star71"></li>
+        <li class="star72"></li>
+        <li class="star73"></li>
+        <li class="star74"></li>
+        <li class="star75"></li>
+        <li class="star76"></li>
+        <li class="star77"></li>
+        <li class="star78"></li>
+        <li class="star79"></li>
+        <li class="star80"></li>
+        <li class="star81"></li>
+        <li class="star82"></li>
+        <li class="star83"></li>
+        <li class="star84"></li>
+        <li class="star85"></li>
+        <li class="star86"></li>
+        <li class="star87"></li>
+        <li class="star88"></li>
+        <li class="star89"></li>
+        <li class="star90"></li>
+        <li class="star91"></li>
+        <li class="star92"></li>
+        <li class="star93"></li>
+        <li class="star94"></li>
+        <li class="star95"></li>
+        <li class="star96"></li>
+        <li class="star97"></li>
+        <li class="star98"></li>
+        <li class="star99"></li>
+        <li class="star100"></li>
+      </ul>
+    </header>
     <main class="raffle_container container-xycenter">
       <div class="raffle_item m-flex flex-dir-col flex-jc-between flex-an-center">
         <!-- fold header -->
