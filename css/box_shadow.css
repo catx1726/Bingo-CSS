@@ -1,0 +1,7 @@
+/* 参考 https://codepen.io/sdthornton/pen/wBZdXq */
+.m_box-shadow-obt-lg {
+  box-shadow: 10px 5px 30px -5px black;
+}
+.m_box-shadow-obt-s {
+  box-shadow: 3px 5px 5px -5px black;
+}

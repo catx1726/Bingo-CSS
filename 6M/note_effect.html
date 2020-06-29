@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoteEffect</title>
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        background-size: cover;
+        background-image: url(https://c1.staticflickr.com/1/538/31871445333_3189ef394e_h.jpg);
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .main_container {
+        height: 100vh;
+      }
+      .note_item {
+        width: 400px;
+        height: 500px;
+        position: relative;
+        background-color: white;
+      }
+      .note_header {
+        left: 2px;
+        width: 100%;
+        height: 5%;
+        position: relative;
+        transform-origin: center top;
+        background-color: #3f3f3f;
+        transition: all 0.3s ease;
+      }
+      .note_body {
+        height: 95%;
+        width: 100%;
+        color: black;
+        box-sizing: border-box;
+        position: relative;
+      }
+      .blueline_body,
+      .redline_body {
+        height: 100%;
+      }
+      .blueline_body .line-blue {
+        left: 5%;
+        height: 1px;
+        width: 95%;
+        margin-top: 5%;
+        line-height: 20px;
+        list-style: none;
+        position: relative;
+        background-color: blue;
+      }
+      .redline_body,
+      .red-line {
+        width: 1px;
+        height: 100%;
+        position: absolute;
+        z-index: 999;
+      }
+      .red-line {
+        margin-left: 30px;
+        list-style: none;
+        background-color: red;
+      }
+      .red-line:nth-of-type(2) {
+        margin-left: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-an-center flex-jc-center">
+      <div class="note_item m_box-shadow-obt-lg">
+        <div class="note_header m_box-shadow-obt-s"></div>
+        <div class="note_body">
+          <ul class="redline_body">
+            <li class="red-line"></li>
+            <li class="red-line"></li>
+          </ul>
+          <ul class="blueline_body m-flex flex-dir-col">
+            <li class="line-blue">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis, praesentium.
+            </li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+            <li class="line-blue"></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

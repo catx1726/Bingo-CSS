@@ -1,4 +1,6 @@
-@import './components/flexLayout.css';
+@import './media.css';
+@import './box_shadow.css';
+@import './flex_layout.css';
 
 @import url('https://fonts.googleapis.com/css?family=Chakra+Petch');
 :root {
@@ -6,12 +8,11 @@
   --shadow-color-light: white;
 }
 html {
-  background: black;
+  background: white;
   color: white;
 }
 body {
-  margin: 60px auto;
-  width: 70%;
+  margin: 0;
 }
 
 nav ul,
