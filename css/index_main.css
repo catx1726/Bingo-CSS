@@ -1,8 +1,10 @@
 @import './media.css';
 @import './box_shadow.css';
 @import './flex_layout.css';
+@import './font.css';
 
 @import url('https://fonts.googleapis.com/css?family=Chakra+Petch');
+
 :root {
   --shadow-color: #9ed2ff;
   --shadow-color-light: white;
@@ -18,7 +20,7 @@ body {
 
 nav ul,
 footer ul {
-  font-family: 'Helvetica', 'Arial', 'Sans-Serif';
+  font-family: 'Give You Glory', 'Helvetica', 'Arial', 'Sans-Serif';
   padding: 0px;
   list-style: none;
   font-weight: bold;
