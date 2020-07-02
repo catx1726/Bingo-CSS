@@ -2,3 +2,7 @@
 @import './box_shadow.css';
 @import './flex_layout.css';
 @import './font.css';
+* {
+  margin: 0;
+  padding: 0;
+}
