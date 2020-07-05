@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CardRotate</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      .main_container {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #1780b3;
+      }
+      .card_item {
+        height: 30vh;
+        width: 40vw;
+        font-size: 3rem;
+        user-select: none;
+        position: relative;
+        transform-style: preserve-3d;
+        transform-origin: center center;
+      }
+      .card_item,
+      span {
+        transition: all 0.3s ease;
+      }
+      .card_item figure {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transition: all 0.1s ease;
+        /* backface 使用的时候要注意兼容性 */
+        backface-visibility: hidden;
+      }
+      .front_side {
+        background-color: white;
+      }
+      .back_side {
+        color: white;
+        background-color: black;
+        transform: rotateY(180deg);
+      }
+      .card_item:active {
+        transform: rotateY(180deg) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center">
+      <div class="card_container">
+        <div class="card_item flex-jc-center flex-an-center">
+          <figure class="front_side box-shadow-obt-l m-flex flex-jc-center flex-an-center">
+            <span class="text">
+              Hi,I'm front side
+            </span>
+          </figure>
+          <figure class="back_side box-shadow-obt-l m-flex flex-jc-center flex-an-center">
+            <span class="text">
+              Hi,I'm back side
+            </span>
+          </figure>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    const centerX = $('.main_container').innerWidth() / 2
+    centerY = $('.main_container').innerHeight() / 2
+
+    let thro = _.throttle((e) => {
+      // 3d the card
+      let rotateX = ((e.clientX - centerX) / centerX) * 10,
+        rotateY = ((e.clientX - centerY) / centerY) * 10
+
+      $('.card_item').css(
+        'transform',
+        'rotatey(' + rotateY + 'deg)' + 'rotatex(' + rotateX + 'deg)'
+      )
+      $('.text').css(
+        'transform',
+        'translatey(' + -rotateX / 4 + 'px)' + 'translatex(' + rotateY / 4 + 'px)'
+      )
+      console.log(e, centerX, '——', centerY)
+    }, 100)
+
+    $('.main_container').mousemove((e) => {
+      console.log('test')
+      thro(e)
+    })
+  </script>
+</html>
