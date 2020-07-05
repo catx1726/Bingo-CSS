@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartisanWeather</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/smartisan.css" />
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .main_container {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #082330;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center">
+      <div class="phone_container">
+        <div class="phone_bar m-flex flex-an-center flex-jc-between">
+          <span class="isp">中国移动</span>
+          <span class="signal">
+            <i class="fas fa-signal"></i>
+          </span>
+          <span class="battery">
+            <i class="fas fa-battery-full"></i>
+          </span>
+        </div>
+
+        <div class="app_container m-flex flex-dir-col flex-an-center">
+          <div class="top_bar m-flex flex-jc-center flex-an-center">
+            <span>江夏 - 武汉</span>
+          </div>
+          <div class="btn_bar m-flex flex-an-center flex-jc-between">
+            <div class="left m-flex flex-an-center">
+              <svg
+                class="centigrade"
+                t="1593920321371"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                p-id="2000"
+                width="25"
+                height="50"
+              >
+                <path
+                  d="M682.108794 929.903925c-210.720236 0-382.139374-171.392532-382.139374-382.128117 0-210.721259 171.419138-382.140397 382.139374-382.140397 98.54541 0 192.09197 37.418214 263.449157 105.321744 10.728342 10.205433 11.146874 27.160593 0.941442 37.863353-10.231015 10.754948-27.187199 11.120268-37.889959 0.968048C847.275531 251.384377 766.837524 219.225957 682.108794 219.225957c-181.151803 0-328.548828 147.398048-328.548828 328.549851 0 181.166129 147.397025 328.538595 328.548828 328.538595 87.764879 0 170.268942-34.174334 232.310973-96.241948 10.467399-10.467399 27.423583-10.467399 37.889959 0 10.465352 10.467399 10.465352 27.423583 0 37.888935C880.166639 890.182248 784.185634 929.903925 682.108794 929.903925zM246.95602 185.653327c0-50.475602-41.081651-91.558275-91.558275-91.558275s-91.558275 41.081651-91.558275 91.558275 41.081651 91.53167 91.558275 91.53167S246.95602 236.128929 246.95602 185.653327zM193.365474 185.653327c0 20.933775-17.033955 37.942147-37.968753 37.942147-20.933775 0-37.96773-17.008372-37.96773-37.942147s17.033955-37.968753 37.96773-37.968753C176.331519 147.685597 193.365474 164.719552 193.365474 185.653327z"
+                  p-id="2001"
+                ></path>
+              </svg>
+              <button class="switch_btn"></button>
+              <svg
+                t="1593920347096"
+                class="fahrenheit"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                p-id="2320"
+                width="50"
+                height="50"
+              >
+                <path
+                  d="M417.056 354.528c-7.2-6.784-15.584-12.16-25.088-16.128-9.632-3.872-19.872-5.888-30.752-5.888-10.912 0-21.152 2.016-30.752 5.888-9.504 3.968-17.888 9.344-25.088 16.128-7.168 6.816-12.8 14.848-16.928 24.096-4.096 9.216-6.112 18.944-6.112 29.152 0 10.24 2.048 20 6.112 29.216 4.128 9.216 9.76 17.248 16.928 24.032 7.2 6.816 15.584 12.256 25.088 16.128 9.568 3.968 19.84 5.92 30.752 5.92 10.88 0 21.12-1.952 30.752-5.92 9.504-3.872 17.888-9.28 25.088-16.128 7.168-6.784 12.8-14.848 16.832-24.032 4.096-9.216 6.208-18.944 6.208-29.216 0-10.208-2.112-19.968-6.208-29.152C429.856 369.376 424.224 361.376 417.056 354.528zM386.368 431.872c-6.88 6.848-15.264 10.24-25.12 10.24s-18.24-3.424-25.12-10.24c-6.784-6.816-10.24-14.848-10.24-24.096 0-9.504 3.456-17.664 10.24-24.288 6.88-6.656 15.264-9.952 25.12-9.952s18.24 3.296 25.12 9.952c6.752 6.624 10.208 14.784 10.208 24.288C396.576 417.056 393.088 425.056 386.368 431.872zM741.632 401.664l0-63.008L498.496 338.656l0 352.8 70.112 0 0-143.872 147.968 0 0-62.944-147.968 0 0-82.944L741.632 401.664z"
+                  p-id="2321"
+                ></path>
+              </svg>
+            </div>
+            <div class="right">
+              <span class="refresh">
+                <i class="fas fa-sync"></i>
+              </span>
+              <span class="addcity"><i class="fas fa-plus"></i></span>
+              <span class="list"><i class="fas fa-bars"></i></span>
+            </div>
+          </div>
+          <div class="detail m-flex flex-an-center">
+            <div class="left">
+              <i class="fas fa-cloud-showers-heavy"></i>
+            </div>
+            <div class="right">
+              <span class="temperature">24℃</span>
+              <div class="status">
+                <span>小雨</span>
+                <span>空气质量:18 优</span>
+                <span>更新于:7月5日13点28分</span>
+              </div>
+            </div>
+          </div>
+          <div class="mini">
+            <div class="list_box">
+              <ul class="m-flex flex-jc-between">
+                <li class="item">
+                  周一
+                </br>
+                  <i class="fas fa-cloud-showers-heavy"></i>
+                </br>
+                29°-30°
+                </li>
+                <li class="item">
+                  周二
+                </br>
+                  <i class="fas fa-cloud-showers-heavy"></i>
+                </br>
+                29°-30°
+                </li>
+                <li class="item">
+                  周三
+                </br>
+
+                  <i class="fas fa-cloud-showers-heavy"></i>
+              </br>
+                29°-30°
+
+                </li>
+                <li class="item">
+                  周四
+                </br>
+
+                  <i class="fas fa-cloud-showers-heavy"></i>
+                </br>
+                29°-30°
+                </li>
+                <li class="item">
+                  周五
+                </br>
+
+                  <i class="fas fa-cloud-showers-heavy"></i>
+                </br>
+                29°-30°
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

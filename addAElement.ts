@@ -39,7 +39,7 @@ class FileCheck {
           } else {
             // TODO 让其再看文件源码的时候换行，方便维护，而不是只再HTML渲染的时候换行
             // TODO 可将项目地址提取成环境变量
-            let htmlInner = `<a href="./${this.path}/${item}">${item}</a><br/>`
+            let htmlInner = `<a href="./${this.path}/${item}" target="_blank">${item}</a><br/>`
             // DES markdown超链接的方式 [文件名](地址)
             let mdInner = `[${item}](https://www.adba.club/CSS-Inspired-Factory/${this.path}/${item}) <br />`
 

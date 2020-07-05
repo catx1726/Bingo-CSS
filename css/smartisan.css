@@ -1,0 +1,174 @@
+.phone_container {
+  width: 375px;
+  height: 600px;
+  position: relative;
+  font-size: 1.6rem;
+  background-color: #f3f2f3;
+}
+.phone_bar {
+  width: 100%;
+  height: 5%;
+  font-size: 1.4rem;
+  font-weight: bold;
+  background-color: #e5e5e5;
+}
+.phone_bar span {
+  padding: 0 20px;
+}
+.phone_bar .battery {
+  transform: rotate(180deg);
+}
+
+.phone_bar .isp {
+  flex: 0 0 200px;
+}
+
+/* app_container start */
+.app_container {
+  height: 90%;
+  width: 100%;
+  position: relative;
+}
+.app_container .top_bar,
+.app_container .btn_bar,
+.app_container .detail,
+.app_container .mini {
+  width: 80%;
+}
+/* app top bar start */
+.app_container .top_bar {
+  height: 10%;
+  font-weight: bold;
+  color: #777777;
+  border-bottom: 1px solid #0000003d;
+}
+/* app top bar end */
+
+/* app btn bar start */
+.app_container .btn_bar {
+  height: 10%;
+  margin-top: 5%;
+}
+.app_container .btn_bar .switch_btn {
+  margin-left: 10px;
+}
+
+.switch_btn {
+  width: 40px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  padding: 10px 25px;
+  border-radius: 30px;
+  display: inline-block;
+  background-color: #e5e5e5;
+  transition: all 0.3s ease;
+  box-shadow: 1px 1px 1px 1px #d3d3d3 inset;
+}
+.switch_btn::before {
+  content: '';
+  /* left: 0; */
+  top: 0;
+  position: absolute;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  border: 10px solid white;
+  transform: translateX(-130%);
+  box-shadow: 1px 1px 1px 1px #d3d3d3;
+}
+.switch_btn:active {
+  box-shadow: 1px 1px 1px 1px #a09999 inset;
+}
+.switch_btn:active::before {
+  transform: translateX(30%);
+}
+.right span {
+  height: 32px;
+  width: 32px;
+  margin: 0 5px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid white;
+  box-shadow: 0px 0px 3px 2px #d3d3d3;
+}
+.right span i {
+  color: #777777;
+  font-size: 16px;
+  transform: translateY(50%);
+}
+/* app btn bar start */
+
+/* app detail start */
+.detail {
+  height: 50%;
+  overflow: hidden;
+  margin-top: 5%;
+  border-radius: 20px;
+  box-shadow: 0px 0px 30px 1px #a09999 inset;
+}
+.detail .left {
+  width: 60%;
+  text-align: center;
+  border-right: 1px solid #a09999;
+}
+.detail .left i {
+  color: #a09999;
+  font-size: 10rem;
+  position: relative;
+}
+.detail .left i::after {
+  content: '\f740';
+  height: 100%;
+  width: 100%;
+  left: 10px;
+  top: 10px;
+  position: absolute;
+  filter: blur(10px);
+}
+.detail .right {
+  width: 40%;
+  padding-left: 5%;
+  text-align: left;
+}
+.detail .right .temperature,
+.detail .right .status span {
+  width: auto;
+  height: auto;
+  box-shadow: none;
+  color: #a09999;
+  border: transparent;
+  background: transparent;
+}
+.detail .right .temperature {
+  font-size: 2rem;
+}
+.detail .right .status span {
+  font-size: 1rem;
+}
+/* app detail end*/
+
+/* app mini start */
+.mini {
+  height: 20%;
+  margin-top: 5%;
+  border-radius: 20px;
+  box-shadow: 0px 0px 3px 1px #a09999 inset;
+}
+.mini .item {
+  text-align: center;
+  color: #777777;
+  font-size: 1.3rem;
+  width: 60px;
+  padding: 20px 0px;
+  list-style-type: none;
+}
+.item i {
+  padding: 10px 0px;
+}
+/* app mini end*/
+
+/* app_container start */
