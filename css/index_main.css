@@ -610,3 +610,12 @@ html {
   background-color: black;
 }
 /* Phone-end */
+
+/* Footer-start */
+.coopright_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+/* Footer-end */
