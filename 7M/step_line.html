@@ -47,10 +47,17 @@
       .step_container .done {
         background-color: #2fb3b7;
       }
-      li:hover {
+      /* DES 这里的宽度调节，也可以缓解字符显示不下的问题 */
+      /* li:hover {
         color: black;
-        width: 22rem;
+        width: 30rem;
         background-color: #2fb3b7;
+      } */
+      .m-click {
+        color: black;
+        /* DES 这里的宽度调节，也可以缓解字符显示不下的问题 */
+        width: 30rem !important;
+        background-color: #2fb3b7 !important;
       }
       .step_item::before,
       .step_item::after {
@@ -98,4 +105,22 @@
       </div>
     </main>
   </body>
+  <script>
+    const DOC = document
+    let lis = [...DOC.querySelectorAll('.step_item')],
+      phoneActions = ['mouseenter', 'mouseleave']
+    lis.forEach((i) => {
+      phoneActions.forEach((j) => {
+        i.addEventListener(j, () => {
+          i.classList.toggle('m-click')
+        })
+      })
+      // i.addEventListener('mouseenter', () => {
+      //   i.classList.toggle('m-click')
+      // })
+      // i.addEventListener('mouseleave', () => {
+      //   i.classList.toggle('m-click')
+      // })
+    })
+  </script>
 </html>
