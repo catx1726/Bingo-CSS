@@ -89,7 +89,26 @@
         border: 25px solid transparent;
       }
 
+      .step_container .step_item:first-child::before {
+        /* background-color: red; */
+        border: transparent;
+      }
+      /* .step_container .step_item:first-child {
+        这里需要做响应式处理，所以放在媒体查询中
+        border-radius: 30px 0 0 30px;
+      } */
+      .step_container .step_item:last-child::after {
+        /* background-color: red; */
+        border: transparent;
+      }
+      .step_container .step_item:last-child {
+        border-radius: 0 30px 30px 0;
+      }
+
       @media screen and (min-width: 300px) {
+        .step_container .step_item:first-child {
+          border-radius: 30px 40px 0 30px;
+        }
         .step_container li {
           margin: 40px 20px;
           border-radius: 0 40px 0 0;
@@ -98,7 +117,6 @@
         .step_item.done::after {
           right: 0;
           top: 100%;
-          /* 适应手机端，left 变为 top */
           border-top-color: #2fb3b7;
         }
         .step_item::after {
@@ -109,13 +127,16 @@
       }
 
       @media screen and (min-width: 640px) {
+        .step_container .step_item:first-child {
+          border-radius: 30px 0px 0 30px;
+        }
         .step_container li {
           margin: 10px 20px;
           border-radius: 0;
         }
         .step_item::after {
-          right: -50px;
           top: 0;
+          right: -50px;
           border-top-color: transparent;
           border-left-color: #afdedf;
         }
@@ -158,12 +179,6 @@
           i.classList.toggle('m-click')
         })
       })
-      // i.addEventListener('mouseenter', () => {
-      //   i.classList.toggle('m-click')
-      // })
-      // i.addEventListener('mouseleave', () => {
-      //   i.classList.toggle('m-click')
-      // })
     })
   </script>
 </html>
