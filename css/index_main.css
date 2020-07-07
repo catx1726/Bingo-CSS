@@ -361,10 +361,12 @@ html {
   top: 0;
   right: 0;
   bottom: 0;
-  left: 2vw;
+  /* left: 2vw; */
+  padding-left: 5vw;
+  box-sizing: border-box;
   user-select: none;
   background-color: #eee;
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -499,12 +501,14 @@ html {
 /* Note-start */
 @import url('https://fonts.googleapis.com/css2?family=Give+You+Glory&display=swap');
 .note_item {
+  top: 10%;
+  bottom: 20px;
   left: 50%;
-  bottom: 50px;
   width: 30vw;
   min-width: 200px;
   height: auto;
-  overflow: hidden;
+  z-index: 100;
+  /* overflow: hidden; */
   position: relative;
   font-family: 'Give You Glory';
   background-color: white;
@@ -551,7 +555,7 @@ html {
   position: absolute;
 }
 .red-line {
-  margin-left: 10px;
+  margin-left: 1rem;
   list-style: none;
   background-color: red;
 }
@@ -562,7 +566,7 @@ html {
 .demo_list {
   left: 10%;
   width: 80%;
-  font-size: 15px;
+  font-size: 1.4rem;
   z-index: 100;
   word-break: normal;
   word-wrap: break-word;
@@ -612,10 +616,14 @@ html {
 /* Phone-end */
 
 /* Footer-start */
-.coopright_container {
+.copyright_container {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+.copyright_container a {
+  font-size: 1.4rem;
 }
 /* Footer-end */
