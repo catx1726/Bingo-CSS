@@ -566,7 +566,6 @@ html {
 .demo_list {
   left: 10%;
   width: 80%;
-  font-size: 1.4rem;
   z-index: 100;
   word-break: normal;
   word-wrap: break-word;
@@ -574,6 +573,7 @@ html {
   position: relative;
 }
 .demo_list a {
+  font-size: 1.4rem;
   margin: 10px 0px;
 }
 /* Note-end */
