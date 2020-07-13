@@ -46,8 +46,11 @@
         position: absolute;
       }
       .video_container .video-item {
-        height: 100%;
+        /* top 和 height 是为了去除黑边 */
+        top: -10%;
+        height: 120%;
         width: 100%;
+        position: relative;
         object-fit: cover;
       }
       footer {
