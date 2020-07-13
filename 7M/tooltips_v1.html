@@ -92,9 +92,10 @@
       let ele = event.target
       let X = ele.getBoundingClientRect().left,
         Y = ele.getBoundingClientRect().top
-      tooltipsBox.style.top = Y + 80 + 'px'
-      tooltipsBox.style.left = X + 20 + 'px'
+      tooltipsBox.style.top = Y + 60 + 'px'
+      tooltipsBox.style.left = X - 5 + 'px'
       tooltipsBox.classList.add('tooltips_container-show')
+      console.log(X, Y)
     }
 
     function tooltipsLeaveAction() {
@@ -102,7 +103,7 @@
     }
 
     items.forEach((i) => {
-      i.addEventListener('mouseenter', tooltipsEnterAction)
+      i.addEventListener('click', tooltipsEnterAction)
       i.addEventListener('mouseleave', tooltipsLeaveAction)
     })
   </script>
