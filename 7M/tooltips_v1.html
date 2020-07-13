@@ -97,14 +97,15 @@
       tooltipsBox.classList.add('tooltips_container-show')
       console.log(X, Y)
     }
-
+    // TODO 节流处理
     function tooltipsLeaveAction() {
       tooltipsBox.classList.remove('tooltips_container-show')
     }
 
     items.forEach((i) => {
       i.addEventListener('click', tooltipsEnterAction)
-      i.addEventListener('mouseleave', tooltipsLeaveAction)
     })
+
+    tooltipsBox.addEventListener('mouseleave', tooltipsLeaveAction)
   </script>
 </html>
