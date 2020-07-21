@@ -22,14 +22,37 @@
       }
       .trigger_box {
         font-size: 2rem;
-        color: white;
+        color: black;
         /* right: 20px; */
         bottom: 10vh;
+        height: 100px;
+        width: 100px;
         position: fixed;
         cursor: pointer;
+        border-radius: 50%;
         transition: all 0.3s ease;
         transform: translateX(105vw);
+        background-size: cover;
+        background-position: 50% 50%;
+        background-image: url(https://tse1-mm.cn.bing.net/th/id/OIP.mrhv3XlWfgTQqrrxFQa_wAHaEK?pid=Api&rs=1);
         /* transform: translateX(90vw); */
+      }
+      .trigger_box span {
+        top: 50%;
+        left: 50%;
+        font-size: 1.3rem;
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        transform: translate(-50%, -50%);
+      }
+      .trigger_box,
+      .trigger_box span {
+        transition: all 0.3s ease;
+      }
+      .trigger_box:hover {
+        color: white;
+        background-position: -180% 0%;
       }
       .trigger-show {
         transform: translateX(90vw);
@@ -45,7 +68,11 @@
       </div>
     </main>
     <div class="trigger_box">
-      <span>GoTop</span>
+      <span>
+        KAGURA
+        <br />
+        かぐら、カグラ
+      </span>
     </div>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
