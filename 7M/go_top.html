@@ -87,7 +87,6 @@
     window.addEventListener('scroll', _.throttle(computeScrollTop, 500))
 
     function computeScrollTop() {
-      step = 0
       let scrollTop = WIN.pageYOffset || DOC.documentElement.scrollTop || DOC.body.scrollTop
       // DES 落下的距离 > header 的高度时 显示
       if (scrollTop < 200) {
@@ -109,6 +108,7 @@
         // scrollTop(0, distanceTop - step)
         timer = requestAnimationFrame(goTop)
       } else {
+        step = 0
         cancelAnimationFrame(timer)
       }
     }
