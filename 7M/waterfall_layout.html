@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Waterfall</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.14.0/css/all.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        transition: all 0.3s ease;
+      }
+      body {
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        background-color: #126993;
+        font-family: Modak, source-han-serif-sc, serif, 'Nunito', 'Lato', consolas;
+      }
+      .main_container {
+        height: 100vh;
+        color: white;
+        font-size: 1.6rem;
+        user-select: none;
+      }
+      .waterfall_container {
+        min-height: 50%;
+        min-width: 50vw;
+        max-width: 500px;
+        padding: 0 5px;
+        box-sizing: border-box;
+        background-color: #426a5b;
+      }
+      .img-list {
+        list-style: none;
+      }
+      .img-list .item {
+        margin: 10px 0;
+        padding: 3px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        border: 1px solid white;
+        background-color: white;
+      }
+      .img-list img {
+        height: 100px;
+        filter: brightness(0.8);
+        vertical-align: middle;
+        object-fit: contain;
+      }
+      .img-list img:hover {
+        filter: brightness(1);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center">
+      <div class="waterfall_container m-flex flex-an-center box-shadow-obt-l">
+        <ul class="img-list m-flex flex-wrap flex-jc-around">
+          <li class="item">
+            <img
+              src="https://tse2-mm.cn.bing.net/th/id/OIP.Eqx5tklFM7pIXTdyTZPz4AHaE8?pid=Api&rs=1"
+              alt=""
+            />
+          </li>
+          <li class="item">
+            <img
+              src="https://tse2-mm.cn.bing.net/th/id/OIP.Eqx5tklFM7pIXTdyTZPz4AHaE8?pid=Api&rs=1"
+              alt=""
+            />
+          </li>
+          <li class="item">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/%E5%AE%9C%E6%98%8C%E4%B8%89%E5%B3%A1%E5%A4%A7%E7%80%91%E5%B8%83.jpg/1200px-%E5%AE%9C%E6%98%8C%E4%B8%89%E5%B3%A1%E5%A4%A7%E7%80%91%E5%B8%83.jpg"
+              alt=""
+            />
+          </li>
+          <li class="item">
+            <img
+              src="https://tse1-mm.cn.bing.net/th/id/OIP.7fk9enSQS5qaUz4VsOMVVAHaGu?pid=Api&rs=1"
+              alt=""
+            />
+          </li>
+          <li class="item">
+            <img
+              src="https://i3.achangpro.com/img.hojenjen.com/uploads/2017/08/1502512556-4efdd2f969559e8b1c92e99f32ded48e.jpg"
+              alt=""
+            />
+          </li>
+          <li class="item">
+            <img
+              src="https://i3.achangpro.com/img.hojenjen.com/uploads/2017/08/1502512568-f99687dd719c4e8bc6a39e946c3d9ef7.jpg"
+              alt=""
+            />
+          </li>
+          <li class="item">
+            <img
+              src="http://pic.lvmama.com/uploads/pc/place2/2016-07-13/3493ed3e-4f02-45d7-8e02-7f46f2dc9e85.jpg"
+              alt=""
+            />
+          </li>
+          <li class="item">
+            <img src="http://www.hgscn.com/upfiles/2012-07-07/201207071120490.jpg" alt="" />
+          </li>
+          <li class="item">
+            <img src="https://safewaytours.net/wp-content/uploads/tbg_nia.jpg" alt="" />
+          </li>
+          <li class="item">
+            <img src="https://www.travelliker.com.hk/img/upload/img/4-540.jpg" alt="" />
+          </li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>
