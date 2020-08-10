@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>尽量不让出现孤立列</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      body {
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        background-color: #126993;
+        font-family: Modak, source-han-serif-sc, serif, 'Nunito', 'Lato', consolas;
+      }
+      .main_container {
+        height: 100vh;
+        color: white;
+        font-size: 1.6rem;
+        user-select: none;
+      }
+      .main_container > div {
+        /* overflow: hidden; */
+        min-height: 30%;
+        max-height: 80%;
+        margin: 0 20px;
+        flex: 0 1 100%;
+        padding: 10px 20px;
+        background-color: pink;
+      }
+      @media screen and (min-width: 300px) {
+        .main_container {
+          flex-wrap: wrap;
+        }
+      }
+      @media screen and (min-width: 600px) {
+        .main_container {
+          flex-wrap: nowrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 其实就是让其不自动换行，而是在指定的 point 换行 -->
+    <main class="main_container m-flex flex-an-center">
+      <div class="col-1">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid deleniti nostrum officiis
+        quae harum tenetur voluptatum distinctio, molestias beatae maxime suscipit quis nam
+        accusamus. Aliquam aperiam deleniti earum sunt adipisci.
+      </div>
+      <div class="col-2">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid deleniti nostrum officiis
+        quae harum tenetur voluptatum distinctio, molestias beatae maxime suscipit quis nam
+        accusamus. Aliquam aperiam deleniti earum sunt adipisci.
+      </div>
+      <div class="col-3">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid deleniti nostrum officiis
+        quae harum tenetur voluptatum distinctio, molestias beatae maxime suscipit quis nam
+        accusamus. Aliquam aperiam deleniti earum sunt adipisci.
+      </div>
+    </main>
+  </body>
+</html>
