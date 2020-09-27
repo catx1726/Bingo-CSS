@@ -20,12 +20,19 @@
         user-select: none;
       }
       .box {
-        min-height: 120vh;
+        min-height: 110vh;
         min-width: 100%;
+        overflow: hidden;
+        position: relative;
       }
       .box-left,
       .box-right {
+        font-size: 5rem;
         flex: 1 1 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
         transition: all 0.5s ease;
       }
       .main_container .box:nth-child(odd) .box-left {
@@ -41,17 +48,17 @@
       .main_container .box:nth-child(even) .box-right {
         margin-top: 50vh;
         background-color: #285e5e;
-        transform: translateX(100vh);
+        transform: translateY(100vh);
       }
       /* .box .box-right:nth-child(even) {
         background-color: azure;
       } */
-      .main_container .box:nth-child(even) {
+      /* .main_container .box:nth-child(even) {
         background-color: #f7647e;
       }
       .main_container .box:nth-child(odd) {
         background-color: #24caab;
-      }
+      } */
 
       .show {
         transform: translateX(0) !important;
@@ -59,16 +66,16 @@
     </style>
   </head>
   <body>
-    <main class="main_container m-flex flex-jc-center flex-dir-col flex-an-center">
-      <div class="box m-flex flex-jc-center" data-needshow="need">
+    <main class="main_container m-flex flex-jc-center flex-dir-col">
+      <div class="box m-flex" data-needshow="need">
         <div class="box-left">Left</div>
         <div class="box-right">Right</div>
       </div>
-      <div class="box m-flex flex-jc-center" data-needshow="need">
+      <div class="box m-flex" data-needshow="need">
         <div class="box-left">Left</div>
         <div class="box-right">Right</div>
       </div>
-      <div class="box m-flex flex-jc-center">
+      <div class="box m-flex" data-needshow="need">
         <div class="box-left">Left</div>
         <div class="box-right">Right</div>
       </div>
@@ -83,26 +90,24 @@
         rootMargin: '0px 0px 0px 0px',
         threshold: [0, 0.1, 0.5]
       }
-    console.log('queryselector Boxs:', needSlideBoxs)
+    // console.log('queryselector Boxs:', needSlideBoxs)
 
-    function handleDOMAction(eve, show) {
-      eve.forEach((item) => {
-        let childList = item.target.children
-        for (let index = 0; index < childList.length; index++) {
-          show ? childList[index].classList.add('show') : childList[index].classList.remove('show')
-        }
-      })
+    function handleDOMAction(item, show) {
+      let childList = item.target.children
+      for (let index = 0; index < childList.length; index++) {
+        show ? childList[index].classList.add('show') : childList[index].classList.remove('show')
+      }
     }
     function handleObserver(eve) {
-      console.log('eve!', eve)
+      // console.log('eve!', eve)
       eve.forEach((item) => {
-        if (item.intersectionRatio > 0.1) {
-          console.log('in')
-          return handleDOMAction(eve, true)
-        }
-        if (item.isIntersecting) {
+        if (!item.isIntersecting) {
           console.log('out')
-          return handleDOMAction(eve, false)
+          return handleDOMAction(item, false)
+        }
+        if (item.intersectionRatio > 0.1 && item.isIntersecting) {
+          console.log('in')
+          return handleDOMAction(item, true)
         }
       })
     }
