@@ -47,6 +47,8 @@
         background-color: azure;
       } */
       .main_container .box:nth-child(even) {
+        /* padding-top 缓解第一次加载时的直接 show 的情况 */
+        padding-top: 30vh;
         background-color: #f7647e;
       }
       .main_container .box:nth-child(odd) {
@@ -81,7 +83,7 @@
     let needSlideBoxs = DOC.querySelectorAll('[data-needshow]'),
       options = {
         rootMargin: '0px 0px 0px 0px',
-        threshold: [0, 0.1, 0.5]
+        threshold: [0, 0.1, 0.8]
       }
     console.log('queryselector Boxs:', needSlideBoxs)
 
