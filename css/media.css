@@ -1,18 +1,23 @@
+/* 
+  750 屏幕为基准
+  缩放倍率以 黄金比例(0.618:1) 为基准 
+*/
+
 @media screen and (min-width: 300px) {
-  html {
-    font-size: 8px;
-  }
 }
 
 /* 600 - 960 */
 @media screen and (min-width: 600px) {
   html {
-    font-size: 10px;
+    font-size: calc(10 * (100vw / 750) * 1.618);
   }
 }
 
 /* 960 - 1264 */
 @media screen and (min-width: 960px) {
+  html {
+    font-size: calc(10 * (100vw / 750) * 1.618);
+  }
 }
 
 /* 1264 - 1900 */
