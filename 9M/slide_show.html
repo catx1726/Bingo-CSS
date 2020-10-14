@@ -27,13 +27,14 @@
       }
       .box-left,
       .box-right {
-        font-size: 5rem;
+        font-size: 1rem;
         flex: 1 1 50%;
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
         transition: all 0.5s ease;
+        padding-bottom: 1rem;
       }
       .main_container .box:nth-child(odd) .box-left {
         color: black;
@@ -88,7 +89,7 @@
     let needSlideBoxs = DOC.querySelectorAll('[data-needshow]'),
       options = {
         rootMargin: '0px 0px 0px 0px',
-        threshold: [0, 0.1, 0.5]
+        threshold: [0, 0.1, 0.8]
       }
     // console.log('queryselector Boxs:', needSlideBoxs)
 
