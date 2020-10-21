@@ -18,15 +18,15 @@
         position: relative;
 
         --button-height: 40px;
-        --button-width: 160px;
+        --button-width: 120px;
         --button-yes-bg: #ebf7fc;
         --button-yes-color: #03a9f4;
         --button-no-bg: #fcebeb;
         --button-no-color: #f44336;
       }
       .button_box {
-        width: 25%;
-        height: 25%;
+        width: 15%;
+        height: 20%;
         min-width: 300px;
         max-width: 500px;
         border-radius: 5px;
@@ -42,30 +42,33 @@
       .m-button {
         position: relative;
       }
-
+      .dot,
       .m-button,
       .m-checkbox,
       .button-bg {
-        width: var(--button-width);
+        width: 100%;
+        max-width: var(--button-width);
+        min-width: calc(var(--button-width) - 40px);
         height: var(--button-height);
       }
       .dot::before,
-      .button-bg {
+      .button-bg,
+      .dot {
         top: 0px;
         position: absolute;
-      }
-
-      .button-bg {
         transform: rotateZ(0deg);
+        transition: 0.4s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
       }
       .dot {
+        right: 0;
+        bottom: 0;
+        z-index: 3;
         font-size: 2rem;
         line-height: 35px;
       }
       .dot::before {
         content: 'Yes';
         z-index: 3;
-        top: 0;
         right: 0;
         bottom: 0;
         left: 10px;
@@ -81,11 +84,17 @@
         z-index: 2;
         border-radius: 100px;
         background-color: var(--button-yes-bg);
-        transition: 0.4s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
       }
+
       .m-checkbox:checked ~ .button-bg,
-      .m-checkbox:checked ~ .dot {
+      .m-checkbox:checked ~ .dot::before {
         transform: rotateZ(180deg);
+      }
+      .m-checkbox:checked ~ .dot {
+        transform: rotateZ(-180deg);
+      }
+      .m-checkbox:checked ~ .button-bg {
+        background-color: var(--button-no-bg);
       }
       .m-checkbox:checked ~ .dot::before {
         content: 'No';
@@ -95,7 +104,7 @@
   </head>
   <body>
     <main class="main_container m-flex flex-jc-center flex-an-center">
-      <div class="button_box box-shadow-obt-xs m-flex flex-jc-center flex-an-center">
+      <div class="button_box box-shadow-obt-s m-flex flex-jc-center flex-an-center">
         <div class="m-button">
           <input type="checkbox" class="m-checkbox" />
           <div class="dot"></div>
