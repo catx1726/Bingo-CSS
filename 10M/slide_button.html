@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Button oao</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      body {
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        background-color: #126993;
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      .main_container {
+        height: 100vh;
+        color: white;
+        user-select: none;
+        position: relative;
+
+        --button-height: 40px;
+        --button-width: 160px;
+        --button-yes-bg: #ebf7fc;
+        --button-yes-color: #03a9f4;
+        --button-no-bg: #fcebeb;
+        --button-no-color: #f44336;
+      }
+      .button_box {
+        width: 25%;
+        height: 25%;
+        min-width: 300px;
+        max-width: 500px;
+        border-radius: 5px;
+        background-color: #ffffff;
+      }
+      .m-checkbox {
+        z-index: 4;
+        opacity: 0;
+
+        cursor: pointer;
+        position: relative;
+      }
+      .m-button {
+        position: relative;
+      }
+
+      .m-button,
+      .m-checkbox,
+      .button-bg {
+        width: var(--button-width);
+        height: var(--button-height);
+      }
+      .dot::before,
+      .button-bg {
+        top: 0px;
+        position: absolute;
+      }
+
+      .button-bg {
+        transform: rotateZ(0deg);
+      }
+      .dot {
+        font-size: 2rem;
+        line-height: 35px;
+      }
+      .dot::before {
+        content: 'Yes';
+        z-index: 3;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 10px;
+        width: 35px;
+        height: 35px;
+        padding: 0 1px;
+        border-radius: 100%;
+        text-align: center;
+        margin: 2.5px 0px;
+        background-color: var(--button-yes-color);
+      }
+      .button-bg {
+        z-index: 2;
+        border-radius: 100px;
+        background-color: var(--button-yes-bg);
+        transition: 0.4s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+      }
+      .m-checkbox:checked ~ .button-bg,
+      .m-checkbox:checked ~ .dot {
+        transform: rotateZ(180deg);
+      }
+      .m-checkbox:checked ~ .dot::before {
+        content: 'No';
+        background-color: var(--button-no-color);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center">
+      <div class="button_box box-shadow-obt-xs m-flex flex-jc-center flex-an-center">
+        <div class="m-button">
+          <input type="checkbox" class="m-checkbox" />
+          <div class="dot"></div>
+          <div class="button-bg"></div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

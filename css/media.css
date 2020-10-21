@@ -4,7 +4,8 @@
 */
 @media screen and (min-width: 300px) {
   html {
-    font-size: calc(100vw / 37.5);
+    font-size: 10px;
+    /* font-size: calc(100vw / 37.5); */
     /* font-size: 62.5%; */
   }
 }
@@ -12,7 +13,7 @@
 /* 600 - 960 */
 @media screen and (min-width: 600px) {
   html {
-    font-size: calc(100vw / 75);
+    /* font-size: calc(100vw / 15); */
     /* font-size: 62.5%; */
   }
 }
