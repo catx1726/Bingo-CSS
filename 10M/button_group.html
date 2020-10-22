@@ -40,6 +40,7 @@
         position: relative;
       }
       .m-button {
+        border-radius: 100px;
         position: relative;
       }
       .dot,
@@ -50,14 +51,6 @@
         max-width: var(--button-width);
         min-width: calc(var(--button-width) - 40px);
         height: var(--button-height);
-      }
-      .dot::before,
-      .button-bg,
-      .dot {
-        top: 0px;
-        position: absolute;
-        transform: rotateZ(0deg);
-        transition: 0.4s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
       }
       .dot {
         right: 0;
@@ -85,13 +78,13 @@
         border-radius: 100px;
         background-color: var(--button-yes-bg);
       }
-
-      .m-checkbox:checked ~ .button-bg,
-      .m-checkbox:checked ~ .dot::before {
-        transform: rotateZ(180deg);
-      }
-      .m-checkbox:checked ~ .dot {
-        transform: rotateZ(-180deg);
+      .dot::before,
+      .dot::after,
+      .button-bg,
+      .dot {
+        top: 0px;
+        position: absolute;
+        transition: 0.4s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
       }
       .m-checkbox:checked ~ .button-bg {
         background-color: var(--button-no-bg);
@@ -100,15 +93,170 @@
         content: 'No';
         background-color: var(--button-no-color);
       }
+
+      /* One-Button */
+      .one .dot::before,
+      .one .button-bg,
+      .one .dot {
+        transform: rotateZ(0deg);
+      }
+      .one .m-checkbox:checked ~ .button-bg,
+      .one .m-checkbox:checked ~ .dot::before {
+        transform: rotateZ(180deg);
+      }
+      .one .m-checkbox:checked ~ .dot {
+        transform: rotateZ(-180deg);
+      }
+      .one .m-checkbox:checked ~ .button-bg,
+      .one .m-checkbox:checked ~ .dot::before {
+        transform: rotateZ(180deg);
+      }
+
+      /* Two-Button */
+      .two .dot::before,
+      .two .button-bg,
+      .two .dot {
+        transform: translateX(0);
+      }
+      .two .m-checkbox:checked ~ .dot {
+        transform: translateX(calc(var(--button-width) - 55px));
+      }
+
+      /* Three-Button */
+      .three {
+        overflow: hidden;
+      }
+      .three .dot::after,
+      .three .dot::before {
+        transition: all 0.3s ease;
+      }
+      .three .dot::after {
+        content: 'No';
+        z-index: 3;
+        bottom: 0;
+        width: 35px;
+        height: 35px;
+        padding: 0 1px;
+        border-radius: 100%;
+        text-align: center;
+        margin: 2.5px 0px;
+        background-color: var(--button-no-color);
+        /* add */
+        right: 10px;
+        position: absolute;
+        transform: translateX(calc(var(--button-width) - 60px));
+      }
+
+      .three .m-checkbox:checked ~ .dot::before {
+        transform: translateX(calc(-1 * var(--button-width) + 40px));
+      }
+      .three .m-checkbox:checked ~ .dot::after {
+        transform: translateX(0);
+      }
+
+      /* Four-Button */
+      .four .dot,
+      .four .dot::before,
+      .four .button-bg {
+        transform-origin: center;
+      }
+      .four .m-checkbox:checked ~ .dot,
+      .four .m-checkbox:checked ~ .button-bg,
+      .four .m-checkbox:checked ~ .dot::before {
+        transform: rotateY(-180deg);
+      }
+
+      /* Five-Button */
+      .five.m-button {
+        overflow: hidden;
+      }
+      .five > *,
+      .five .dot::before,
+      .five .dot::after {
+        transition: all 0.6s ease;
+      }
+      .five .button-bg .bg-shadow {
+        width: 10%;
+        height: 35px;
+        opacity: 0;
+        z-index: -1;
+        /* top: 40%;
+        left: 20%; */
+        transform-origin: center;
+        transform: scaleX(0);
+        position: absolute;
+        border-radius: 100px;
+        background-color: var(--button-yes-color);
+        transition: all 0.4s ease;
+      }
+      .five .dot::after {
+        content: 'No';
+        z-index: 3;
+        bottom: 0;
+        width: 35px;
+        height: 35px;
+        padding: 0 1px;
+        border-radius: 100%;
+        text-align: center;
+        margin: 2.5px 0px;
+        background-color: var(--button-no-color);
+        /* add */
+        right: 10px;
+        opacity: 0;
+        position: absolute;
+      }
+
+      .five .m-checkbox:checked ~ .dot::before {
+        opacity: 0;
+        content: 'Yes';
+      }
+      .five .m-checkbox:checked ~ .dot::after {
+        opacity: 1;
+      }
+      .five .m-checkbox:checked ~ .button-bg .bg-shadow {
+        opacity: 1;
+        transform: scale(20);
+        background-color: var(--button-no-bg);
+      }
     </style>
   </head>
   <body>
-    <main class="main_container m-flex flex-jc-center flex-an-center">
+    <main class="main_container m-flex flex-jc-around flex-an-center flex-wrap">
       <div class="button_box box-shadow-obt-s m-flex flex-jc-center flex-an-center">
-        <div class="m-button">
+        <div class="m-button one">
           <input type="checkbox" class="m-checkbox" />
           <div class="dot"></div>
           <div class="button-bg"></div>
+        </div>
+      </div>
+      <div class="button_box box-shadow-obt-s m-flex flex-jc-center flex-an-center">
+        <div class="m-button two">
+          <input type="checkbox" class="m-checkbox" />
+          <div class="dot"></div>
+          <div class="button-bg"></div>
+        </div>
+      </div>
+      <div class="button_box box-shadow-obt-s m-flex flex-jc-center flex-an-center">
+        <div class="m-button three">
+          <input type="checkbox" class="m-checkbox" />
+          <div class="dot"></div>
+          <div class="button-bg"></div>
+        </div>
+      </div>
+      <div class="button_box box-shadow-obt-s m-flex flex-jc-center flex-an-center">
+        <div class="m-button four">
+          <input type="checkbox" class="m-checkbox" />
+          <div class="dot"></div>
+          <div class="button-bg"></div>
+        </div>
+      </div>
+      <div class="button_box box-shadow-obt-s m-flex flex-jc-center flex-an-center">
+        <div class="m-button five">
+          <input type="checkbox" class="m-checkbox" />
+          <div class="dot"></div>
+          <div class="button-bg">
+            <span class="bg-shadow"></span>
+          </div>
         </div>
       </div>
     </main>
