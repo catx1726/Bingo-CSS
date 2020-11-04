@@ -51,7 +51,6 @@
         min-width: calc(var(--button-width) - 40px);
         height: var(--button-height);
       }
-      .dot::before,
       .button-bg,
       .dot {
         top: 0px;
@@ -69,12 +68,14 @@
       .dot::before {
         content: 'Yes';
         z-index: 3;
+        top: 0;
         right: 0;
         bottom: 0;
         left: 10px;
         width: 35px;
         height: 35px;
         padding: 0 1px;
+        position: absolute;
         border-radius: 100%;
         text-align: center;
         margin: 2.5px 0px;
@@ -86,8 +87,7 @@
         background-color: var(--button-yes-bg);
       }
 
-      .m-checkbox:checked ~ .button-bg,
-      .m-checkbox:checked ~ .dot::before {
+      .m-checkbox:checked ~ .button-bg {
         transform: rotateZ(180deg);
       }
       .m-checkbox:checked ~ .dot {
