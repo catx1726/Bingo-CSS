@@ -1,3 +1,10 @@
+/* 
+  TODO 
+  1. 新增层级从年份开始 2020/10M/...
+  2. 初始化所有接口，直接输入 2020/* 检索下面所有，然后添加到 readme
+  3. 后续新增接口，判断输入的文件层级，第一个参数必须是最外层，检测单个文件夹然后添加到 readme
+*/
+
 class FileCheck {
   fs = require('fs')
 
@@ -104,9 +111,9 @@ try {
     throw Error('你需要输入一个文件夹名')
   }
   let path = process.argv[2]
-  console.log('——————即将检索文件夹:', path, '\n')
-  file.input(path)
-  file.output()
+  console.log('——————即将检索文件夹:', path, '\n', process.argv)
+  // file.input(path)
+  // file.output()
 } catch (error) {
   console.log(error)
 }
