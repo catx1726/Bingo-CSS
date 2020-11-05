@@ -18,6 +18,9 @@ class FileCheck {
   // 不需要添加的文件夹
   ignorePathList = ['css', 'imgs']
 
+  // 时间TAG
+  TIMETAG = '_createdTime:'
+
   joinPath(path, name) {
     return path + '/' + name
   }
@@ -28,18 +31,39 @@ class FileCheck {
       if (err) throw err
       this.fs.close(fd)
     })
+
     // console.log('cur pathList:', pathList)
     pathList.forEach((item) => {
       let curPath = this.joinPath(path, item),
         stat = this.fs.statSync(curPath)
+      // console.log('cur stat:', stat)
       if (stat.isDirectory()) {
         this.handleDirectory(curPath)
         return
       }
+
       // 只保留 .html
       if (!curPath.includes('.html')) return
-      this.localFilePathList.push(curPath)
+      // 在保存的时候，将 STAT 的创建时间也添加进去，方便后面排序
+      this.localFilePathList.push(curPath + this.TIMETAG + Math.floor(stat.birthtimeMs))
     })
+  }
+
+  // 文件添加完毕之后，进行排序，
+  sortPathList(pathList) {
+    // 排序
+    pathList = pathList.sort((a, b) => {
+      let tempA = a.slice(a.indexOf(this.TIMETAG) + this.TIMETAG.length),
+        tempB = b.slice(b.indexOf(this.TIMETAG) + this.TIMETAG.length)
+      // console.log(a, b, tempA, tempB, tempA > tempB)
+      return tempA > tempB ? 1 : -1
+    })
+    console.log('sort after:', pathList)
+    // 净化 去除 TIMATAG
+    this.localFilePathList = pathList.map((item) => {
+      return item.slice(0, item.indexOf(this.TIMETAG))
+    })
+    console.log('pure after:', this.localFilePathList)
   }
 
   input(pathList) {
@@ -48,13 +72,16 @@ class FileCheck {
       this.path = pathList[0]
       this.handleDirectory(pathList[0])
       console.log(`${this.path} checkEnd FileList:`, this.localFilePathList)
+      this.sortPathList(this.localFilePathList)
       this.output()
       return
     }
+
     // 年份之后紧跟的是指定的文件夹，代表 2020/10M 只需要执行 10M 下的文件或文件夹
     let path = pathList.join('/')
     this.handleDirectory(path)
     console.log(`${this.path} checkEnd FileList:`, this.localFilePathList)
+    this.sortPathList(this.localFilePathList)
     this.output()
   }
 
@@ -64,32 +91,29 @@ class FileCheck {
 
       console.log('output:', this.localFilePathList)
       this.localFilePathList.forEach((item) => {
-        this.fs.stat(this.path + '/' + item, (err, stats) => {
-          if (err) console.log(err)
-          // OK 只保存当天的文件，当天修改的话还是有重复
-          // OK 去 index 文件搜索，如果有就不加
-          let checkRepeat = this.repeatCheck(index, item)
-          // console.log(checkRepeat)
-          if (!checkRepeat) {
-            console.log('因为这个文件已经添加过了，再见，我下线了\n')
-            return
-          }
-          // TODO 让其再看文件源码的时候换行，方便维护，而不是只再HTML渲染的时候换行
-          // TODO 可将项目地址提取成环境变量
-          let htmlInner = `<a href="./${item}" target="_blank">${item}</a><br/>`
-          // DES markdown超链接的方式 [文件名](地址)
-          let mdInner = ` * [${item}](https://www.adba.club/CSS-Inspired-Factory/${item}) <br/>`
+        // OK 只保存当天的文件，当天修改的话还是有重复
+        // OK 去 index 文件搜索，如果有就不加
+        let checkRepeat = this.repeatCheck(index, item)
+        // console.log(checkRepeat)
+        if (!checkRepeat) {
+          console.log('因为这个文件已经添加过了，再见，我下线了\n')
+          return
+        }
+        // TODO 让其再看文件源码的时候换行，方便维护，而不是只再HTML渲染的时候换行
+        // TODO 可将项目地址提取成环境变量
+        let htmlInner = `<a href="./${item}" target="_blank">${item}</a><br/>`
+        // DES markdown超链接的方式 [文件名](地址)
+        let mdInner = `[${item}](https://www.adba.club/CSS-Inspired-Factory/${item}) <br/>`
 
-          this.fs.appendFileSync('index.html', htmlInner, 'utf8', (fd) => {
-            this.fs.close(fd)
-          })
-
-          this.fs.appendFileSync('README.md', mdInner, 'utf8', (fd) => {
-            this.fs.close(fd)
-          })
-
-          console.log('——————添加完毕，我下线了')
+        this.fs.appendFileSync('index.html', htmlInner, 'utf8', (fd) => {
+          this.fs.close(fd)
         })
+
+        this.fs.appendFileSync('README.md', mdInner, 'utf8', (fd) => {
+          this.fs.close(fd)
+        })
+
+        console.log('——————添加完毕，我下线了')
       })
     } catch (error) {
       console.log(error)
