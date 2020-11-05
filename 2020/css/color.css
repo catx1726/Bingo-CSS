@@ -1,0 +1,11 @@
+/* 届时分项目在这里定制整套颜色 */
+:root {
+  --light-main-bg-color: #e0e3da;
+  --light-ft-color: #21464f;
+
+  --dark-main-bg-color: #21464f;
+  --dark-ft-color: #e0e3da;
+
+  --theme-bg-color: #21464f;
+  --theme-ft-color: #e0e3da;
+}

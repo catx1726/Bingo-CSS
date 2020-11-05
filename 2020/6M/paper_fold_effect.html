@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>paperFoldEffect</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .paperFold_container {
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+      }
+      .paperItem {
+        font-family: 'Give You Glory', cursive;
+        height: 400px;
+        width: 300px;
+        position: relative;
+        background-color: rgb(250, 238, 196);
+      }
+      .article_container {
+        padding: 20px;
+      }
+      .article_title {
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
+      .article_author {
+        font-size: 12px;
+      }
+      .article_content {
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      /* paper shadow */
+      .paperItem::before {
+        content: '';
+        width: 100%;
+        height: 4%;
+        left: 0;
+        bottom: -4%;
+        position: absolute;
+        background-repeat: no-repeat;
+        background-image: linear-gradient(177deg, rgba(0, 0, 0, 0.22) 10%, transparent 50%),
+          linear-gradient(-177deg, rgba(0, 0, 0, 0.22) 10%, transparent 50%);
+        background-size: 49% 100%;
+        background-position: 2% 0, 98% 0;
+      }
+
+      /* fold effect */
+      .paperItem::after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        z-index: 2;
+        background-repeat: no-repeat;
+        background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.1) 0.5%,
+            rgba(0, 0, 0, 0.15) 1.2%,
+            transparent 1.2%
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.1) 0.5%,
+            rgba(0, 0, 0, 0.15) 1.2%,
+            transparent 1.2%
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.1) 0.5%,
+            rgba(0, 0, 0, 0.15) 1.2%,
+            transparent 1.2%
+          ),
+          linear-gradient(265deg, rgba(0, 0, 0, 0.2), transparent 10%),
+          linear-gradient(5deg, rgba(0, 0, 0, 0.2), transparent 15%),
+          linear-gradient(-5deg, rgba(0, 0, 0, 0.1), transparent 10%),
+          linear-gradient(5deg, rgba(0, 0, 0, 0.1), transparent 10%),
+          linear-gradient(-265deg, rgba(0, 0, 0, 0.2), transparent 10%),
+          linear-gradient(-5deg, rgba(0, 0, 0, 0.2), transparent 15%),
+          linear-gradient(266deg, rgba(0, 0, 0, 0.2), transparent 10%);
+        background-size: 50% 100%, 100% 33.3333%, 100% 33.3333%, 50% 33.3333%, 50% 33.3333%,
+          50% 33.3333%, 50% 33.3333%, 50% 33.3333%, 50% 33.3333%, 50% 33.3333%;
+        background-position: right top, left center, left bottom, left top, left top, right top,
+          left center, right center, right center, left bottom;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="paperFold_container m-flex flex-jc-center flex-an-center">
+      <div class="paperItem">
+        <div class="article_container">
+          <div class="article_title">Lorem</div>
+          <div class="article_author">posted:Jun.23.2020 | Cad</div>
+          <div class="article_content">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. A est praesentium, modi, quos
+            blanditiis voluptatem aspernatur facilis reiciendis exercitationem distinctio temporibus
+            rem beatae, nisi ut incidunt voluptas amet quasi rerum.
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

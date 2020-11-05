@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ModalOverlay</title>
+    <title>IndexSlide</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Lato&family=Nunito:ital,wght@0,600;1,400&display=swap');
+      body {
+        padding: 0;
+        margin: 0;
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        background-color: #126993;
+        position: relative;
+        font-family: 'Nunito', 'Lato', 'consolas';
+      }
+      .main_container {
+        top: 0;
+        z-index: 10;
+        width: 100%;
+        min-height: 100vh;
+        padding: 20px;
+        color: white;
+        font-size: 1.6rem;
+        box-sizing: border-box;
+      }
+      .des,
+      .modal-trigger {
+        width: 40%;
+      }
+      .des {
+        height: 80%;
+        position: relative;
+      }
+      .modal {
+        top: 0;
+        color: white;
+        width: 100%;
+        height: 100%;
+        z-index: 20;
+        font-size: 2rem;
+        position: fixed;
+        transition: all 0.3s ease;
+        transform: translateY(-100%);
+        background-color: #65bb9bb3;
+      }
+      .modal .text {
+        cursor: pointer;
+        user-select: none;
+        background-color: sandybrown;
+      }
+      .modal-close {
+        top: 5%;
+        right: 5%;
+        cursor: pointer;
+        position: fixed;
+      }
+      .modal-trigger {
+        bottom: 5%;
+        z-index: 10;
+        cursor: pointer;
+        font-size: 1rem;
+        text-align: center;
+        position: fixed;
+        background-color: sandybrown;
+      }
+      .modal-show {
+        transform: translateY(0%);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center flex-wrap flex-dir-col">
+      <div class="modal-trigger">Click Me Open a Modal</div>
+      <div class="des">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum
+        magni incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis assumenda
+        tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit maxime suscipit
+        enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi
+        repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti
+        corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis
+        assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit
+        maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus.
+        Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+        fuga deleniti corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui,
+        voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum
+        dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum magni
+        incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur
+        necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit maxime suscipit
+        enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi
+        repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti
+        corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis
+        assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit
+        maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus.
+        Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+        fuga deleniti corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui,
+        voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum
+        dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum magni
+        incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur
+        necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit maxime suscipit
+        enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi
+        repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti
+        corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis
+        assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit
+        maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus.
+        Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+        fuga deleniti corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui,
+        voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum
+        dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum magni
+        incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur
+        necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit maxime suscipit
+        enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi
+        repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti
+        corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis
+        assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit
+        maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus.
+        Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+        fuga deleniti corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui,
+        voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum
+        dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum magni
+        incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur
+        necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit maxime suscipit
+        enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi
+        repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti
+        corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis
+        assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit
+        maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus.
+        Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+        fuga deleniti corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui,
+        voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum
+        dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum magni
+        incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur
+        necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit maxime suscipit
+        enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi
+        repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti
+        corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis
+        assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit
+        maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus.
+        Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+        fuga deleniti corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui,
+        voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum
+        dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum magni
+        incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur
+        necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit maxime suscipit
+        enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi
+        repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fuga deleniti
+        corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis
+        assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit
+        maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus.
+        Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+        fuga deleniti corporis harum magni incidunt ea sit maxime suscipit enim consequatur qui,
+        voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi repellendus? Lorem ipsum
+        dolor sit amet consectetur adipisicing elit. Error fuga deleniti corporis harum magni
+        incidunt ea sit maxime suscipit enim consequatur qui, voluptatibus quis assumenda tenetur
+        necessitatibus. Nihil, eligendi repellendus? Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Error fuga deleniti corporis harum magni incidunt ea sit maxime suscipit
+        enim consequatur qui, voluptatibus quis assumenda tenetur necessitatibus. Nihil, eligendi
+        repellendus?
+      </div>
+    </main>
+    <div class="modal m-flex flex-jc-center flex-an-center">
+      <span class="text">Hi!Modal is here!🤭</span>
+      <span class="modal-close">Close</span>
+    </div>
+    <script>
+      const DOC = document
+      let modelShowTrigger = DOC.querySelector('.modal-trigger'),
+        modalCloseTrigger = DOC.querySelector('.modal-close'),
+        modal = DOC.querySelector('.modal')
+
+      modelShowTrigger.addEventListener('click', () => {
+        modal.classList.toggle('modal-show')
+      })
+
+      /* DES 将 modal 设置为 捕获阶段之后，会在 modalCloseTrigger 前被调用 */
+      modal.addEventListener(
+        'click',
+        () => {
+          console.log('modal EventListener!')
+          modal.classList.remove('modal-show')
+        },
+        true
+      )
+
+      modalCloseTrigger.addEventListener(
+        'click',
+        () => {
+          console.log('modalCloseTrigger EventListener!')
+          modal.classList.remove('modal-show')
+        },
+        true
+      )
+    </script>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tooltips</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Lato&family=Nunito:ital,wght@0,600;1,400&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
+      body {
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        background-color: #126993;
+      }
+      .main_container {
+        height: 100vh;
+        width: 100%;
+        color: white;
+        font-size: 1.6rem;
+        font-family: 'Modak', 'Nunito', 'Lato', consolas;
+      }
+      ul {
+        height: 100%;
+      }
+      li {
+        user-select: none;
+        font-size: 4rem;
+        padding: 20px;
+        list-style-type: none;
+      }
+      a {
+        cursor: pointer;
+        position: relative;
+        text-decoration: none;
+      }
+      a::before {
+        content: '';
+        height: 100%;
+        width: 120%;
+        margin: 0 -10%;
+        z-index: -1;
+        position: absolute;
+        display: inline-block;
+        transform: scaley(0.1);
+        transform-origin: 0 100%;
+        transition: all 0.3s ease;
+        background-color: #1a9f74eb;
+      }
+      a:hover::before {
+        transform: scaleY(1);
+      }
+      .tooltips_container {
+        top: 0;
+        left: 0;
+        opacity: 0;
+        width: 100px;
+        cursor: pointer;
+        user-select: none;
+        font-size: 2rem;
+        position: absolute;
+        background-color: white;
+        transition: all 0.3s ease;
+        transform: translateX(-120vh);
+      }
+      .tooltips_container-show {
+        opacity: 1;
+        transform: translateX(0vh);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container">
+      <ul class="data-list m-flex flex-jc-center flex-an-center flex-dir-col">
+        <li class="item"><a class="link">link1</a></li>
+        <li class="item"><a class="link">link2</a></li>
+        <li class="item"><a class="link">link3</a></li>
+      </ul>
+    </main>
+    <div class="tooltips_container m-flex flex-jc-center flex-an-center flex-dir-col">
+      <span class="tips-one">One</span>
+      <span class="tips-two">Two</span>
+    </div>
+  </body>
+  <script>
+    const DOC = document
+    let items = [...DOC.querySelectorAll('.item')],
+      tooltipsBox = DOC.querySelector('.tooltips_container')
+
+    // TODO 节流处理
+    function tooltipsEnterAction() {
+      let ele = event.target
+      let X = ele.getBoundingClientRect().left,
+        Y = ele.getBoundingClientRect().top
+      tooltipsBox.style.top = Y + 60 + 'px'
+      tooltipsBox.style.left = X - 5 + 'px'
+      tooltipsBox.classList.add('tooltips_container-show')
+      console.log(X, Y)
+    }
+    // TODO 节流处理
+    function tooltipsLeaveAction() {
+      tooltipsBox.classList.remove('tooltips_container-show')
+    }
+
+    items.forEach((i) => {
+      i.addEventListener('click', tooltipsEnterAction)
+    })
+
+    tooltipsBox.addEventListener('mouseleave', tooltipsLeaveAction)
+  </script>
+</html>

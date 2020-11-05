@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cad</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+      * {
+        transition: all 0.3s ease;
+      }
+      body {
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        background-color: var(--theme-bg-color);
+        font-family: 'Roboto', consolas, 'source-han-serif-sc', serif;
+      }
+      .main_container {
+        min-height: 100vh;
+        color: var(--theme-ft-color);
+        font-size: 1.6rem;
+        user-select: none;
+      }
+      .content {
+        padding: 20px;
+        border-bottom: 1px solid white;
+      }
+      .content:hover {
+        border-bottom: 10px solid white;
+      }
+      .left-des,
+      .center-url,
+      .right-img {
+        margin: 10px 0;
+        box-sizing: border-box;
+      }
+      .content .left-des {
+        width: 40vw;
+        column-count: 3;
+        min-width: 200px;
+        padding-right: 5px;
+        border-right: 10px solid white;
+      }
+      .left-des span {
+        color: var(--theme-ft-color);
+      }
+      .content .left-des:hover {
+        padding: 50px 5px 50px 0;
+      }
+      .content .right-img img {
+        max-width: 350px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      .content .center-url .links {
+        font-size: 2rem;
+        position: relative;
+        list-style-type: none;
+        text-align: center;
+      }
+      .content .link {
+        width: 10vw;
+        padding: 10px 50px;
+      }
+      .center-url .link a {
+        text-decoration: none;
+        color: var(--theme-ft-color);
+      }
+      .theme-trigger {
+        top: 10px;
+        right: 10px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        user-select: none;
+        position: absolute;
+        color: var(--theme-ft-color);
+      }
+      .theme-trigger span {
+        z-index: 10;
+      }
+      .theme-trigger::before {
+        content: '';
+        height: 100%;
+        width: 100%;
+        display: inline-block;
+        position: absolute;
+        transform-origin: 0% 100%;
+        transform: scaley(0.1);
+        background-color: var(--theme-ft-color);
+        transition: all 0.3s ease;
+        z-index: -1;
+      }
+      .theme-trigger:hover::before {
+        transform: scaley(1);
+      }
+      .theme-trigger:hover {
+        color: var(--theme-bg-color);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="theme-trigger">
+      <span>Lighter</span>
+    </div>
+    <main class="main_container m-flex flex-an-center flex-jc-around">
+      <div class="content m-flex flex-wrap flex-an-center flex-jc-center">
+        <div class="left-des">
+          <span>
+            这个世界，最公平的是太阳。 不论纬度高低，每个地方一整年中，白天与黑暗的时间都各占一半。
+            前几天我们去了动物园，那天太阳很大，晒得所有动物都受不了，它们都设法找一个阴影躲起来。
+            我有一种说不清楚模糊的感觉，我也好希望跟这些动物一样，有一些阴影可以躲起来。
+            但是我环顾四周，不只是这些动物有阴影可以躲，包括你，我弟，甚至是司马光，都可以找到一个有阴影的角落。
+            可是我没有，我没有水缸，没有暗处，只有阳光，24小时从不间断，明亮温暖，阳光普照。
+          </span>
+        </div>
+        <div class="center-url">
+          <ul class="links">
+            <li class="link"><a href="">书</a></li>
+            <li class="link"><a href="">随笔</a></li>
+            <li class="link"><a href="">图片</a></li>
+            <li class="link"><a href="">游戏</a></li>
+            <li class="link"><a href="">代码</a></li>
+          </ul>
+        </div>
+        <div class="right-img">
+          <img
+            class="box-shadow-obt-s"
+            src="https://img9.doubanio.com/view/photo/l/public/p2582664005.webp"
+            alt="Nighthawks"
+          />
+        </div>
+      </div>
+    </main>
+  </body>
+  <script>
+    const DOC = document
+    let themeTrigger = DOC.querySelector('.theme-trigger'),
+      themeLock = false // DES true 代表 light ，false 代表 dark，默认 theme 是 dark
+
+    function changeTheme() {
+      let rootVarList = getComputedStyle(DOC.documentElement),
+        span = event.target,
+        bgColor = rootVarList.getPropertyValue('--darker-main-bg-color')
+      ftColor = rootVarList.getPropertyValue('--darker-ft-color')
+      themeLock = !themeLock
+
+      if (themeLock) {
+        bgColor = rootVarList.getPropertyValue('--light-main-bg-color')
+        ftColor = rootVarList.getPropertyValue('--light-ft-color')
+      }
+      span.innerText = themeLock ? 'Darker' : 'Lighter'
+      DOC.body.style.setProperty('--theme-bg-color', bgColor)
+      DOC.body.style.setProperty('--theme-ft-color', ftColor)
+    }
+
+    themeTrigger.addEventListener('click', changeTheme)
+    // 2020年9月9日
+  </script>
+  <script async>
+    ;(function (d) {
+      var config = {
+          kitId: 'snp0cww',
+          scriptTimeout: 3000,
+          async: true
+        },
+        h = d.documentElement,
+        t = setTimeout(function () {
+          h.className = h.className.replace(/\bwf-loading\b/g, '') + ' wf-inactive'
+        }, config.scriptTimeout),
+        tk = d.createElement('script'),
+        f = false,
+        s = d.getElementsByTagName('script')[0],
+        a
+      h.className += ' wf-loading'
+      tk.src = 'https://use.typekit.net/' + config.kitId + '.js'
+      tk.async = true
+      tk.onload = tk.onreadystatechange = function () {
+        a = this.readyState
+        if (f || (a && a != 'complete' && a != 'loaded')) return
+        f = true
+        clearTimeout(t)
+        try {
+          Typekit.load(config)
+        } catch (e) {}
+      }
+      s.parentNode.insertBefore(tk, s)
+    })(document)
+  </script>
+</html>

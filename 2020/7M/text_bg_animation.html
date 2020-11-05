@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TextBackgroundAnimation</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Lato&family=Nunito:ital,wght@0,600;1,400&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
+      body {
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        background-color: #126993;
+      }
+      .main_container {
+        height: 100vh;
+        width: 100vw;
+        color: white;
+        font-size: 1.6rem;
+        font-family: 'Modak', 'Nunito', 'Lato', consolas;
+      }
+      .text {
+        width: 50vw;
+        font-size: 10rem;
+        word-break: normal;
+        word-wrap: break-word;
+        text-align: center;
+        background-size: 50%;
+        transition: all 0.3s ease;
+        /* background-blend-mode CSS属性定义该元素的背景图片，以及背景色如何混合。 */
+        /* background-blend-mode: screen; */
+        /* mix-blend-mode: screen; */
+        position: absolute;
+        /* background-clip  设置元素的背景（背景图片或颜色）是否延伸到边框、内边距盒子、内容盒子下面。 */
+        text-transform: uppercase;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: textWalk 10s infinite ease;
+        background-image: url('https://assets.codepen.io/489403/Screenshot+2020-07-08+at+20.40.47.png');
+      }
+      @keyframes textWalk {
+        0% {
+          background-position: -490px;
+        }
+        100% {
+          background-position: 2900px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center">
+      <h1 class="text">
+        TextAnimation
+      </h1>
+    </main>
+  </body>
+</html>

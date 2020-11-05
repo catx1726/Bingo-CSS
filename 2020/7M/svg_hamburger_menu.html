@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SvgHamburgerMenu</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      body {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        color: black;
+        font-family: consolas, Helvetica, sans-serif;
+        background-color: #082330;
+      }
+      a {
+        color: black;
+        font-family: 'consolas', 'Give You Glory';
+        text-decoration: none;
+      }
+
+      /* SVG-Start */
+      circle {
+        opacity: 0.7;
+        fill: black;
+        z-index: 10;
+        cursor: pointer;
+      }
+      path {
+        fill: none;
+        stroke: #ffffff;
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        --length: 24;
+        --offset: -38;
+        stroke-dasharray: var(--length) var(--total-length);
+        stroke-dashoffset: var(--offset);
+        transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+      }
+      svg,
+      .line--1,
+      .line--3,
+      .line--2,
+      .cir_btn {
+        transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+      }
+      .menu--1 .line--1,
+      .menu--1 .line--3 {
+        --length: 22.627416998;
+        --total-length: 126.64183044433594;
+      }
+      .menu--1 .line--2 {
+        --length: 22.627416998;
+        --total-length: 70;
+      }
+      .cir_btn:active {
+        opacity: 1;
+        fill: #862f2fdb;
+      }
+      /* SVG-End */
+
+      /* Menu-Start */
+      .menu_container {
+        width: 200px;
+        height: 100vh;
+        z-index: 10;
+        position: relative;
+        transform: translateX(-150px);
+        background-color: blanchedalmond;
+      }
+      .menu_container,
+      ul {
+        cursor: pointer;
+        transition: all 0.6s cubic-bezier(0.73, -0.11, 1, -0.15);
+      }
+      .menu_container ul {
+        left: 0;
+        font-size: 1.6rem;
+        position: absolute;
+      }
+      li {
+        list-style: none;
+        padding: 10px 30px;
+        transition: all 0.3s ease;
+      }
+      a {
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+      }
+      .menu_btn {
+        position: absolute;
+      }
+      .menu_container:hover {
+        transform: translateX(-10px);
+      }
+      .menu_container:hover .line--1,
+      .menu_container:hover .line--3 {
+        --offset: -94.1149185097;
+      }
+      .menu_container:hover .line--2 {
+        --length: 0.5;
+        --offset: -50;
+      }
+      .menu_container li:hover a {
+        color: #1c796c;
+      }
+
+      /* #blob:hover {
+        transform: translateX(-20%);
+      } */
+      /* Menu-End */
+
+      /* Media-Strt */
+      @media screen and (min-width: 300px) {
+        html {
+          font-size: 8px;
+        }
+      }
+
+      /* 600 - 960 */
+      @media screen and (min-width: 600px) {
+      }
+
+      /* 960 - 1264 */
+      @media screen and (min-width: 960px) {
+      }
+
+      /* 1264 - 1900 */
+      @media screen and (min-width: 1264px) {
+      }
+
+      /* 1900 - xxxl */
+      @media screen and (min-width: 1900px) {
+      }
+      /* Media-End */
+    </style>
+  </head>
+  <body>
+    <div class="menu_container m-flex flex-jc-end flex-an-center box-shadow-obt-s">
+      <div class="menu_btn">
+        <svg
+          class="menu--1"
+          width="50"
+          height="50"
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="50" cy="50" r="30" class="cir_btn" />
+          <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
+          <path class="line--2" d="M0 50h70" />
+          <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
+        </svg>
+      </div>
+      <ul>
+        <li class="menu_item"><a href="https://www.adba.club/" target="_blank">Blog</a></li>
+        <li class="menu_item"><a href="https://github.com/catx1726" target="_blank">GitHub</a></li>
+        <li class="menu_item">
+          <a href="https://www.adba.club/Bing-Img-Repo/code/html/index.html" target="_blank">
+            BingImg
+          </a>
+        </li>
+        <li class="menu_item">
+          <a href="https://www.adba.club/CSS-Inspired-Factory/" target="_blank">CSSDemoRepo</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

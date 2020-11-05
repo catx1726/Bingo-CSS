@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StepLine</title>
+
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Lato&family=Nunito:ital,wght@0,600;1,400&display=swap');
+      body {
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        background-color: #126993;
+      }
+      .main_container {
+        height: 100vh;
+        width: 100vw;
+        color: white;
+        font-size: 1.6rem;
+        font-family: 'Nunito', 'Lato', consolas;
+        /* overflow: hidden; */
+        /* background-color: #126993; */
+      }
+      .step_container li {
+        height: 5rem;
+        width: 20rem;
+        margin: 10px 20px;
+        padding: 0px 25px;
+        position: relative;
+        user-select: none;
+        cursor: pointer;
+        list-style-type: none;
+        text-transform: uppercase;
+        background-color: #afdedf;
+        transition: all 0.3s ease;
+        white-space: normal;
+        word-break: break-all;
+        word-wrap: break-word;
+      }
+      .li_flex-center {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
+      .step_container .done {
+        background-color: #2fb3b7;
+      }
+      /* DES 这里的宽度调节，也可以缓解字符显示不下的问题 */
+      /* li:hover {
+        color: black;
+        width: 30rem;
+        background-color: #2fb3b7;
+      } */
+      .m-click {
+        color: black;
+        /* DES 这里的宽度调节，也可以缓解字符显示不下的问题 */
+        width: 30rem !important;
+        background-color: #2fb3b7 !important;
+      }
+      .step_item::before,
+      .step_item::after {
+        content: '';
+        /* top: 0; */
+        transition: all 0.3s ease;
+        position: absolute;
+      }
+      .step_item::before {
+        left: 0px;
+        border: 25px solid transparent;
+        border-left-color: #126993;
+      }
+      .step_item::after {
+        right: -50px;
+        border: 25px solid transparent;
+        border-left-color: #afdedf;
+      }
+      .step_item.done::after {
+        right: -50px;
+        border: 25px solid transparent;
+        border-left-color: #2fb3b7;
+      }
+      .step_item:hover::after {
+        border-left-color: #2fb3b7;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center">
+      <div class="step_container">
+        <ul class="m-flex flex-jc-center flex-wrap">
+          <li class="step_item done li_flex-center">
+            1. login
+          </li>
+          <li class="step_item done li_flex-center">2. logout</li>
+          <li class="step_item done li_flex-center">3. add favorites</li>
+          <!-- OK 2020年7月6日 溢出问题需要解决，换行或者tiptop -->
+          <!-- DES 为了美观考虑，高度宽度都是写死的，换行也只能换一次，超过两行就截断 -->
+          <li class="step_item li_flex-center">
+            4. follow follow follow follow ins
+          </li>
+          <li class="step_item li_flex-center">5. follow Facebook</li>
+        </ul>
+      </div>
+    </main>
+  </body>
+  <script>
+    const DOC = document
+    let lis = [...DOC.querySelectorAll('.step_item')],
+      phoneActions = ['mouseenter', 'mouseleave']
+    lis.forEach((i) => {
+      phoneActions.forEach((j) => {
+        i.addEventListener(j, () => {
+          i.classList.toggle('m-click')
+        })
+      })
+      // i.addEventListener('mouseenter', () => {
+      //   i.classList.toggle('m-click')
+      // })
+      // i.addEventListener('mouseleave', () => {
+      //   i.classList.toggle('m-click')
+      // })
+    })
+  </script>
+</html>
