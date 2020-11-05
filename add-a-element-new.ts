@@ -18,6 +18,10 @@ class FileCheck {
   // 不需要添加的文件夹
   ignorePathList = ['css', 'imgs']
 
+  joinPath(path, name) {
+    return path + '/' + name
+  }
+
   handleDirectory(path) {
     // console.log('cur path:', path)
     let pathList = this.fs.readdirSync(path, (err, fd) => {
@@ -26,7 +30,7 @@ class FileCheck {
     })
     // console.log('cur pathList:', pathList)
     pathList.forEach((item) => {
-      let curPath = this.join(path, item),
+      let curPath = this.joinPath(path, item),
         stat = this.fs.statSync(curPath)
       if (stat.isDirectory()) {
         this.handleDirectory(curPath)
@@ -40,15 +44,16 @@ class FileCheck {
 
   input(pathList) {
     // 年份文件后紧跟 * 号，代表 2020/* 所有
-    this.path = pathList[0]
     if (pathList[1] === '*') {
+      this.path = pathList[0]
       this.handleDirectory(pathList[0])
       console.log(`${this.path} checkEnd FileList:`, this.localFilePathList)
       this.output()
       return
     }
     // 年份之后紧跟的是指定的文件夹，代表 2020/10M 只需要执行 10M 下的文件或文件夹
-    this.handleDirectory(this.join(...pathList))
+    let path = pathList.join('/')
+    this.handleDirectory(path)
     console.log(`${this.path} checkEnd FileList:`, this.localFilePathList)
     this.output()
   }
@@ -73,7 +78,7 @@ class FileCheck {
           // TODO 可将项目地址提取成环境变量
           let htmlInner = `<a href="./${item}" target="_blank">${item}</a><br/>`
           // DES markdown超链接的方式 [文件名](地址)
-          let mdInner = ` - [${item}](https://www.adba.club/CSS-Inspired-Factory/${item}) <br />`
+          let mdInner = ` * [${item}](https://www.adba.club/CSS-Inspired-Factory/${item}) <br/>`
 
           this.fs.appendFileSync('index.html', htmlInner, 'utf8', (fd) => {
             this.fs.close(fd)
