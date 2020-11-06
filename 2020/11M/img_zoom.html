@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ImageZoom</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      body {
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        background-color: #126993;
+
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      .main_container {
+        height: 100%;
+        min-height: 100vh;
+        color: white;
+        user-select: none;
+        position: relative;
+        padding: 0 20px;
+      }
+      .normal {
+        height: 300px;
+        width: 500px;
+      }
+      .layer {
+        height: 100px;
+        width: 100px;
+        opacity: 0.6;
+        overflow: hidden;
+        position: relative;
+        background-color: azure;
+      }
+      .big {
+        right: 0;
+        height: 300px;
+        width: 500px;
+        border: 1px solid whitesmoke;
+        position: relative;
+      }
+      .big,
+      .normal {
+        box-sizing: border-box;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-image: url('./../imgs/Nighthawks.jpg');
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-between flex-an-center">
+      <div class="normal">
+        <div class="layer"></div>
+      </div>
+      <div class="big"></div>
+    </main>
+  </body>
+  <script>
+    const DOC = document
+    let layer = DOC.querySelector('.layer'),
+      normal = DOC.querySelector('.normal'),
+      big = DOC.querySelector('.big')
+    normal.onmousemove = throttleOne(() => {
+      let e = event
+      // 求 layer 当前的中心点，不精确
+      // clientX/Y 是相对浏览器的定位
+      // offsetWidth 是自身大小
+      // offsetTop / offsetLeft 是相对父级的偏移量
+      let x = e.clientX - layer.offsetWidth / 2 - normal.offsetLeft,
+        y = e.clientY - layer.offsetHeight / 2 - normal.offsetTop
+
+      // 左上边界
+      if (x < 0) x = 0
+      if (y < 0) y = 0
+
+      // 右下边界
+      if (x > normal.offsetWidth - layer.offsetWidth) x = normal.offsetWidth - layer.offsetWidth
+      if (y > normal.offsetHeight - layer.offsetHeight) y = normal.offsetHeight - layer.offsetHeight
+
+      layer.style.left = x + 'px' //放大镜跟着光标移动
+      layer.style.top = y + 'px'
+
+      big.style = `background-position:${-5.8 * x}px ${-5.8 * y}px;background-size:600%;`
+    }, 100)
+
+    function throttleOne(fn, delay) {
+      let prev = 0
+      return function () {
+        let now = Number(new Date()),
+          space = now - prev
+        if (space > delay) {
+          fn.call(this, arguments)
+          prev = now
+        }
+      }
+    }
+  </script>
+</html>
