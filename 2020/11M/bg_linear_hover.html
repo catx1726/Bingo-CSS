@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BackgroundLinearHover</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      body {
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        background-color: #126993;
+
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      .main_container {
+        height: 100%;
+        min-height: 100vh;
+        color: white;
+        user-select: none;
+        position: relative;
+        padding: 0 20px;
+      }
+      .box {
+        height: 400px;
+        width: 200px;
+        border-radius: 5px;
+        background-size: 100% 150%;
+        background-position: 0% 0%;
+        background-image: linear-gradient(to top, #acd5d6, #ecf1f1, #ffffff, #c0ccc9);
+      }
+      .box:hover {
+        background-position: 0% 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center">
+      <div class="box m_box-shadow-obt-s"></div>
+    </main>
+  </body>
+</html>
