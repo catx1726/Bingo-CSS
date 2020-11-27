@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PhotoSlideCourse</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      body {
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        background-color: #126993;
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      .main_container {
+        position: relative;
+        color: white;
+        font-size: 2rem;
+        user-select: none;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .img-nav {
+        width: 20%;
+
+        overflow-y: scroll;
+        overflow-x: hidden;
+      }
+      .mimg {
+        width: 10vw;
+        margin-bottom: 5vh;
+        display: flex;
+      }
+      .img-nav .mimg,
+      .bigimg {
+        filter: brightness(70%);
+      }
+
+      .mimg:hover,
+      .bigimg:hover {
+        filter: brightness(100%);
+      }
+
+      .img-box {
+        width: 70%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+      }
+      .bigimg {
+        height: 90vh;
+        object-fit: contain;
+        margin-bottom: 10px;
+        scroll-snap-align: start;
+      }
+
+      .img-nav,
+      .img-box {
+        height: 90vh;
+        margin: 5vh 0;
+        scrollbar-width: thin;
+      }
+      .img-nav::-webkit-scrollbar,
+      .img-box::-webkit-scrollbar {
+        width: 8px;
+        display: block;
+        background-color: white;
+      }
+      .img-nav::-webkit-scrollbar-thumb,
+      .img-box::-webkit-scrollbar-thumb {
+        background-color: #cdcdcd;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-start flex-an-start">
+      <nav class="img-nav m-flex flex-dir-col flex-an-center">
+        <a href="#img-1">
+          <img
+            src="https://images.pexels.com/photos/4067768/pexels-photo-4067768.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            alt="1"
+            class="mimg"
+          />
+        </a>
+        <a href="#img-2">
+          <img
+            src="https://images.pexels.com/photos/4045589/pexels-photo-4045589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            alt="2"
+            class="mimg"
+          />
+        </a>
+        <a href="#img-3">
+          <img
+            src="https://images.pexels.com/photos/2896889/pexels-photo-2896889.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            alt="3"
+            class="mimg"
+          />
+        </a>
+        <a href="#img-4">
+          <img
+            src="https://images.pexels.com/photos/3817912/pexels-photo-3817912.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            alt="4"
+            class="mimg"
+          />
+        </a>
+        <a href="#img-5">
+          <img
+            src="https://images.pexels.com/photos/1446948/pexels-photo-1446948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            alt="5"
+            class="mimg"
+          />
+        </a>
+        <a href="#img-6">
+          <img
+            src="https://images.pexels.com/photos/96034/pexels-photo-96034.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            alt="6"
+            class="mimg"
+          />
+        </a>
+        <a href="#img-7">
+          <img
+            src="https://images.pexels.com/photos/5458386/pexels-photo-5458386.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            alt="7"
+            class="mimg"
+          />
+        </a>
+      </nav>
+      <div class="img-box m-flex flex-dir-col">
+        <img
+          src="https://images.pexels.com/photos/4067768/pexels-photo-4067768.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="1"
+          class="bigimg"
+          id="img-1"
+        />
+        <img
+          src="https://images.pexels.com/photos/4045589/pexels-photo-4045589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="2"
+          class="bigimg"
+          id="img-2"
+        />
+        <img
+          src="https://images.pexels.com/photos/2896889/pexels-photo-2896889.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          alt="3"
+          class="bigimg"
+          id="img-3"
+        />
+        <img
+          src="https://images.pexels.com/photos/3817912/pexels-photo-3817912.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="4"
+          class="bigimg"
+          id="img-4"
+        />
+        <img
+          src="https://images.pexels.com/photos/1446948/pexels-photo-1446948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="5"
+          class="bigimg"
+          id="img-5"
+        />
+        <img
+          src="https://images.pexels.com/photos/96034/pexels-photo-96034.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="6"
+          class="bigimg"
+          id="img-6"
+        />
+        <img
+          src="https://images.pexels.com/photos/5458386/pexels-photo-5458386.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="7"
+          class="bigimg"
+          id="img-7"
+        />
+      </div>
+    </main>
+  </body>
+</html>
