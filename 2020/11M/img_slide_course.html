@@ -44,14 +44,17 @@
         width: 70%;
         overflow-y: scroll;
         overflow-x: hidden;
-        scroll-snap-type: x mandatory;
+        /* scroll-snap-type: x mandatory 中，x 表示捕捉 x 轴方向上的滚动，mandatory 表示强制将滚动结束后元素的停留位置设置到我们规定的地方。 */
+        /* 通常在 CSS 代码中我们都会使用这个，mandatory 的英文意思是强制性的，表示滚动结束后，滚动停止点一定会强制停在我们指定的地方 */
+        scroll-snap-type: y mandatory;
         scroll-behavior: smooth;
       }
       .bigimg {
         height: 90vh;
         object-fit: contain;
         margin-bottom: 10px;
-        scroll-snap-align: start;
+        /* 可以简单的控制将要聚焦的当前滚动子元素在滚动方向上相对于父容器的对齐方式。 */
+        scroll-snap-align: center;
       }
 
       .img-nav,

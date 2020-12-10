@@ -41,6 +41,9 @@
         grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
       }
       .img_box li {
+        /* 将图片容器变成 竖向 排列，更好的填充空白区域 */
+        display: flex;
+        flex-direction: column;
         position: relative;
       }
       .img_box li:nth-child(n + 1) {
@@ -49,7 +52,6 @@
       }
       .img_box li:nth-child(2n + 1) {
         grid-row: span 3;
-        grid-column: span 2;
       }
     </style>
   </head>
