@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smoothly!VW!Font</title>
+    <style>
+      :root {
+        --linear-bg: var(--bg-main);
+        --bg-main: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
+        --bg-else: linear-gradient(-225deg, #cbbacc 0%, #2580b3 100%);
+      }
+      body {
+        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色 */
+        margin: 0;
+        padding: 0;
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+        background-position: 0% 0%;
+        background-size: 200% 200%;
+        background-image: var(--linear-bg);
+        transition: all 0.3s ease;
+      }
+      .main_container {
+        height: 100vh;
+        color: white;
+        user-select: none;
+        position: relative;
+        transition: all 0.3s ease;
+        font-size: calc(0.5em + 1vw);
+      }
+      body:hover {
+        background-position: 30% -50%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- https://moderncss.dev/totally-custom-list-styles/ -->
+    <main class="main_container">Smoothly!VW!Font</main>
+  </body>
+</html>
