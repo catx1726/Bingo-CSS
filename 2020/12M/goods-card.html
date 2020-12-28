@@ -42,12 +42,22 @@
         width: 100px;
         height: 100px;
         margin: auto;
+        position: relative;
         font-size: 5rem;
         text-align: center;
         border-radius: 50%;
         line-height: 100px;
         color: var(--title-ft-color);
         background-color: var(--title-bg-color);
+      }
+      .card_title::before {
+        content: '\00D7';
+        width: 5px;
+        height: 5px;
+        right: 25px;
+        top: -35px;
+        opacity: 0;
+        position: absolute;
       }
       .card_content {
         opacity: 0;
@@ -70,6 +80,9 @@
         width: 100%;
         border-radius: 0;
       }
+      .card_box:hover .card_title::before {
+        opacity: 1;
+      }
       .card_box:hover .card_content {
         opacity: 1;
         color: var(--title-ft-color);
@@ -82,9 +95,17 @@
         z-index: 99;
         object-fit: contain;
       }
+
+      /* p ~ span {
+        color: red;
+      } */
+      /* p + span {
+        color: pink;
+      } */
     </style>
   </head>
   <body>
+    <!-- TODO 合理的交互逻辑是，用户 hover 了 title 部分，然后展开 content，而不是 content 一直占位，只是隐藏 -->
     <main class="main_container m-flex flex-jc-center flex-an-center flex-wrap">
       <div class="card_box">
         <!-- 多一个 fix 是为了修复抖动...，复现可以删除之后将鼠标放在 bottom 附近 -->
@@ -111,5 +132,13 @@
         </div>
       </div>
     </main>
+
+    <!-- <div>
+      <p>p1</p>
+      <span>span1</span>
+      <span>span2</span>
+      <p>p2</p>
+      <span>span3</span>
+    </div> -->
   </body>
 </html>
