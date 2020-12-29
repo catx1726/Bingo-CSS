@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS-Typewriter</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Lato, sans-serif;
+      background: #ECEFFC;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      font-size: 12px;
+    }
+
+    .text {
+      width: 100%;
+      font-size: 30px;
+      font-weight: 100;
+    }
+
+    .text::before {
+      content: " CAD ";
+      width: 0%;
+      display: block;
+      /* overflow:hidden这个参数很重要 */
+      overflow: hidden;
+      position: relative;
+      white-space: nowrap;
+      border-right: 2px solid black;
+      animation: typewriter 10s steps(10) 1s normal both infinite, blinkTextCursor 0.5s steps(40) infinite;
+    }
+
+
+    @keyframes typewriter {
+
+      0% {
+        content: "T y p e w r i t e r !";
+        width: 0%;
+      }
+
+      5%,
+      20% {
+        content: "T y p e w r i t e r !";
+        width: 100%;
+      }
+
+      25%,
+      35% {
+        content: "T y p e w r i t e r !，wow!";
+        width: 0%;
+      }
+
+      40%,
+      55% {
+        content: "T y p e w r i t e r ，wow!";
+        width: 100%;
+      }
+
+      60%,
+      70% {
+        content: "T y p e w r i t e r ，wow!";
+        width: 0%;
+      }
+
+
+      75% {
+        content: "C S S !";
+        width: 0%;
+      }
+
+      80%,
+      95% {
+        content: "C S S !";
+        width: 100%;
+      }
+
+      96%,
+      100% {
+        width: 0%;
+      }
+    }
+
+    @keyframes blinkTextCursor {
+      from {
+        border-right-color: black;
+      }
+
+      to {
+        border-right-color: transparent;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="main_container">
+    <div class="text"></div>
+  </main>
+
+</body>
+
+</html>
