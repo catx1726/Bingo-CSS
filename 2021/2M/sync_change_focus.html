@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SyncInputChangeFocus</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      body {
+        background-color: var(--twenty-one-year-color);
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      .main_container {
+        color: white;
+        height: 100%;
+        min-height: 100vh;
+        font-size: 1.6rem;
+        padding: 0 20px;
+        user-select: none;
+        position: relative;
+        transition: all 0.5s ease;
+        --base-w-h: 60px;
+        --base-anim-duration: 2.5s;
+      }
+
+      .ver-code input {
+        height: 30px;
+        width: 100px;
+        padding: 2px 5px;
+        font-size: 2rem;
+        border: none;
+        text-align: center;
+        outline-style: none;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05), 0 3px 10px rgba(0, 0, 0, 0.05);
+      }
+      .ver-code input:focus {
+        box-shadow: 0 14px 28px rgba(121, 211, 255, 0.32), 0 10px 10px rgba(154, 213, 191, 0.37);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center">
+      <form class="mform ver-code">
+        <input type="text" name="input-one" class="minput" />
+        <input type="text" name="input-two" class="minput" />
+        <input type="text" name="input-three" class="minput" />
+      </form>
+    </main>
+    <script>
+      const DOC = document
+      let verCodeInputClass = '.minput'
+      let verCodeFormDOM = DOC.querySelector('.mform.ver-code')
+      let verCodeInputListDOM = DOC.querySelectorAll(`.mform.ver-code ${verCodeInputClass}`)
+
+      function onKeyUpIsStringOrNumber(e) {
+        return (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 96)
+      }
+
+      function handleInputFocusChange(e) {
+        let target = e.target || e.srcElement
+        let form = target.form
+
+        // console.log('handleInputFocusChange e:', e, form)
+        // console.log('onKeyUpIsStringOrNumber:', onKeyUpIsStringOrNumber(e))
+        if (!onKeyUpIsStringOrNumber(e)) return
+
+        for (let i = 0, len = form.elements.length - 1; i < len; i++) {
+          if (target === form.elements[len]) {
+            console.log('submit!')
+            return
+          }
+          if (form.elements[i] === target && form.elements[i + 1]) {
+            form.elements[i + 1].focus()
+          }
+        }
+      }
+
+      console.log('verCodeInputListDOM:', verCodeInputListDOM)
+
+      verCodeInputListDOM.forEach((item) => {
+        item.addEventListener('keyup', handleInputFocusChange)
+      })
+    </script>
+  </body>
+</html>
