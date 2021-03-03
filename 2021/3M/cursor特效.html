@@ -8,7 +8,7 @@
     <style>
       body {
         /* cursor: none; */
-        background-color: var(--twenty-one-year-color);
+        /* background-color: var(--twenty-one-year-color); */
         font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
       }
       body * {
@@ -19,7 +19,6 @@
         height: 100%;
         min-height: 100vh;
         font-size: 1.6rem;
-        padding: 0 20px;
         cursor: none;
         position: relative;
         --base-w-h: 100px;
@@ -34,6 +33,9 @@
         max-width: 100%;
         font-size: 10vh;
         font-weight: bold;
+        color: black;
+        background-color: white;
+        mix-blend-mode: screen;
       }
       .cursor {
         /* opacity: 0.8; */
@@ -46,10 +48,10 @@
         background-color: pink;
         margin: calc(var(--base-w-h) / -2) 0 0 calc(var(--base-w-h) / -2);
         transform-origin: center center;
-        mix-blend-mode: screen;
+        /* mix-blend-mode: screen; */
       }
       .shape {
-        opacity: 0.4;
+        /* opacity: 0.4; */
       }
       .shapes {
         min-height: 10vh;
@@ -62,25 +64,24 @@
         height: var(--base-w-h);
         width: var(--base-w-h);
         margin: calc(var(--base-w-h) * -1) 0 0 calc(var(--base-w-h) * -1);
-        /* opacity: 0.3; */
       }
       .shape-1 {
         height: 150%;
         width: 150%;
         z-index: 3;
-        background-color: #8b00ff;
+        background-color: #ffcc57;
       }
       .shape-2 {
         height: 200%;
         width: 200%;
         z-index: 2;
-        background-color: #0000ff;
+        background-color: #2128bd;
       }
       .shape-3 {
         height: 250%;
         width: 250%;
         z-index: 1;
-        background-color: #00ffff;
+        background-color: #005ffe;
       }
     </style>
   </head>
