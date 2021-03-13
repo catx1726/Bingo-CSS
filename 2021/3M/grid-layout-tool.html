@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GridLayout</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      body {
+        /* cursor: none; */
+        /* background-color: var(--twenty-one-year-color); */
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      body * {
+        transition: all 0.05s ease;
+        background-color: black;
+      }
+      .main-container {
+        color: white;
+        width: 100vw;
+        height: 100%;
+        min-height: 100vh;
+        font-size: 1.6rem;
+        position: relative;
+        transition: all 0.3s ease;
+        --base-w-h: 100px;
+        --base-anim-duration: 2.5s;
+      }
+      .item,
+      .item-two {
+        min-width: 300px;
+        max-width: 500px;
+        min-height: 250px;
+        max-height: 450px;
+        background-color: pink;
+      }
+      .item {
+        margin: 5px auto;
+        text-align: center;
+      }
+      .m-grid {
+        display: grid;
+        transition: all 0.3s ease;
+      }
+      .grid-repeat-third {
+        grid-template-columns: repeat(auto-fill, 33vw);
+      }
+      .grid-repeat-four {
+        grid-template-columns: repeat(auto-fill, 25%);
+      }
+      .grid-repeat-five {
+        /* FIXME为什么指定 vw 或者 % grid 就不换行了... */
+        grid-template-columns: repeat(auto-fill, 300px);
+      }
+      .grid-repeat-auto-fill {
+        grid-template-columns: repeat(auto-fill, 500px);
+      }
+      .grid-gap-xs {
+        grid-row-gap: 5px;
+        grid-column-gap: 5px;
+      }
+      .grid-gap-x {
+        grid-row-gap: 10px;
+        grid-column-gap: 10px;
+      }
+      .grid-gap-m {
+        grid-row-gap: 15px;
+        grid-column-gap: 15px;
+      }
+      .grid-gap-l {
+        grid-row-gap: 20px;
+        grid-column-gap: 20px;
+      }
+      .grid-flow-col {
+        grid-auto-flow: column;
+      }
+      .grid-content-jc-center {
+        justify-content: center;
+      }
+      .grid-content-jc-start {
+        justify-content: start;
+      }
+      .grid-content-jc-end {
+        justify-content: end;
+      }
+      .grid-content-an-center {
+        align-content: center;
+      }
+      .grid-content-an-start {
+        align-content: start;
+      }
+      .grid-content-an-end {
+        align-content: end;
+      }
+      .grid-item-jc-center {
+        justify-items: center;
+      }
+      .grid-item-jc-start {
+        justify-items: start;
+      }
+      .grid-item-jc-end {
+        justify-items: end;
+      }
+      .grid-item-an-center {
+        align-items: center;
+      }
+      .grid-item-an-start {
+        align-items: start;
+      }
+      .grid-item-an-end {
+        align-items: end;
+      }
+      .grid-bg {
+        background-color: antiquewhite;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container m-flex flex-jc-start flex-an-center flex-wrap">
+      <div class="item">CAD</div>
+      <div class="item">CAD</div>
+      <div class="item">CAD</div>
+      <div class="item">CAD</div>
+      <div class="item">CAD</div>
+      <div class="item">CAD</div>
+      <div class="item">CAD</div>
+      <div class="item">CAD</div>
+      <div class="item">CAD</div>
+      <div class="item">CAD</div>
+    </main>
+    <main
+      class="main-container grid-bg m-grid grid-gap-xs grid-repeat-five grid-content-jc-center grid-content-an-center grid-item-jc-center"
+    >
+      <div class="item-two">CAD1</div>
+      <div class="item-two">CAD2</div>
+      <div class="item-two">CAD3</div>
+      <div class="item-two">CAD4</div>
+      <div class="item-two">CAD5</div>
+      <div class="item-two">CAD6</div>
+      <div class="item-two">CAD7</div>
+      <div class="item-two">CAD8</div>
+      <div class="item-two">CAD9</div>
+      <div class="item-two">CAD10</div>
+    </main>
+  </body>
+</html>
