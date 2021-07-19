@@ -1,160 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Preloader</title>
-    <link rel="stylesheet" href="../css/main.css" />
-    <style>
-      body {
-        /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色，2020年11月12日 */
-        background-color: #126993;
 
-        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preloader</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    body {
+      /* DES 就算超出 main 也不会很突兀 ，因为 Body 有底色，2020年11月12日 */
+      background-color: #126993;
 
-      .main_container {
-        height: 100%;
-        min-height: 100vh;
-        color: white;
-        user-select: none;
-        position: relative;
-        padding: 0 20px;
-        transition: all 1.5s 1s ease;
-        font-size: 2rem;
-      }
-
-      .preloader {
-        z-index: 10;
-        height: 100vh;
-        width: 100vw;
-        position: fixed;
-        visibility: hidden;
-        transition: all 1s ease;
-        background-color: white;
-        background-repeat: no-repeat;
-        background-position: center;
-      }
-      .square {
-        width: 50px;
-        height: 50px;
-        box-sizing: border-box;
-        transform-origin: center;
-        border: 5px solid black;
-        animation: rotate 4s ease 1s infinite;
-      }
-      .square,
-      .square::after {
-        left: 50%;
-        top: 50%;
-        position: absolute;
-        transform: translate(-50%, -50%);
-      }
-      .square::after {
-        content: '';
-        height: 43px;
-        width: 43px;
-        transform: scaleY(0);
-        transform-origin: bottom center;
-        background-color: black;
-        animation: fill 1s ease infinite;
-      }
-
-      @keyframes fill {
-        0% {
-          transform: translate(-50%, -50%) scaleY(0);
-        }
-        40%,
-        100% {
-          transform: translate(-50%, -50%) scaleY(1);
-        }
-      }
-
-      @keyframes rotate {
-        0% {
-          transform: translate(-50%, -50%) rotate(0deg);
-        }
-        25% {
-          transform: translate(-50%, -50%) rotate(90deg);
-        }
-        50% {
-          transform: translate(-50%, -50%) rotate(180deg);
-        }
-        75% {
-          transform: translate(-50%, -50%) rotate(270deg);
-        }
-        100% {
-          transform: translate(-50%, -50%) rotate(360deg);
-        }
-      }
-
-      .left-hide {
-        visibility: hidden;
-        transform: translateX(-100vw);
-      }
-
-      .left-in {
-        opacity: 1;
-        visibility: visible;
-        transform-origin: bottom;
-        transform: translateX(0);
-      }
-
-      .show {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .hide {
-        opacity: 0;
-        transform: scale(0);
-        visibility: hidden;
-      }
-
-      .loading-gif {
-        left: 50%;
-        top: 50%;
-        user-select: none;
-        position: absolute;
-        transform: translate(-50%, -50%);
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="preloader left-hide">
-      <span class="square"></span>
-    </div>
-    <main class="main_container hide">
-      Main
-      <img src="../../imgs/20201221125110.gif" alt="loading-gif" class="loading-gif" />
-    </main>
-  </body>
-  <script>
-    const DOC = document
-    const WINDOW = window
-    let DOMLOADED = false
-
-    DOC.addEventListener('DOMContentLoaded', handleLoaded)
-
-    WINDOW.onload = function () {
-      console.log('window onload need sleep!')
-      setTimeout(() => {
-        console.log('window onload ok!')
-        return handlePreloader()
-      }, 1000)
+      font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
     }
 
-    function handleLoaded() {
-      console.log('handlePreloader!')
-      handlePreloader()
+    .main_container {
+      height: 100%;
+      min-height: 100vh;
+      color: white;
+      user-select: none;
+      position: relative;
+      padding: 0 20px;
+      transition: all 1.5s 1s ease;
+      font-size: 2rem;
     }
 
-    function handlePreloader() {
-      let loadedDOM = DOC.querySelector('.preloader'),
-        mainDOM = DOC.querySelector('.main_container')
-      loadedDOM.classList.toggle('left-in')
-      mainDOM.classList.remove('hide')
+    .preloader {
+      z-index: 10;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      visibility: hidden;
+      transition: all 1s ease;
+      background-color: white;
+      background-repeat: no-repeat;
+      background-position: center;
     }
-  </script>
+
+    .square {
+      width: 50px;
+      height: 50px;
+      box-sizing: border-box;
+      transform-origin: center;
+      border: 5px solid black;
+      animation: rotate 4s ease 1s infinite;
+    }
+
+    .square,
+    .square::after {
+      left: 50%;
+      top: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+
+    .square::after {
+      content: '';
+      height: 43px;
+      width: 43px;
+      transform: scaleY(0);
+      transform-origin: bottom center;
+      background-color: black;
+      animation: fill 1s ease infinite;
+    }
+
+    @keyframes fill {
+      0% {
+        transform: translate(-50%, -50%) scaleY(0);
+      }
+
+      40%,
+      100% {
+        transform: translate(-50%, -50%) scaleY(1);
+      }
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      25% {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+
+      50% {
+        transform: translate(-50%, -50%) rotate(180deg);
+      }
+
+      75% {
+        transform: translate(-50%, -50%) rotate(270deg);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .left-hide {
+      visibility: hidden;
+      transform: translateX(-100vw);
+    }
+
+    .left-in {
+      opacity: 1;
+      visibility: visible;
+      transform-origin: bottom;
+      transform: translateX(0);
+    }
+
+    .show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .hide {
+      opacity: 0;
+      transform: scale(0);
+      visibility: hidden;
+    }
+
+    .loading-gif {
+      left: 50%;
+      top: 50%;
+      user-select: none;
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="preloader left-hide">
+    <span class="square"></span>
+  </div>
+  <main class="main_container hide">
+    Main
+    <img src="../../imgs/20201221125110.gif" alt="loading-gif" class="loading-gif" />
+  </main>
+</body>
+<script>
+  const DOC = document
+  const WINDOW = window
+  let DOMLOADED = false
+
+  DOC.addEventListener('DOMContentLoaded', handleLoaded)
+
+  WINDOW.onload = function () {
+    console.log('window onload need sleep!')
+    setTimeout(() => {
+      console.log('window onload ok!')
+      return handlePreloader()
+    }, 1000)
+  }
+
+  function handleLoaded() {
+    console.log('handlePreloader!')
+    handlePreloader()
+  }
+
+  function handlePreloader() {
+    let loadedDOM = DOC.querySelector('.preloader'),
+      mainDOM = DOC.querySelector('.main_container')
+    loadedDOM.classList.toggle('left-in')
+    mainDOM.classList.remove('hide')
+  }
+</script>
+
 </html>
