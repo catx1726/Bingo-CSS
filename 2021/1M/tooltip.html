@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToolTips</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      body {
+        background-color: var(--twenty-one-year-color);
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      .main_container {
+        color: white;
+        height: 100%;
+        min-height: 100vh;
+        font-size: 1.6rem;
+        padding: 0 20px;
+        user-select: none;
+        position: relative;
+        transition: all 0.5s ease;
+      }
+
+      /* li-start */
+      li {
+        margin: 5vh 0;
+        position: relative;
+        text-align: center;
+        list-style-type: none;
+      }
+      /* li-end */
+
+      /* tooltips-pos-start */
+      .tooltips.left::after,
+      .tooltips.left::before {
+        left: -130%;
+        transform: translateX(-65%);
+      }
+      .tooltips.right::after,
+      .tooltips.right::before {
+        right: -130%;
+        transform: translateX(65%);
+      }
+      .tooltips.top::after,
+      .tooltips.top::before {
+        top: -130%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .tooltips.bottom::after,
+      .tooltips.bottom::before {
+        bottom: -130%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      /* tooltips-pos-start */
+
+      /* tooltips-direction-start */
+      .tooltips::after {
+        opacity: 0;
+        z-index: 10;
+        border-width: 10px;
+        border-style: solid;
+      }
+      .tooltips.top::after {
+        top: -20%;
+        border-color: rgba(255, 255, 255, 1) transparent transparent transparent;
+      }
+      .tooltips.right::after {
+        right: 11%;
+        padding: 0.5px 0;
+        border-color: transparent rgba(255, 255, 255, 1) transparent transparent;
+      }
+      .tooltips.bottom::after {
+        bottom: -20%;
+        border-color: transparent transparent rgba(255, 255, 255, 1) transparent;
+      }
+      .tooltips.left::after {
+        left: 11%;
+        padding: 0.5px 0;
+        border-color: transparent transparent transparent rgba(255, 255, 255, 1);
+      }
+      /* tooltips-direction-start */
+
+      /* tooltips-common-start */
+      .tooltips::before,
+      .tooltips::after {
+        content: '';
+        opacity: 0;
+        text-align: center;
+        color: black;
+        position: absolute;
+        transition: all 0.3s ease;
+      }
+      /* tooltips-common-end */
+
+      /* tooltips-content-start */
+      .tooltips::before {
+        min-width: 160px;
+        max-width: 300px;
+        padding: 1px 10px;
+        overflow: hidden;
+        border-radius: 3px;
+        white-space: nowrap;
+        display: inline-block;
+        text-overflow: ellipsis;
+        background-color: white;
+        content: attr(data-tooltip-info);
+      }
+      /* tooltips-content-end */
+      .tooltips:hover::before,
+      .tooltips:hover::after {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center">
+      <div class="list_container">
+        <ul>
+          <li class="tooltips top" data-tooltip-info="top top top">top</li>
+          <li class="tooltips right" data-tooltip-info="right right right ">right</li>
+          <li class="tooltips bottom" data-tooltip-info="bottom bottom bottom">bottom</li>
+          <li class="tooltips left" data-tooltip-info="left left left">left</li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>

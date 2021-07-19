@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SlideTag</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      body {
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      body * {
+        transition: all 0.05s ease;
+      }
+      .main_container {
+        --tag-width: 100px;
+        --tag-bg: pink;
+        --tag-bg-idx: 0;
+        min-height: 100vh;
+        min-width: 100vw;
+        font-size: clamp(18px, 5vw, 30px);
+      }
+      .tag_box {
+        list-style: none;
+        display: inherit;
+        position: relative;
+      }
+      .tag_item,
+      .tag-bg {
+        height: 100%;
+        text-align: center;
+        width: var(--tag-width);
+      }
+      .tag-bg {
+        z-index: -1;
+        opacity: 0.6;
+        border-radius: 5px;
+        position: absolute;
+        transition: all 0.3s ease;
+        background-color: var(--tag-bg);
+      }
+      .tag-bg::after {
+        height: 100%;
+        width: 100%;
+        color: white;
+        display: block;
+        position: relative;
+      }
+      /* 这样写不够灵活-=- */
+      .tag_item[data-num='1']:hover ~ .tag-bg {
+        transform: translateX(100%);
+      }
+      .tag_item[data-num='2']:hover ~ .tag-bg {
+        transform: translateX(200%);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center">
+      <ul class="tag_box">
+        <li class="tag_item" data-num="0">Lorem</li>
+        <li class="tag_item" data-num="1">Flex</li>
+        <li class="tag_item" data-num="2">Wow</li>
+        <span class="tag-bg"></span>
+      </ul>
+    </main>
+  </body>
+</html>

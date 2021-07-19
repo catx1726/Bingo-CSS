@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CursorEffect</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      body {
+        /* cursor: none; */
+        /* background-color: var(--twenty-one-year-color); */
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      body * {
+        transition: all 0.05s ease;
+      }
+      .main-container {
+        color: white;
+        height: 100%;
+        min-height: 100vh;
+        font-size: 1.6rem;
+        cursor: none;
+        position: relative;
+        --base-w-h: 100px;
+        --base-anim-duration: 2.5s;
+      }
+      .content {
+        z-index: 100;
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        font-size: 10vh;
+        font-weight: bold;
+        color: black;
+        background-color: white;
+        mix-blend-mode: screen;
+      }
+      .cursor {
+        /* opacity: 0.8; */
+        z-index: 4;
+        pointer-events: none;
+        min-height: 10vh;
+        min-width: 10vh;
+        position: absolute;
+        border-radius: 50%;
+        background-color: pink;
+        margin: calc(var(--base-w-h) / -2) 0 0 calc(var(--base-w-h) / -2);
+        transform-origin: center center;
+        /* mix-blend-mode: screen; */
+      }
+      .shape {
+        /* opacity: 0.4; */
+      }
+      .shapes {
+        min-height: 10vh;
+        min-width: 10vh;
+        position: absolute;
+      }
+      .shape {
+        position: absolute;
+        border-radius: 50%;
+        height: var(--base-w-h);
+        width: var(--base-w-h);
+        margin: calc(var(--base-w-h) * -1) 0 0 calc(var(--base-w-h) * -1);
+      }
+      .shape-1 {
+        height: 150%;
+        width: 150%;
+        z-index: 3;
+        background-color: #ffcc57;
+      }
+      .shape-2 {
+        height: 200%;
+        width: 200%;
+        z-index: 2;
+        background-color: #2128bd;
+      }
+      .shape-3 {
+        height: 250%;
+        width: 250%;
+        z-index: 1;
+        background-color: #005ffe;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- B-E_M -->
+    <main class="main-container">
+      <div class="cursor"></div>
+      <div class="shapes m-flex flex-jc-center flex-an-center">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+      </div>
+      <div class="content m-flex flex-jc-center flex-an-center">
+        <div>Hello,CoAoD</div>
+      </div>
+    </main>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
+  <script>
+    const DOC = document
+    DOC.addEventListener('mousemove', (e) => {
+      const mouseY = e.clientY
+      const mouseX = e.clientX
+      gsap.set('.cursor', {
+        x: mouseX,
+        y: mouseY
+      })
+
+      gsap.to('.shape', {
+        x: mouseX,
+        y: mouseY,
+        stagger: -0.1
+      })
+    })
+  </script>
+</html>

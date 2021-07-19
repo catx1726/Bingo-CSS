@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UserAvatarBox</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      body {
+        /* cursor: none; */
+        /* background-color: var(--twenty-one-year-color); */
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      body * {
+        transition: all 0.05s ease;
+        background-color: white;
+      }
+      .main-container {
+        color: white;
+        width: 100vw;
+        height: 100%;
+        max-width: 100%;
+        min-height: 100vh;
+        font-size: 2rem;
+        position: relative;
+        transition: all 0.3s ease;
+        --base-w-h: 100px;
+        --base-anim-duration: 2.5s;
+      }
+      .avatar-box {
+        width: 30vw;
+        height: 30vw;
+        box-sizing: content-box;
+        border: 1px solid aquamarine;
+        background-image: url(../../css/imgs/avatar_box.png);
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+      .avatar{
+        top: 50%;
+        left: 50%;
+        width: 50%;
+        height: 50%;
+        border-radius: 50%;
+        transform:translate(50%,75%);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container m-flex flex-jc-center flex-an-center">
+      <div class="avatar-box">
+        <img class="avatar" src="https://cn.bing.com/th?id=OHR.MtEtna_ZH-CN9127683040_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp"></img>
+      </div>
+    </main>
+  </body>
+</html>

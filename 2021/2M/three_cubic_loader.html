@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CubicLoader</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      body {
+        background-color: var(--twenty-one-year-color);
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      .main_container {
+        color: white;
+        height: 100%;
+        min-height: 100vh;
+        font-size: 1.6rem;
+        padding: 0 20px;
+        user-select: none;
+        position: relative;
+        transition: all 0.5s ease;
+        --base-w-h: 60px;
+        --base-anim-duration: 2.5s;
+      }
+      .loader {
+        height: var(--base-w-h);
+        width: var(--base-w-h);
+        position: relative;
+      }
+      .loader .outcubic {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+      .loader::before,
+      .loader::after,
+      .loader .outcubic {
+        content: '';
+        border: thick double white;
+        transition: all 0.3s linear;
+      }
+      .loader::before,
+      .loader::after {
+        position: absolute;
+      }
+      .loader::after {
+        height: calc(var(--base-w-h) / 1.9);
+        width: calc(var(--base-w-h) / 1.9);
+        animation: mRotateOne var(--base-anim-duration) linear infinite reverse;
+      }
+      .loader::before {
+        height: calc(var(--base-w-h) / 5);
+        width: calc(var(--base-w-h) / 5);
+      }
+      .loader::before,
+      .loader .outcubic {
+        animation: mRotateOne calc(var(--base-anim-duration) / 1.2) linear infinite;
+      }
+
+      @keyframes mRotateOne {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex flex-jc-center flex-an-center">
+      <div class="loader m-flex flex-jc-center flex-an-center">
+        <span class="outcubic"></span>
+      </div>
+    </main>
+  </body>
+</html>
