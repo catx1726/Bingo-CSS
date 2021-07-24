@@ -25,6 +25,9 @@
         display: inherit;
         position: relative;
       }
+      .tag_item {
+        z-index: 2;
+      }
       .tag_item,
       .tag-bg {
         height: 100%;
@@ -32,7 +35,7 @@
         width: var(--tag-width);
       }
       .tag-bg {
-        z-index: -1;
+        z-index: 1;
         opacity: 0.6;
         border-radius: 5px;
         position: absolute;

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SlideSide</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      body {
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      body * {
+        transition: all 0.05s ease;
+      }
+      .main_container {
+        width: 100vw;
+        height: 100vh;
+        max-width: 100%;
+      }
+      .main_container > * {
+        transition: all 0.3s ease;
+      }
+      .side_box {
+        height: 100vh;
+        z-index: 100;
+        font-size: 2rem;
+        max-height: 100%;
+        position: relative;
+        overflow-y: auto;
+        width: calc(100vw - var(--content-wd));
+      }
+      .side_box span {
+        margin: 0 10px;
+      }
+      .slide-trigger {
+        top: 50%;
+        right: 10px;
+        font-size: 30px;
+        cursor: pointer;
+        user-select: none;
+        position: absolute;
+        transform: translateY(-50%);
+      }
+      .content_box {
+        height: 100vh;
+        position: relative;
+        width: calc(100vw - var(--side-wd));
+      }
+      .pos-absolute {
+        position: absolute;
+      }
+      .fill-screen {
+        width: 100vw;
+      }
+      .trigger-rotate-180 {
+        transform: translateY(-50%) rotateY(180deg) !important;
+      }
+      .trigger-rotate-0 {
+        transform: translateY(-50%) !important;
+      }
+      .cus-top-z-index {
+        z-index: 100;
+      }
+      .cus-bottom-z-index {
+        z-index: 1;
+      }
+      @media screen and (min-width: 300px) {
+        .main_container {
+          --side-wd: 0vw;
+          --content-wd: 100vw;
+        }
+        .side_box {
+          width: calc(100vw - var(--content-wd));
+        }
+        .slide-trigger {
+          transform: translateY(-50%) rotateY(180deg);
+        }
+      }
+      @media screen and (min-width: 600px) {
+        .main_container {
+          --side-wd: 20vw;
+          --content-wd: 80vw;
+        }
+        .side_box {
+          width: calc(100vw - var(--content-wd));
+        }
+        .slide-trigger {
+          transform: translateY(-50%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main_container m-flex">
+      <div class="content_box m-flex flex-jc-center">
+        <span class="slide-trigger">></span>
+      </div>
+      <div class="side_box m-flex flex-jc-center flex-an-center m_box-shadow-obt-s">
+        <span>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum esse ducimus iusto minus facilis. Sapiente, illum animi doloremque sint in laudantium eos, soluta, vero
+          facilis cum dicta consectetur cumque pariatur?
+        </span>
+      </div>
+    </main>
+  </body>
+  <script>
+    const DOC = document,
+      mainContainer = DOC.querySelector('.main_container'),
+      slideTrigger = DOC.querySelector('.slide-trigger'),
+      sideBox = DOC.querySelector('.side_box')
+
+    slideTrigger.addEventListener('click', () => handleSlide())
+    function handleSlide() {
+      let cssVarContentWidth = mainContainer.style.getPropertyValue('--content-wd').trim().split('v')[0],
+        cssVarSideWidth = mainContainer.style.getPropertyValue('--side-wd').trim().split('v')[0],
+        clientWidth = DOC.documentElement.clientWidth, // 可见区域宽高
+        clientHeight = DOC.documentElement.clientHeight // 可见区域宽高
+
+      console.log('var:', cssVarContentWidth, cssVarSideWidth, clientHeight, clientWidth)
+
+      // is mobile
+      if (clientWidth < 600) {
+        cssVarContentWidth = +cssVarContentWidth === 10 ? 100 + 'vw' : 10 + 'vw'
+        cssVarSideWidth = +cssVarSideWidth === 90 ? 0 + 'vw' : 90 + 'vw'
+        slideTrigger.classList.toggle('trigger-rotate-0')
+      }
+      // is pc
+      if (clientWidth >= 600) {
+        cssVarContentWidth = +cssVarContentWidth === 100 ? '80vw' : '100vw'
+        cssVarSideWidth = +cssVarSideWidth === 80 ? '20vw' : '0vw'
+        slideTrigger.classList.toggle('trigger-rotate-180')
+      }
+      mainContainer.style.setProperty('--content-wd', cssVarContentWidth)
+      mainContainer.style.setProperty('--side-wd', cssVarSideWidth)
+    }
+  </script>
+</html>
