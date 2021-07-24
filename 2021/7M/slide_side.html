@@ -113,7 +113,7 @@
       slideTrigger = DOC.querySelector('.slide-trigger'),
       sideBox = DOC.querySelector('.side_box')
 
-    slideTrigger.addEventListener('click', () => handleSlide())
+    slideTrigger.addEventListener('click', handleSlide)
     function handleSlide() {
       let cssVarContentWidth = mainContainer.style.getPropertyValue('--content-wd').trim().split('v')[0],
         cssVarSideWidth = mainContainer.style.getPropertyValue('--side-wd').trim().split('v')[0],
@@ -126,12 +126,14 @@
       if (clientWidth < 600) {
         cssVarContentWidth = +cssVarContentWidth === 10 ? 100 + 'vw' : 10 + 'vw'
         cssVarSideWidth = +cssVarSideWidth === 90 ? 0 + 'vw' : 90 + 'vw'
+        slideTrigger.classList.remove('trigger-rotate-180')
         slideTrigger.classList.toggle('trigger-rotate-0')
       }
       // is pc
       if (clientWidth >= 600) {
         cssVarContentWidth = +cssVarContentWidth === 100 ? '80vw' : '100vw'
         cssVarSideWidth = +cssVarSideWidth === 80 ? '20vw' : '0vw'
+        slideTrigger.classList.remove('trigger-rotate-0')
         slideTrigger.classList.toggle('trigger-rotate-180')
       }
       mainContainer.style.setProperty('--content-wd', cssVarContentWidth)
