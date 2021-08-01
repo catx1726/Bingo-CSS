@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SideMovePage</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      body {
+        min-height: 100vh;
+        min-width: 100vw;
+        background-color: black;
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      body * {
+        transition: all 0.05s ease;
+      }
+      .main_container {
+        --btn-height: 20px;
+        --side-info-h: 50%;
+        --cen-see-distance: 20px;
+        --normal-delay: 0.3s;
+        top: 25vh;
+        left: 30vw;
+        height: 50vh;
+        width: 40vw;
+        max-width: 1200px;
+        position: relative;
+        overflow: hidden;
+        font-size: clamp(18px, 5vw, 30px);
+      }
+      .main_container * {
+        transition: all 1s ease;
+        user-select: none;
+      }
+      .img_box {
+        height: 100%;
+        text-align: center;
+      }
+      .img_box img {
+        max-width: 115%;
+      }
+      .info_side_box {
+        right: 0%;
+        padding: 10px;
+        font-size: 1.6rem;
+        color: white;
+        overflow: hidden;
+        position: absolute;
+        transition: all 1s ease;
+        background-color: black;
+        height: var(--side-info-h);
+        width: 0%;
+      }
+      .info_side_box .right {
+        opacity: 0;
+        text-align: end;
+        transform-origin: right;
+        transform: translateX(200%);
+      }
+      .info_side_box .right img {
+        max-height: 100%;
+      }
+      .info_side_box .left,
+      .info_side_box .right {
+        width: 50%;
+      }
+      .info_side_box .left {
+        height: calc(100% - (var(--btn-height) * 2));
+      }
+      .info_side_box .left .info {
+        opacity: 0;
+      }
+      .info_side_box .left .hint {
+        top: 50%;
+        left: 0;
+        opacity: 1;
+        position: absolute;
+        writing-mode: vertical-lr;
+        transform: translateY(-50%);
+        width: var(--cen-see-distance);
+        line-height: var(--cen-see-distance);
+      }
+      .info_side_box .btn {
+        padding: 5px;
+        opacity: 0;
+        cursor: pointer;
+        color: black;
+        position: absolute;
+        border-radius: 2px;
+        bottom: var(--btn-height);
+        height: var(--btn-height);
+        background-color: white;
+        transform: translateX(200%);
+      }
+      .info_side_box:hover {
+        width: 80%;
+      }
+      .info_side_box:hover .right,
+      .info_side_box:hover .btn {
+        opacity: 1;
+      }
+      .info_side_box:hover .left {
+        transition-delay: var(--normal-delay);
+      }
+      .info_side_box:hover .right {
+        transform: translateX(0);
+      }
+      .info_side_box:hover .left .info {
+        opacity: 1;
+      }
+      .info_side_box:hover .left .hint {
+        opacity: 0;
+      }
+      .info_side_box:hover .btn {
+        transform: translateX(0);
+        transition-delay: calc(var(--normal-delay) * 2);
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app" class="main_container m-flex flex-jc-center flex-an-center">
+      <div class="img_box m-flex flex-jc-center flex-an-center m_box-shadow-obt-xs">
+        <img :src="pageInfo.imgList[1].src" :alt="pageInfo.imgList[1].tag" />
+      </div>
+      <div class="info_side_box m-flex">
+        <div class="left">
+          <span class="info">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit quae recusandae eaque provident cum rem minima voluptate laborum, ducimus deserunt nobis. Inventore ea
+            possimus, deserunt voluptatem quibusdam soluta perspiciatis placeat!
+          </span>
+          <span class="hint">Hover</span>
+        </div>
+        <div class="right">
+          <img :src="pageInfo.imgList[1].src" :alt="pageInfo.imgList[1].tag" />
+        </div>
+        <div class="btn">
+          <span>Lorem</span>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  <script>
+    const DOC = document,
+      WINDOW = window
+
+    let slideSideMovePage = new Vue({
+      el: '#app',
+      data() {
+        return {
+          pageInfo: {
+            imgList: [
+              {
+                src: 'https://www.nbfox.com/wp-content/uploads/2020/03/26/Frank_Dicksee_-_Chivalry.jpg',
+                name: 'Chivalry', // 作品名
+                tags: ['骑士精神', '浪漫主义'], // 作品属性
+                author: '弗兰克·迪科塞尔 Frank Dicksee' // 作者
+              },
+              {
+                src: 'https://www.nbfox.com/wp-content/uploads/2020/03/11/20200311190149-5e69359d4d3e5.jpg',
+                name: 'The Starry Night',
+                tags: ['后印象派'],
+                author: '梵高 Vincent van Gogh'
+              }
+            ],
+            webScreenInfo: { centerX: '', imgBox: '', mainContainer: '', distance: '60' }
+          }
+        }
+      },
+      methods: {
+        handleMovePageEvent(event) {
+          // if (event.target.nodeName !== 'MAIN') return
+          let leftX = event.clientX - this.pageInfo.webScreenInfo.mainContainer.getBoundingClientRect().left,
+            distance = this.pageInfo.webScreenInfo.distance
+          console.log('handleMovePageEvent:', leftX)
+          if (leftX >= distance) {
+            this.pageInfo.webScreenInfo.imgBox.style.transform = `translateX(${distance}px)`
+            return
+          }
+          this.pageInfo.webScreenInfo.imgBox.style.transform = `translateX(0px)`
+        },
+        handleResetEvent(event) {
+          if (event.target.nodeName !== 'MAIN') return
+          this.pageInfo.webScreenInfo.imgBox.style.transform = `translateX(0px)`
+          console.log('handleResetEvent!')
+        },
+        handleSingleDOMEventListener(type, fn, lisDOM, eventDOM) {
+          lisDOM.addEventListener(type, this.debounce(fn, 100, this))
+        },
+        debounce(fn, delay, e) {
+          let timer = null
+          return function () {
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+              fn(...arguments)
+            }, delay)
+          }
+        },
+        throttle(fn, delay, e) {
+          let prev = 0
+          return function () {
+            let now = +new Date(),
+              space = now - prev
+            if (space < delay) return
+            fn(...arguments)
+            prev = now
+          }
+        }
+      },
+      mounted() {
+        this.pageInfo.webScreenInfo.centerX = WINDOW.innerWidth / 2
+        this.pageInfo.webScreenInfo.imgBox = DOC.querySelector('.img_box')
+        this.pageInfo.webScreenInfo.mainContainer = DOC.querySelector('.main_container')
+        this.handleSingleDOMEventListener('mousemove', this.handleMovePageEvent, this.pageInfo.webScreenInfo.mainContainer)
+        // this.handleSingleDOMEventListener('mouseout', this.handleResetEvent, this.pageInfo.webScreenInfo.mainContainer)
+      },
+      created() {}
+    })
+  </script>
+</html>
