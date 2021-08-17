@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChangeTheme</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      body {
+        --base-ft-weight: 500;
+        --base-bg-color: #dbdbdb;
+        --base-ft-color: black;
+      }
+      body[theme='dark'] {
+        --base-ft-weight: 300;
+        --base-bg-color: black;
+        --base-ft-color: #dbdbdb;
+      }
+      .main-container {
+        min-height: 100vh;
+        min-width: 100vw;
+        font-size: 2rem;
+        transition: all 0.3s ease;
+        color: var(--base-ft-color);
+        background: var(--base-bg-color);
+        font-weight: var(--base-ft-weight);
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .normal-btn {
+        padding: 5px;
+        right: 20px;
+        top: 20px;
+        position: fixed;
+      }
+      .article-container {
+        /* 
+          arg1_min arg2_choose arg3_max 
+          arg1 > arg2 => arg1 
+          arg1 < arg2 < arg3 => arg2 
+          arg2 > arg3 => arg3 
+        */
+        width: clamp(300px, 80%, 600px);
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          --base-ft-weight: 300;
+          --base-bg-color: black;
+          --base-ft-color: #dbdbdb;
+        }
+        body[theme='light'] {
+          --base-ft-weight: 500;
+          --base-bg-color: white;
+          --base-ft-color: black;
+        }
+        .changeTheme {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body theme="light">
+    <main class="main-container m-flex flex-jc-center flex-an-center">
+      <article class="article-container">
+        <h1>Lorem</h1>
+        <span>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam laborum aliquid nisi soluta quasi vel nesciunt facere dicta quaerat voluptatum nemo sint adipisci cum labore
+          architecto eligendi, iste ea quo.
+        </span>
+      </article>
+      <footer>
+        <button class="normal-btn changeTheme">Light</button>
+      </footer>
+    </main>
+  </body>
+  <script>
+    /* ref https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web/#toggling-themes */
+    const G_DOC = document
+    let changeThemeBtn = G_DOC.querySelector('.changeTheme'),
+      body = G_DOC.querySelector('body')
+
+    changeThemeBtn.addEventListener('click', (e) => {
+      let tag = body.attributes.theme.value === 'dark' ? 'light' : 'dark'
+      body.attributes.theme.value = tag
+      changeThemeBtn.innerText = tag.split('')[0].toUpperCase() + tag.slice(1)
+    })
+  </script>
+</html>
