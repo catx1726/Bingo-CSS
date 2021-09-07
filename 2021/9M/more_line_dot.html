@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MoreLineDot</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+      body {
+        --base-radius: 6px;
+        --base-ft-weight: 500;
+        --base-bg-color: #dbdbdb;
+        --base-ft-color: black;
+
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        background-color: var(--base-bg-color);
+        font-family: 'Cinzel', 'Courier New', Courier, monospace;
+      }
+      .main-container {
+        height: 100%;
+        width: 100%;
+      }
+      .main-container * {
+        transition: all 0.3s ease;
+      }
+      .box {
+        --base-line-height: 20px;
+        --base-show-lines: 3;
+        width: 50%;
+        font-size: 2rem;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        word-wrap: break-word;
+        padding-right: 20px;
+        line-height: var(--base-line-height);
+        max-height: calc(var(--base-line-height) * var(--base-show-lines));
+      }
+      .box::before {
+        content: '...';
+        right: 0;
+        bottom: 0;
+        flex-grow: 1;
+        width: 20px;
+        position: absolute;
+        height: var(--base-line-height);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container m-flex flex-jc-center flex-an-center">
+      <div class="box">
+        <span>ABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCCDEFABCDEFAB</span>
+      </div>
+    </main>
+  </body>
+</html>
