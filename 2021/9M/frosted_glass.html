@@ -55,6 +55,7 @@
       }
       .box:last-child {
         margin-left: 0;
+        margin-right: 0;
       }
       .box::before {
         content: '';
@@ -84,6 +85,14 @@
         opacity: 0.8;
         filter: blur(10px);
         background: inherit;
+      }
+      .box.five::before {
+        filter: brightness(0.9) blur(2px) opacity(0.5);
+        background: url('../../imgs/subtle_dots.png');
+      }
+      .box.six::before {
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(5px) brightness(0.9);
       }
       .box span {
         z-index: 10;
@@ -132,6 +141,20 @@
             <br />
             background: inherit;
           </h1>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut quaerat quam beatae vitae! Architecto ullam enim maxime accusantium obcaecati aliquam, odio harum
+          perferendis, ratione hic mollitia ea expedita? Maiores, quaerat?
+        </span>
+      </div>
+      <div class="box five m-flex m_box-shadow-obt-s">
+        <span>
+          <h1>background-image;</h1>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut quaerat quam beatae vitae! Architecto ullam enim maxime accusantium obcaecati aliquam, odio harum
+          perferendis, ratione hic mollitia ea expedita? Maiores, quaerat?
+        </span>
+      </div>
+      <div class="box six m-flex m_box-shadow-obt-s">
+        <span>
+          <h1>backdrop-filter</h1>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut quaerat quam beatae vitae! Architecto ullam enim maxime accusantium obcaecati aliquam, odio harum
           perferendis, ratione hic mollitia ea expedita? Maiores, quaerat?
         </span>
