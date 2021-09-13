@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>expandInput</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+      body {
+        --base-radius: 6px;
+        --base-ft-weight: 500;
+        --base-bg-color: #dbdbdb;
+        --base-ft-color: black;
+
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        background-color: var(--base-bg-color);
+        font-family: 'Cinzel', 'Courier New', Courier, monospace;
+
+        position: relative;
+        box-sizing: border-box;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-image: url(https://img.dpm.org.cn/Uploads/Picture/2021/08/31/s612df6cca9258.jpg);
+      }
+      .main-container {
+        height: 100%;
+        width: 100%;
+        font-size: 1.6rem;
+      }
+      .filed {
+        --move-w: 10px;
+        --icon-hw: 50px;
+        --filed-w: 200px;
+        --input-pd: 20px;
+
+        overflow: hidden;
+        position: relative;
+        width: var(--filed-w);
+      }
+      .filed * {
+        transition: all 0.6s ease;
+      }
+      .trigger-box {
+        text-align: center;
+        position: relative;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+      .trigger-box .m-input {
+        width: 0;
+        z-index: 10;
+        position: relative;
+        transform: scaleX(0);
+        transform-origin: left;
+        box-sizing: border-box;
+        left: calc(var(--icon-hw) * -1 / 2);
+      }
+      .trigger-box .m-icon {
+        z-index: 20;
+        position: relative;
+        user-select: none;
+        border-radius: 50%;
+        display: inline-block;
+
+        width: var(--icon-hw);
+        height: var(--icon-hw);
+        line-height: var(--icon-hw);
+        background-color: var(--base-bg-color);
+      }
+      .trigger-box .m-checkbox {
+        opacity: 0;
+        z-index: 30;
+        height: var(--icon-hw);
+        width: var(--icon-hw);
+        cursor: pointer;
+        position: absolute;
+      }
+      .trigger-box .m-checkbox:checked ~ .m-input {
+        width: 70%;
+        transform: scaleX(1);
+        padding-left: calc(var(--icon-hw) / 2);
+      }
+      @keyframes expand-input {
+        0% {
+          display: none;
+        }
+        5% {
+          display: inline;
+        }
+        100% {
+          width: 100%;
+          display: inline;
+          transform: scaleY(1);
+        }
+      }
+      /* 
+      .m-checkbox {
+        position: absolute;
+      } 
+      */
+    </style>
+  </head>
+  <body>
+    <main class="main-container m-flex flex-jc-center flex-an-center">
+      <div class="filed m-flex flex-an-center flex-jc-around">
+        <div class="trigger-box">
+          <input type="checkbox" class="m-checkbox" />
+          <span class="m-icon">ICON</span>
+          <input type="text" class="m-input" />
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

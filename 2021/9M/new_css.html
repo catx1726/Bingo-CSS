@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>:is / :where / :not / :empty</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+      body {
+        --base-radius: 6px;
+        --base-ft-weight: 500;
+        --base-bg-color: #dbdbdb;
+        --base-ft-color: black;
+
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        background-color: var(--base-bg-color);
+        font-family: 'Cinzel', 'Courier New', Courier, monospace;
+
+        position: relative;
+        box-sizing: border-box;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-image: url(https://img.dpm.org.cn/Uploads/Picture/2021/08/31/s612df6cca9258.jpg);
+      }
+      .main-container {
+        height: 100%;
+        width: 100%;
+        font-size: 1.6rem;
+      }
+      .list {
+        box-sizing: border-box;
+        list-style-type: decimal-leading-zero;
+      }
+      .list li {
+        margin: 50px;
+        display: block;
+      }
+      .main-container .test-empty :empty {
+        height: 10px;
+        width: 100px;
+        background-color: rgb(90, 250, 90);
+      }
+      .main-container .test-not :not(div) {
+        height: 10px;
+        width: 100px;
+        background-color: rgb(90, 250, 90);
+      }
+      /* 权重是 011 */
+      :is(.test-empty, .test-not) h2 {
+        color: pink;
+      }
+      /* 权重低于 is，下行样式的权重 === h2，也就是 001 */
+      :where(.test-empty, .test-not) h2 {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container m-flex flex-jc-center flex-an-center flex-dir-col">
+      <h1>New CSS</h1>
+      <ul class="list">
+        <li class="test-empty">
+          <h2>:empty</h2>
+          <div></div>
+          <div>
+            <!-- test -->
+          </div>
+          <div><span></span></div>
+        </li>
+        <li class="test-not">
+          <h2>:not</h2>
+          <div></div>
+          <span></span>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
