@@ -48,14 +48,15 @@
         transition: all 0.6s ease;
       }
       .trigger-box {
+        overflow: hidden;
         text-align: center;
         position: relative;
         box-sizing: border-box;
-        overflow: hidden;
       }
       .trigger-box .m-input {
         width: 0;
         z-index: 10;
+        border: none;
         position: relative;
         transform: scaleX(0);
         transform-origin: left;
@@ -111,9 +112,7 @@
     <main class="main-container m-flex flex-jc-center flex-an-center">
       <div class="filed m-flex flex-an-center flex-jc-around">
         <div class="trigger-box">
-          <input type="checkbox" class="m-checkbox" />
-          <span class="m-icon">ICON</span>
-          <input type="text" class="m-input" />
+          <input type="checkbox" class="m-checkbox" /><span class="m-icon">ICON</span><input class="m-input" />
         </div>
       </div>
     </main>
