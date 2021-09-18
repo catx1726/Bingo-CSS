@@ -3,6 +3,7 @@
 @import './flex_layout.css';
 @import './font.css';
 @import './color.css';
+@import url('./iconfont.css');
 * {
   margin: 0;
   padding: 0;
