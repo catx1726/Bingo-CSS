@@ -4,6 +4,7 @@
 @import './font.css';
 @import './color.css';
 @import url('./iconfont.css');
+@import url('./col.css');
 * {
   margin: 0;
   padding: 0;

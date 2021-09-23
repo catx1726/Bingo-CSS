@@ -1,0 +1,42 @@
+.col {
+  --one-col-w: calc(100% / 12); 
+
+  height: 100%;
+  display: inline-block;
+}
+.col-12 {
+  width: 100%;
+}
+.col-11 {
+  width: calc(var(--one-col-w) * 11);
+}
+.col-10 {
+  width: calc(var(--one-col-w) * 10);
+}
+.col-9 {
+  width: calc(var(--one-col-w) * 9);
+}
+.col-8 {
+  width: calc(var(--one-col-w) * 8);
+}
+.col-7 {
+  width: calc(var(--one-col-w) * 7);
+}
+.col-6 {
+  width: calc(var(--one-col-w) * 6);
+}
+.col-5 {
+  width: calc(var(--one-col-w) * 5);
+}
+.col-4 {
+  width: calc(var(--one-col-w) * 4);
+}
+.col-3 {
+  width: calc(var(--one-col-w) * 3);
+}
+.col-2 {
+  width: calc(var(--one-col-w) * 2);
+}
+.col-1 {
+  width: var(--one-col-w);
+}
