@@ -44,9 +44,6 @@
         position: relative;
         width: var(--filed-w);
       }
-      .revers {
-        transform: rotateY(180deg);
-      }
       .filed * {
         transition: all 0.6s ease;
       }
@@ -66,7 +63,6 @@
         box-sizing: border-box;
         left: calc(var(--icon-hw) * -1 / 2);
       }
-
       .trigger-box .m-icon {
         z-index: 20;
         position: relative;
@@ -74,11 +70,12 @@
         border-radius: 50%;
         display: inline-block;
 
+        flex-shrink: 0;
         width: var(--icon-hw);
         height: var(--icon-hw);
         line-height: var(--icon-hw);
         background-color: var(--base-bg-color);
-      }
+      }  
       .trigger-box .m-checkbox {
         opacity: 0;
         z-index: 30;
@@ -87,10 +84,31 @@
         cursor: pointer;
         position: absolute;
       }
+      .revers .trigger-box{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .revers .m-icon {
+        order: 2;
+        float: right;
+      }
+      .revers .m-input{
+        left: calc(var(--icon-hw) / 2);
+        transform-origin: right;
+      }
+      .revers .m-checkbox{
+        right: 0;
+      }
       .trigger-box .m-checkbox:checked ~ .m-input {
         width: 70%;
         transform: scaleX(1);
         padding-left: calc(var(--icon-hw) / 2);
+      }
+      .revers .trigger-box .m-checkbox:checked ~ .m-input {
+        width: 100%;
+        padding-left: 2px;
+        padding-right: calc(var(--icon-hw) / 2);
       }
       @keyframes expand-input {
         0% {
@@ -106,9 +124,7 @@
         }
       }
 
-      .revers .m-icon {
-        transform: rotateY(-180deg);
-      }
+      
       /* 
       .m-checkbox {
         position: absolute;
@@ -121,16 +137,14 @@
       <div class="filed m-flex flex-an-center flex-jc-around">
         <div class="trigger-box">
           <input type="checkbox" class="m-checkbox" />
-          <span class="m-icon">ICON</span>
-          <input class="m-input" />
+          <span class="m-icon">ICON</span><input class="m-input" />
         </div>
       </div>
 
       <div class="filed m-flex flex-an-center flex-jc-around revers">
         <div class="trigger-box">
           <input type="checkbox" class="m-checkbox" />
-          <span class="m-icon">ICON</span>
-          <input class="m-input" />
+          <span class="m-icon">ICON</span><input class="m-input" />
         </div>
       </div>
     </main>
