@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iframeEverThing</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      body {
+        font-family: consolas, source-han-serif-sc, serif, 'Nunito', 'Lato';
+      }
+      body * {
+        transition: all 0.05s ease;
+      }
+      .main-container {
+        width: 100vw;
+        height: 100vh;
+        max-width: 100%;
+        font-size: 2rem;
+        position: relative;
+      }
+      .main-container > * {
+        transition: all 0.6s ease;
+      }
+      .iframe-box {
+        top: 50%;
+        left: 50%;
+        width: 50%;
+        height: 50%;
+        position: fixed;
+        transform: translate(-100vw, 0) scale(0);
+      }
+      .translateX-show-center {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container m-flex flex-jc-center flex-an-center">
+      <div class="link-box">
+        <span>https://sspai.com/</span>
+      </div>
+    </main>
+
+    <div class="iframe-box"></div>
+  </body>
+  <script>
+    /* TODO 待完善
+     * 在做笔记的时候，我们有时候喜欢引入超链接，但有时候打开一个界面很麻烦
+     * 所以我们可以写一个插件，根据链接生成一个 iframe 在笔记内显示(类似块级引用)
+     */
+
+    const G_INFO = { DOC: document, WIN: window }
+
+    let linkBox = G_INFO.DOC.querySelector('.link-box'),
+      iframeBox = G_INFO.DOC.querySelector('.iframe-box')
+
+    linkBox.addEventListener('mouseenter', (e) => handleEnterIframeBox(e))
+    linkBox.addEventListener('mouseleave', (e) => handleMouseLeaveIframeBox(e))
+
+    function handleEnterIframeBox(eve) {
+      const boxLink = eve.target.innerText,
+        existIframeBox = checkIframeExits(eve, 'src', boxLink)
+      if (existIframeBox) return iframeBox.classList.add('translateX-show-center')
+
+      createIframe(boxLink)
+      console.log('handleIframeBox:', eve.target.innerText)
+    }
+
+    function handleMouseLeaveIframeBox(eve) {
+      let dom = eve.target
+      dom.classList.remove('translateX-show-center')
+    }
+
+    function createIframe(link) {
+      let iframeDOM = G_INFO.DOC.createElement('iframe')
+      iframeDOM.src = link
+      iframeDOM.style = 'height:100%;width:100%;border:none;'
+      iframeBox.appendChild(iframeDOM)
+      iframeBox.classList.add('translateX-show-center')
+      iframeBox.addEventListener('mouseleave', (e) => setTimeout(handleMouseLeaveIframeBox(e), 3000))
+    }
+
+    function checkIframeExits(e, attr, condition) {
+      const allIframe = [...G_INFO.DOC.querySelectorAll('iframe')]
+      return allIframe.find((item) => item[attr] === condition)
+    }
+  </script>
+</html>
