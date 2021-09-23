@@ -44,6 +44,9 @@
         position: relative;
         width: var(--filed-w);
       }
+      .revers {
+        transform: rotateY(180deg);
+      }
       .filed * {
         transition: all 0.6s ease;
       }
@@ -63,6 +66,7 @@
         box-sizing: border-box;
         left: calc(var(--icon-hw) * -1 / 2);
       }
+
       .trigger-box .m-icon {
         z-index: 20;
         position: relative;
@@ -101,6 +105,10 @@
           transform: scaleY(1);
         }
       }
+
+      .revers .m-icon {
+        transform: rotateY(-180deg);
+      }
       /* 
       .m-checkbox {
         position: absolute;
@@ -112,7 +120,17 @@
     <main class="main-container m-flex flex-jc-center flex-an-center">
       <div class="filed m-flex flex-an-center flex-jc-around">
         <div class="trigger-box">
-          <input type="checkbox" class="m-checkbox" /><span class="m-icon">ICON</span><input class="m-input" />
+          <input type="checkbox" class="m-checkbox" />
+          <span class="m-icon">ICON</span>
+          <input class="m-input" />
+        </div>
+      </div>
+
+      <div class="filed m-flex flex-an-center flex-jc-around revers">
+        <div class="trigger-box">
+          <input type="checkbox" class="m-checkbox" />
+          <span class="m-icon">ICON</span>
+          <input class="m-input" />
         </div>
       </div>
     </main>
