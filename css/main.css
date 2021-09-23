@@ -5,6 +5,7 @@
 @import './color.css';
 @import url('./iconfont.css');
 @import url('./col.css');
+@import url('./text_dot.css');
 * {
   margin: 0;
   padding: 0;

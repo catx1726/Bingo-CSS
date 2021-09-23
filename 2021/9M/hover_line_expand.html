@@ -39,9 +39,11 @@
         font-size: 1.6rem;
       }
       .list {
+        max-width: 80%;
         list-style: none;
       }
       .list * {
+        box-sizing: border-box;
         transition: all 0.3s ease;
       }
       .list .item {
@@ -70,19 +72,24 @@
         font-size: 3rem;
         margin: 1rem 0;
       }
-      .item .cover {
-        max-width: 100%;
-        object-fit: contain;
-      }
+    
       .item .content {
-        display: flex;
-        justify-content: space-between;
+        /* display: flex; */
+        /* justify-content: space-between; */
 
         height: 0;
         opacity: 0;
         overflow: hidden;
         transition: all 0.6s ease;
-        transition-delay: .3s;
+        transition-delay: 0.3s;
+      }
+      .item .content .desc {
+        float: left;
+        -webkit-line-clamp: 4;
+      }
+      .item .content .cover {
+        max-height: 100%;
+        padding-left: 10px;
       }
       .item:hover .content {
         height: 100px;
@@ -96,7 +103,7 @@
         <li class="item">
           <span class="title">About Us</span>
           <div class="content">
-            <span class="desc col col-8">
+            <span class="desc more-line-word-dot col col-8">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam hic deserunt soluta labore voluptatibus vitae ducimus consequatur, quos quidem harum obcaecati,
               unde, tempora ab non voluptas beatae natus ullam repellat!
             </span>
@@ -106,7 +113,7 @@
         <li class="item">
           <span class="title">Contact Us</span>
           <div class="content">
-            <span class="desc col col-8">
+            <span class="desc more-line-word-dot col col-8">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam hic deserunt soluta labore voluptatibus vitae ducimus consequatur, quos quidem harum obcaecati,
               unde, tempora ab non voluptas beatae natus ullam repellat!
             </span>
@@ -116,7 +123,7 @@
         <li class="item">
           <span class="title">Flow Us</span>
           <div class="content">
-            <span class="desc col col-8">
+            <span class="desc more-line-word-dot col col-8">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam hic deserunt soluta labore voluptatibus vitae ducimus consequatur, quos quidem harum obcaecati,
               unde, tempora ab non voluptas beatae natus ullam repellat!
             </span>
@@ -126,7 +133,7 @@
         <li class="item">
           <span class="title">Sponsor Us</span>
           <div class="content">
-            <span class="desc col col-8">
+            <span class="desc more-line-word-dot col col-8">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam hic deserunt soluta labore voluptatibus vitae ducimus consequatur, quos quidem harum obcaecati,
               unde, tempora ab non voluptas beatae natus ullam repellat!
             </span>

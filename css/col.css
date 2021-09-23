@@ -1,7 +1,6 @@
 .col {
   --one-col-w: calc(100% / 12); 
 
-  height: 100%;
   display: inline-block;
 }
 .col-12 {
