@@ -1,0 +1,121 @@
+{
+  "id": "2233638",
+  "name": "uniapp",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "23798965",
+      "name": "star target",
+      "font_class": "a-startarget",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "1207877",
+      "name": "search",
+      "font_class": "search1",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "11613937",
+      "name": "铃铛",
+      "font_class": "lingdang",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "10908037",
+      "name": "close",
+      "font_class": "close",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "109772",
+      "name": "phone",
+      "font_class": "phone2",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "6976478",
+      "name": "phone",
+      "font_class": "phone1",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "1061325",
+      "name": "phone",
+      "font_class": "phone",
+      "unicode": "e683",
+      "unicode_decimal": 59011
+    },
+    {
+      "icon_id": "1293181",
+      "name": "teamwork",
+      "font_class": "teamwork",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "12002055",
+      "name": "Building",
+      "font_class": "Building",
+      "unicode": "ea24",
+      "unicode_decimal": 59940
+    },
+    {
+      "icon_id": "13932717",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "569546",
+      "name": "personal",
+      "font_class": "caidaniconwodehui",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "499133",
+      "name": "check",
+      "font_class": "check",
+      "unicode": "e8f7",
+      "unicode_decimal": 59639
+    },
+    {
+      "icon_id": "7275321",
+      "name": "Alert circle",
+      "font_class": "Alertcircle",
+      "unicode": "e682",
+      "unicode_decimal": 59010
+    },
+    {
+      "icon_id": "2517921",
+      "name": "clean-o",
+      "font_class": "clean-o",
+      "unicode": "e7b4",
+      "unicode_decimal": 59316
+    },
+    {
+      "icon_id": "9758626",
+      "name": "down arrow",
+      "font_class": "downarrow",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "1667263",
+      "name": "user",
+      "font_class": "user",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    }
+  ]
+}

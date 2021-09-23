@@ -1,0 +1,32 @@
+/* ref mixin 和 extend 如何选择 https://www.sass.hk/skill/sass141.html */
+
+.bg-img-contain {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* text-overflow */
+.cn-wrap {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+/* single-line-省略号 */
+.word-dot {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* more-line-省略号 */
+.more-line-word-dot {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: -o-ellipsis-lastline;
+}
+
