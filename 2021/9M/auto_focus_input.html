@@ -90,15 +90,12 @@
     }
 
     function handleInput(e) {
-      console.log(e, this.value)
+      console.log(e, this.value, checkInputIsNumberOrAlphabet(e.keyCode).valid)
 
       e.preventDefault()
 
       // 检测到异常字符直接保留原始的
-      if (!checkInputIsNumberOrAlphabet(e.keyCode).valid) {
-        this.value.length > 1 ? (this.value = this.value.slice(0, 1)) : (this.value = '')
-        return
-      }
+      if (!checkInputIsNumberOrAlphabet(e.keyCode).valid) return this.value.length >= 1 ? (this.value = this.value.slice(0, 1)) : (this.value = '')
 
       // 只保留最新的一个字符
       this.value.length > 1 ? (this.value = this.value.slice(1)) : ''
