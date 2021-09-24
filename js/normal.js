@@ -31,10 +31,12 @@ function throttleTwo(fn, delay) {
 
 /* 防抖，在用户停止触发后得 delay 后 执行，N次触发，只执行最后一次 */
 function debounce(fn, delay) {
+  console.log('debounce!',delay)
   let timer = null
   return () => {
     clearTimeout(timer)
     timer = setTimeout(() => {
+      console.log('debounce running fn!')
       fn.call(this, arguments)
     }, delay)
   }

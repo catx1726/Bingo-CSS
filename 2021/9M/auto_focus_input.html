@@ -90,7 +90,7 @@
     }
 
     function handleInput(e) {
-      console.log(e, this.value, checkInputIsNumberOrAlphabet(e.keyCode).valid)
+      console.log(this,e, this.value, checkInputIsNumberOrAlphabet(e.keyCode).valid)
 
       e.preventDefault()
 
@@ -126,11 +126,6 @@
     }
 
     registerDOM(inputList, 'keyup', handleInput)
-
-    registerDOM(inputList, 'focus', (e) => {
-      e.preventDefault()
-      this.value = ''
-    })
 
     console.log('js loaded:', inputList)
   </script>
