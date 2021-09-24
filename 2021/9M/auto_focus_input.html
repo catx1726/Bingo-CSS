@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>autoFocusInput</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+      body {
+        --base-radius: 6px;
+        --base-ft-weight: 500;
+        --base-bg-color: #dbdbdb;
+        --base-ft-color: black;
+
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        background-color: var(--base-bg-color);
+        font-family: 'Cinzel', 'Courier New', Courier, monospace;
+
+        position: relative;
+        box-sizing: border-box;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-image: url(https://img.dpm.org.cn/Uploads/Picture/2021/08/31/s612df6cca9258.jpg);
+      }
+      .main-container {
+        --comp-default-fill-color: #e6e6e6;
+        --comp-active-fill-color: #fcd93a;
+        --comp-input-hw: 60px;
+
+        height: 100%;
+        width: 100%;
+        font-size: 1.6rem;
+      }
+      .title {
+        font-size: 3rem;
+      }
+      .list {
+        list-style: none;
+      }
+      .list .item {
+        margin-left: 1rem;
+      }
+      .item .m-input {
+        border: none;
+        font-size: 3rem;
+        text-align: center;
+        width: var(--comp-input-hw);
+        height: var(--comp-input-hw);
+      }
+      .list .item:first-child {
+        margin-left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container m-flex flex-jc-center flex-an-center flex-wrap">
+      <ul class="list m-flex">
+        <li class="item"><input type="text" class="m-input" /></li>
+        <li class="item"><input type="text" class="m-input" /></li>
+        <li class="item"><input type="text" class="m-input" /></li>
+        <li class="item"><input type="text" class="m-input" /></li>
+      </ul>
+    </main>
+  </body>
+  <script src="../../js/normal.js"></script>
+  <script>
+    const G_OBJ = {
+      DOM: document,
+      WIN: window
+    }
+
+    let inputList = G_OBJ.DOM.querySelectorAll('.m-input')
+
+    function registerDOM(domList, type, handler) {
+      if (!domList || !domList.length) return
+
+      let pureArrayDOMList = [...domList]
+      pureArrayDOMList.forEach((e, index) => {
+        !index ? e.select() : ''
+        e.value = ''
+        e.addEventListener(type, handler)
+      })
+    }
+
+    function handleInput(e) {
+      console.log(e, this.value)
+
+      e.preventDefault()
+
+      // 检测到异常字符直接保留原始的
+      if (!checkInputIsNumberOrAlphabet(e.keyCode).valid) {
+        this.value.length > 1 ? (this.value = this.value.slice(0, 1)) : (this.value = '')
+        return
+      }
+
+      // 只保留最新的一个字符
+      this.value.length > 1 ? (this.value = this.value.slice(1)) : ''
+
+      // 切换 input
+      let curInput = e.target || e.srcElement,
+        curLi = curInput.parentNode || curInput.parentElement,
+        nextLi = curLi.nextElementSibling || curInput.blur(),
+        nextInputList = nextLi && (nextLi.children || nextLi.childNodes)
+
+      if (!nextInputList || !nextInputList.length) return
+
+      nextInputList[0].select()
+      nextInputList[0].focus()
+    }
+
+    function checkInputIsNumberOrAlphabet(val) {
+      if (Object.prototype.toString.call(val) !== '[object Number]' && Object.prototype.toString.call(val) !== '[object String]') return false
+
+      let pureStr = val.toString(),
+        conditionObj = {
+          isNumber: pureStr >= 48 && pureStr <= 57,
+          isUppercase: pureStr >= 97 && pureStr <= 122,
+          isLowercase: pureStr >= 65 && pureStr <= 90
+        }
+
+      return { valid: conditionObj.isNumber || conditionObj.isUppercase || conditionObj.isLowercase }
+    }
+
+    registerDOM(inputList, 'keyup', handleInput)
+
+    registerDOM(inputList, 'focus', (e) => {
+      e.preventDefault()
+      this.value = ''
+    })
+
+    console.log('js loaded:', inputList)
+  </script>
+</html>
