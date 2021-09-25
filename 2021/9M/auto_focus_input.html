@@ -92,7 +92,7 @@
     /* 处理输入正常字符逻辑 */
     function handleNumberOrAlphabet(e, that) {
       // 只保留最新的一个字符
-      that.value.length > 1 ? (that.value = that.value.slice(1)) : ''
+      that.value.length > 1 ? (that.value = that.value.slice(-1)) : ''
 
       // 切换 input
       let curInput = e.target || e.srcElement,
@@ -107,7 +107,7 @@
     }
 
     /* 处理删除逻辑 */
-    function handleDel(e, that) {
+    function handleDel(e) {
       // 切换 input
       let curInput = e.target || e.srcElement,
         curLi = curInput.parentNode || curInput.parentElement,
