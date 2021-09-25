@@ -89,16 +89,10 @@
       })
     }
 
-    function handleInput(e) {
-      console.log(this,e, this.value, checkInputIsNumberOrAlphabet(e.keyCode).valid)
-
-      e.preventDefault()
-
-      // 检测到异常字符直接保留原始的
-      if (!checkInputIsNumberOrAlphabet(e.keyCode).valid) return this.value.length >= 1 ? (this.value = this.value.slice(0, 1)) : (this.value = '')
-
+    /* 处理输入正常字符逻辑 */
+    function handleNumberOrAlphabet(e, that) {
       // 只保留最新的一个字符
-      this.value.length > 1 ? (this.value = this.value.slice(1)) : ''
+      that.value.length > 1 ? (that.value = that.value.slice(1)) : ''
 
       // 切换 input
       let curInput = e.target || e.srcElement,
@@ -112,6 +106,56 @@
       nextInputList[0].focus()
     }
 
+    /* 处理删除逻辑 */
+    function handleDel(e, that) {
+      // 切换 input
+      let curInput = e.target || e.srcElement,
+        curLi = curInput.parentNode || curInput.parentElement,
+        prevLi = curLi.previousElementSibling,
+        prevInputList = prevLi && (prevLi.children || prevLi.childNodes)
+
+      if (!prevInputList || !prevInputList.length) return
+
+      prevInputList[0].select()
+      prevInputList[0].focus()
+    }
+
+    function handleInputEntry(e) {
+      /* TODO 优化代码 
+         - 根据输入键盘类型做相应操作，如删除键
+         - 并且开放一个接口可后续进行添加，想办法在 handler 上开一个共享的接口即可 
+      */
+      e.preventDefault()
+
+      const handler = {
+        numberOrAlphabet: { valid: checkInputIsNumberOrAlphabet(e.keyCode).valid, fn: handleNumberOrAlphabet },
+        del: { valid: checkInputIsDel(e.keyCode).valid, fn: handleDel }
+      }
+
+      console.log(this, e, this.value)
+
+      // 输入字符类
+      for (const key in handler) {
+        if (handler[key].valid) return handler[key].fn(e, this)
+      }
+
+      // 禁止输入验证范围之外的数据
+      this.value.length > 1 ? (this.value = this.value.slice(0, 1)) : (this.value = '')
+    }
+
+    /* 检测删除 */
+    function checkInputIsDel(keyCode) {
+      if (Object.prototype.toString.call(keyCode) !== '[object Number]' && Object.prototype.toString.call(keyCode) !== '[object String]') return false
+
+      let conditionObj = {
+        isDel: keyCode === 46,
+        isBackspace: keyCode === 8
+      }
+
+      return { valid: conditionObj.isBackspace || conditionObj.isDel }
+    }
+
+    /* 检测数字和字母 */
     function checkInputIsNumberOrAlphabet(val) {
       if (Object.prototype.toString.call(val) !== '[object Number]' && Object.prototype.toString.call(val) !== '[object String]') return false
 
@@ -125,7 +169,7 @@
       return { valid: conditionObj.isNumber || conditionObj.isUppercase || conditionObj.isLowercase }
     }
 
-    registerDOM(inputList, 'keyup', handleInput)
+    registerDOM(inputList, 'keyup', handleInputEntry)
 
     console.log('js loaded:', inputList)
   </script>
