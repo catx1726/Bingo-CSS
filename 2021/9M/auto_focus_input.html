@@ -73,7 +73,12 @@
   <script>
     const G_OBJ = {
       DOM: document,
-      WIN: window
+      WIN: window,
+      inputEventBus: {
+        // 这里有一个小技巧，将特殊的键位监控放在第一位，数字和字母的判断放在最后，如果字母和数字在最上面，那么 del 将不会执行，因为 del => ['d','e','l']
+        del: { valid: checkInputIsDel, fn: handleDel },
+        numberOrAlphabet: { valid: checkInputIsNumberOrAlphabet, fn: handleNumberOrAlphabet }
+      }
     }
 
     let inputList = G_OBJ.DOM.querySelectorAll('.m-input')
@@ -91,7 +96,6 @@
 
     /* 处理输入正常字符逻辑 */
     function handleNumberOrAlphabet(e, that) {
-      // 只保留最新的一个字符
       that.value.length > 1 ? (that.value = that.value.slice(-1)) : ''
 
       // 切换 input
@@ -100,7 +104,7 @@
         nextLi = curLi.nextElementSibling || curInput.blur(),
         nextInputList = nextLi && (nextLi.children || nextLi.childNodes)
 
-      if (!nextInputList || !nextInputList.length) return
+      if (!nextInputList || !nextInputList.length || !that.value.length) return
 
       nextInputList[0].select()
       nextInputList[0].focus()
@@ -121,30 +125,25 @@
     }
 
     function handleInputEntry(e) {
-      /* TODO 优化代码 
+      /* TODO 优化代码
          - 根据输入键盘类型做相应操作，如删除键
-         - 并且开放一个接口可后续进行添加，想办法在 handler 上开一个共享的接口即可 
+         - 并且开放一个接口可后续进行添加，想办法在 handler 上开一个共享的接口即可
       */
       e.preventDefault()
 
-      const handler = {
-        numberOrAlphabet: { valid: checkInputIsNumberOrAlphabet(e.keyCode).valid, fn: handleNumberOrAlphabet },
-        del: { valid: checkInputIsDel(e.keyCode).valid, fn: handleDel }
-      }
-
-      console.log(this, e, this.value)
-
       // 输入字符类
-      for (const key in handler) {
-        if (handler[key].valid) return handler[key].fn(e, this)
+      for (const key in G_OBJ.inputEventBus) {
+        if (!G_OBJ.inputEventBus[key].valid) continue
+        if (G_OBJ.inputEventBus[key].valid(e)) return G_OBJ.inputEventBus[key].fn(e, this)
       }
 
       // 禁止输入验证范围之外的数据
-      this.value.length > 1 ? (this.value = this.value.slice(0, 1)) : (this.value = '')
+      this.value = ''
     }
 
     /* 检测删除 */
-    function checkInputIsDel(keyCode) {
+    function checkInputIsDel(e) {
+      const { keyCode } = e
       if (Object.prototype.toString.call(keyCode) !== '[object Number]' && Object.prototype.toString.call(keyCode) !== '[object String]') return false
 
       let conditionObj = {
@@ -152,24 +151,52 @@
         isBackspace: keyCode === 8
       }
 
-      return { valid: conditionObj.isBackspace || conditionObj.isDel }
+      return conditionObj.isBackspace || conditionObj.isDel
     }
 
     /* 检测数字和字母 */
-    function checkInputIsNumberOrAlphabet(val) {
-      if (Object.prototype.toString.call(val) !== '[object Number]' && Object.prototype.toString.call(val) !== '[object String]') return false
+    function checkInputIsNumberOrAlphabet(e) {
+      const { value } = e.target
 
-      let pureStr = val.toString(),
+      if (Object.prototype.toString.call(value) !== '[object Number]' && Object.prototype.toString.call(value) !== '[object String]') return false
+
+      let pureList = value.toString().split(''),
         conditionObj = {
-          isNumber: pureStr >= 48 && pureStr <= 57,
-          isUppercase: pureStr >= 97 && pureStr <= 122,
-          isLowercase: pureStr >= 65 && pureStr <= 90
+          isNumber: (i) => i.charCodeAt() >= 48 && i.charCodeAt() <= 57,
+          isUppercase: (i) => i.charCodeAt() >= 97 && i.charCodeAt() <= 122,
+          isLowercase: (i) => i.charCodeAt() >= 65 && i.charCodeAt() <= 90
         }
 
-      return { valid: conditionObj.isNumber || conditionObj.isUppercase || conditionObj.isLowercase }
+      for (let index = 0; index < pureList.length; index++) {
+        if (!conditionObj.isNumber(pureList[index]) && !conditionObj.isUppercase(pureList[index]) && !conditionObj.isLowercase(pureList[index])) return false
+      }
+
+      return true
     }
 
-    registerDOM(inputList, 'keyup', handleInputEntry)
+    function eventBusOn(busName, eventName, fn) {
+      try {
+        console.log('eventBusOn:', busName, eventName)
+        // bus 必须存在，bus 中没有相同的 event 存在
+        if (!G_OBJ[busName] || G_OBJ[busName][eventName]) throw new Error('请检查 bus 是否存在，并且检查事件是否重复')
+
+        G_OBJ[busName][eventName] = fn
+      } catch (error) {
+        console.error('eventBusOn error:', error)
+      }
+    }
+
+    function eventBusShow(busName) {
+      console.log('eventBusShow:',G_OBJ[busName])
+    }
+
+    function testSubscrib() {
+      console.log('hi!')
+    }
+
+    eventBusOn('inputEventBus', 'testSubscrib', testSubscrib)
+
+    registerDOM(inputList, 'keyup', handleInputEntry, G_OBJ.inputEventBus['testSubscrib'](), eventBusShow('inputEventBus'))
 
     console.log('js loaded:', inputList)
   </script>
