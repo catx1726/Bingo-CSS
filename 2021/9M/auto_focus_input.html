@@ -94,9 +94,9 @@
       })
     }
 
-    /* 处理输入正常字符逻辑 */
+    /* 响应字母和数字输入的DOM更新 */
     function handleNumberOrAlphabet(e, that) {
-      that.value.length > 1 ? (that.value = that.value.slice(-1)) : ''
+      // that.value.length > 1 ? (that.value = that.value.slice(-1)) : ''
 
       // 切换 input
       let curInput = e.target || e.srcElement,
@@ -110,7 +110,7 @@
       nextInputList[0].focus()
     }
 
-    /* 处理删除逻辑 */
+    /* 响应删除按键的DOM更新 */
     function handleDel(e) {
       // 切换 input
       let curInput = e.target || e.srcElement,
@@ -138,7 +138,7 @@
       }
 
       // 禁止输入验证范围之外的数据
-      this.value = ''
+      // this.value = ''
     }
 
     /* 检测删除 */
@@ -154,24 +154,44 @@
       return conditionObj.isBackspace || conditionObj.isDel
     }
 
-    /* 检测数字和字母 */
+    /* 检测数字和字母并作处理 */
     function checkInputIsNumberOrAlphabet(e) {
-      const { value } = e.target
+      let { value } = e.target,
+        { keyCode } = e
 
       if (Object.prototype.toString.call(value) !== '[object Number]' && Object.prototype.toString.call(value) !== '[object String]') return false
 
       let pureList = value.toString().split(''),
         conditionObj = {
-          isNumber: (i) => i.charCodeAt() >= 48 && i.charCodeAt() <= 57,
-          isUppercase: (i) => i.charCodeAt() >= 97 && i.charCodeAt() <= 122,
-          isLowercase: (i) => i.charCodeAt() >= 65 && i.charCodeAt() <= 90
-        }
+          isNumber: (code) => code >= 48 && code <= 57,
+          isUppercase: (code) => code >= 97 && code <= 122,
+          isLowercase: (code) => code >= 65 && code <= 90
+        },
+        tempStr = ''
 
+      // 校验当前传入的所有内容
       for (let index = 0; index < pureList.length; index++) {
-        if (!conditionObj.isNumber(pureList[index]) && !conditionObj.isUppercase(pureList[index]) && !conditionObj.isLowercase(pureList[index])) return false
+        let curCharCode = pureList[index].charCodeAt()
+        for (const key in conditionObj) {
+          if (!conditionObj[key](curCharCode)) continue
+          tempStr += pureList[index]
+          // conditionObj.isNumber(curCharCode) || conditionObj.isUppercase(curCharCode) || conditionObj.isLowercase(curCharCode) ? (tempStr += pureList[index]) : ''
+        }
       }
 
-      return true
+      e.target.value = tempStr
+
+      // 保留最新的一个字符
+      e.target.value.length > 1 ? (e.target.value = e.target.value.slice(-1)) : ''
+
+      // 只要有一个条件满足即视为正确，执行后续 DOM 操作
+      for (const key in conditionObj) {
+        if (conditionObj[key](keyCode)) return true
+      }
+
+      // 如果传入的是非数字和字母，则不执行DOM操作
+      // if (!conditionObj.isNumber(keyCode) && !conditionObj.isUppercase(keyCode) && !conditionObj.isLowercase(keyCode)) return false
+      return false
     }
 
     function eventBusOn(busName, eventName, fn) {
@@ -187,7 +207,7 @@
     }
 
     function eventBusShow(busName) {
-      console.log('eventBusShow:',G_OBJ[busName])
+      console.log('eventBusShow:', G_OBJ[busName])
     }
 
     function testSubscrib() {
