@@ -96,8 +96,6 @@
 
     /* 响应字母和数字输入的DOM更新 */
     function handleNumberOrAlphabet(e, that) {
-      // that.value.length > 1 ? (that.value = that.value.slice(-1)) : ''
-
       // 切换 input
       let curInput = e.target || e.srcElement,
         curLi = curInput.parentNode || curInput.parentElement,
@@ -144,7 +142,11 @@
     /* 检测删除 */
     function checkInputIsDel(e) {
       const { keyCode } = e
-      if (Object.prototype.toString.call(keyCode) !== '[object Number]' && Object.prototype.toString.call(keyCode) !== '[object String]') return false
+      if (
+        Object.prototype.toString.call(keyCode) !== '[object Number]' &&
+        Object.prototype.toString.call(keyCode) !== '[object String]'
+      )
+        return false
 
       let conditionObj = {
         isDel: keyCode === 46,
@@ -159,7 +161,11 @@
       let { value } = e.target,
         { keyCode } = e
 
-      if (Object.prototype.toString.call(value) !== '[object Number]' && Object.prototype.toString.call(value) !== '[object String]') return false
+      if (
+        Object.prototype.toString.call(value) !== '[object Number]' &&
+        Object.prototype.toString.call(value) !== '[object String]'
+      )
+        return false
 
       let pureList = value.toString().split(''),
         conditionObj = {
@@ -184,6 +190,9 @@
       // 保留最新的一个字符
       e.target.value.length > 1 ? (e.target.value = e.target.value.slice(-1)) : ''
 
+      // 移动端不判断keyCode，因为只能拿到 value，所以只要 value 正确就进行切换
+      if (checkIsMobile().isMobile) return true
+
       // 只要有一个条件满足即视为正确，执行后续 DOM 操作
       for (const key in conditionObj) {
         if (conditionObj[key](keyCode)) return true
@@ -192,6 +201,14 @@
       // 如果传入的是非数字和字母，则不执行DOM操作
       // if (!conditionObj.isNumber(keyCode) && !conditionObj.isUppercase(keyCode) && !conditionObj.isLowercase(keyCode)) return false
       return false
+    }
+
+    /* 判断是否是移动端 */
+    function checkIsMobile() {
+      const ua = navigator.userAgent
+      const isIPhone = /(iPhone|iPad|iPod|iOS)/i.test(ua)
+      const isAndroid = /(Android)/i.test(ua)
+      return { isMobile: isAndroid || isIPhone }
     }
 
     function eventBusOn(busName, eventName, fn) {
@@ -216,7 +233,13 @@
 
     eventBusOn('inputEventBus', 'testSubscrib', testSubscrib)
 
-    registerDOM(inputList, 'keyup', handleInputEntry, G_OBJ.inputEventBus['testSubscrib'](), eventBusShow('inputEventBus'))
+    registerDOM(
+      inputList,
+      'keyup',
+      handleInputEntry,
+      G_OBJ.inputEventBus['testSubscrib'](),
+      eventBusShow('inputEventBus')
+    )
 
     console.log('js loaded:', inputList)
   </script>
