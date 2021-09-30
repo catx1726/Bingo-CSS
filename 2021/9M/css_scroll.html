@@ -41,39 +41,53 @@
         font-size: 1.6rem;
       }
       .box {
-        height: 300px;
-        width: 400px;
+        height: 280px;
+        width: 100px;
         overflow: hidden;
         border: 1px solid;
+        position: relative;
+        text-align: center;
+      }
+      .choose-box {
+        top: 50%;
+        width: 100%;
+        z-index: 100;
+        border: 1px solid salmon;
+        border-left: none;
+        border-right: none;
+        display: inline-block;
+        box-sizing: border-box;
+        position: relative;
+        transform: translateY(-50%);
+        height: var(--comp-item-h);
       }
       .list {
         list-style: none;
         position: relative;
+        transform-origin: bottom;
+        transform: translateY(0);
+        animation: infinite-scroll 1s linear infinite;
+        animation-play-state: running;
+
+        top: 0;
+        width: 100%;
+        position: absolute;
       }
       .list .item {
         width: 100%;
         height: var(--comp-item-h);
         padding: var(--comp-item-pd);
-        line-height: var(--comp-item-h);
+        /* line-height: var(--comp-item-h); */
+        box-sizing: border-box;
       }
 
-      .list {
-        transform-origin: bottom;
-        transform: translateY(0);
-        animation: infinite-scroll 10s ease infinite alternate;
-      }
-
-      .list:hover {
+      .box:hover .list {
         animation-play-state: paused;
       }
 
       @keyframes infinite-scroll {
-        0% {
-          transform: translateY(0);
-        }
-
-        100% {
-          transform: translateY(-100%);
+        to {
+          transform: translateY(calc(-100% + 300px));
         }
       }
     </style>
@@ -81,40 +95,44 @@
   <body>
     <main class="main-container m-flex flex-jc-center flex-an-center">
       <div class="box">
+        <span class="choose-box"></span>
         <ul class="list">
-          <li class="item">CAD1</li>
-          <li class="item">CAD2</li>
-          <li class="item">CAD3</li>
-          <li class="item">CAD4</li>
-          <li class="item">CAD5</li>
-          <li class="item">CAD6</li>
-          <li class="item">CAD7</li>
-          <li class="item">CAD8</li>
-          <li class="item">CAD9</li>
-          <li class="item">CAD10</li>
-          <li class="item">CAD11</li>
-          <li class="item">CAD1b</li>
-          <li class="item">CAD2</li>
-          <li class="item">CAD3</li>
-          <li class="item">CAD4</li>
-          <li class="item">CAD5</li>
-          <li class="item">CAD6</li>
-          <li class="item">CAD7</li>
-          <li class="item">CAD8</li>
-          <li class="item">CAD9</li>
-          <li class="item">CAD10</li>
-          <li class="item">CAD11</li>
-          <li class="item">CAD1c</li>
-          <li class="item">CAD2</li>
-          <li class="item">CAD3</li>
-          <li class="item">CAD4</li>
-          <li class="item">CAD5</li>
-          <li class="item">CAD6</li>
-          <li class="item">CAD7</li>
-          <li class="item">CAD8</li>
-          <li class="item">CAD9</li>
-          <li class="item">CAD10</li>
-          <li class="item">CAD11</li>
+          <!-- list-1 -->
+          <li class="item">🍎</li>
+          <li class="item">🍊</li>
+          <li class="item">🍍</li>
+
+          <!-- center -->
+          <li class="item">🍌</li>
+
+          <li class="item">🍇</li>
+          <li class="item">🍑</li>
+          <li class="item">🥝</li>
+          <!-- list-1-end -->
+
+          <!-- list-2 -->
+          <li class="item">🍎</li>
+          <li class="item">🍊</li>
+          <li class="item">🍍</li>
+
+          <li class="item">🍌</li>
+
+          <li class="item">🍇</li>
+          <li class="item">🍑</li>
+          <li class="item">🥝</li>
+          <!-- list-2-end -->
+
+          <!-- list-3 -->
+          <li class="item">🍇</li>
+          <li class="item">🍑</li>
+          <li class="item">🥝</li>
+
+          <li class="item">🍌</li>
+
+          <li class="item">🍎</li>
+          <li class="item">🍊</li>
+          <li class="item">🍍</li>
+          <!-- list-2-end -->
         </ul>
       </div>
     </main>
