@@ -85,7 +85,8 @@
         width: 20px;
         border-radius: 50%;
         text-align: center;
-        background-color: var(--comp-active-fill-color);
+        filter: brightness(.9);
+        background-color: var(--comp-default-fill-color);
       }
       .box.info .close {
         right: 5px;
@@ -124,6 +125,8 @@
       }
 
       function handleCloseBox(e) {
+        e.preventDefault()
+        e.stopPropagation()
         handleCloseEventDOMList.forEach((i) => {
           i.classList.add('hide-animation')
         })
