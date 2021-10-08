@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>clickElseEvent</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+      body {
+        --base-radius: 6px;
+        --base-ft-weight: 500;
+        --base-bg-color: #dbdbdb;
+        --base-ft-color: black;
+
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        background-color: var(--base-bg-color);
+        font-family: 'Cinzel', 'Courier New', Courier, monospace;
+
+        position: relative;
+        box-sizing: border-box;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-image: url(https://img.dpm.org.cn/Uploads/Picture/2021/08/31/s612df6cca9258.jpg);
+      }
+      .main-container {
+        --comp-default-fill-color: #e6e6e6;
+        --comp-active-fill-color: #fcd93a;
+        --comp-box-h: 100px;
+        --comp-box-w: 200px;
+        --comp-radius: 6px;
+        --comp-pd: 4px;
+
+        height: 100%;
+        width: 100%;
+        font-size: 1.6rem;
+      }
+      .modal {
+        height: 100%;
+        width: 100%;
+        z-index: 999;
+        position: fixed;
+        filter: opacity(0.5);
+        background-color: var(--comp-default-fill-color);
+      }
+      .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+
+        z-index: 1000;
+        width: var(--comp-box-w);
+        height: var(--comp-box-h);
+        padding: var(--comp-pd);
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+        border-radius: var(--base-radius);
+        background-color: var(--comp-default-fill-color);
+      }
+      .box:hover {
+        box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.1), 0 3px 20px rgba(0, 0, 0, 0.1);
+      }
+      .hide-animation {
+        animation: slide-screen-out 3s ease forwards;
+      }
+      @keyframes slide-screen-out {
+        10% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-100vw) scaleX(0);
+        }
+      }
+      .close {
+        cursor: pointer;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        text-align: center;
+        background-color: var(--comp-active-fill-color);
+      }
+      .box.info .close {
+        right: 5px;
+        top: 5px;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container m-flex flex-jc-center flex-an-center">
+      <div>hi welcome</div>
+      <div class="box info">
+        <span class="close">X</span>
+        <div class="info-content">
+          <span class="text">don't click me</span>
+        </div>
+      </div>
+      <div class="modal"></div>
+    </main>
+  </body>
+  <script>
+    const G_INFO = { BOM: window, DOC: document }
+
+    ;(function () {
+      let infoBoxDOM = G_INFO.DOC.querySelector('.box'),
+        handleCloseEventDOMList = [infoBoxDOM]
+
+      function registerDOMEvent(classNameList, type, fn) {
+        if (!classNameList || !classNameList.length || !fn || !type) return
+
+        classNameList.forEach((i) => {
+          let dom = G_INFO.DOC.querySelector(i)
+          handleCloseEventDOMList.push(dom)
+          dom.addEventListener(type, fn)
+        })
+      }
+
+      function handleCloseBox(e) {
+        handleCloseEventDOMList.forEach((i) => {
+          i.classList.add('hide-animation')
+        })
+      }
+
+      registerDOMEvent(['.close', '.modal'], 'click', handleCloseBox)
+    })()
+  </script>
+</html>
