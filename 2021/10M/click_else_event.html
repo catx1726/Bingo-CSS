@@ -85,7 +85,7 @@
         width: 20px;
         border-radius: 50%;
         text-align: center;
-        filter: brightness(.9);
+        filter: brightness(0.9);
         background-color: var(--comp-default-fill-color);
       }
       .box.info .close {
@@ -118,6 +118,7 @@
         if (!classNameList || !classNameList.length || !fn || !type) return
 
         classNameList.forEach((i) => {
+          if (!i) return
           let dom = G_INFO.DOC.querySelector(i)
           handleCloseEventDOMList.push(dom)
           dom.addEventListener(type, fn)
