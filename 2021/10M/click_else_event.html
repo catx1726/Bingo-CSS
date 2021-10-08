@@ -68,10 +68,22 @@
         box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.1), 0 3px 20px rgba(0, 0, 0, 0.1);
       }
       .hide-animation {
-        animation: slide-screen-out 3s ease forwards;
+        animation: slide-screen-out 1s ease forwards;
+      }
+      .show-animation {
+        animation: slide-screen-in 1s ease forwards;
+      }
+      @keyframes slide-screen-in {
+        from {
+          transform: translate(-100vw) scaleX(0);
+        }
+        to {
+          opacity: 1;
+          transform: translate(0vw) scaleX(1);
+        }
       }
       @keyframes slide-screen-out {
-        10% {
+        80% {
           opacity: 0;
         }
         100% {
@@ -93,11 +105,26 @@
         top: 5px;
         position: absolute;
       }
+
+      .cad-btn {
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        position: relative;
+        width: calc(var(--comp-box-w) / 2);
+        height: calc(var(--comp-box-h) / 2);
+        padding: var(--comp-pd);
+        border-radius: var(--comp-radius);
+        background-color: var(--comp-active-fill-color);
+      }
+      .cad-btn:focus {
+        box-shadow: inset 0px 3px 10px rgba(0, 0, 0, 0.1), 0 3px 20px rgba(0, 0, 0, 0.1);
+      }
     </style>
   </head>
   <body>
     <main class="main-container m-flex flex-jc-center flex-an-center">
-      <div>hi welcome</div>
+      <div><button class="cad-btn">click me</button></div>
       <div class="box info">
         <span class="close">X</span>
         <div class="info-content">
@@ -112,28 +139,44 @@
 
     ;(function () {
       let infoBoxDOM = G_INFO.DOC.querySelector('.box'),
+        triggerBtnDOM = G_INFO.DOC.querySelector('.cad-btn'),
         handleCloseEventDOMList = [infoBoxDOM]
 
-      function registerDOMEvent(classNameList, type, fn) {
+      function registerDOMEvent(classNameList, eventDOMList, type, fn) {
         if (!classNameList || !classNameList.length || !fn || !type) return
 
         classNameList.forEach((i) => {
           if (!i) return
           let dom = G_INFO.DOC.querySelector(i)
-          handleCloseEventDOMList.push(dom)
+          eventDOMList ? eventDOMList.push(dom) : ''
           dom.addEventListener(type, fn)
         })
       }
 
-      function handleCloseBox(e) {
-        e.preventDefault()
-        e.stopPropagation()
+      function handleCloseBox(dom) {
+        dom.classList.remove('show-animation')
+        dom.classList.add('hide-animation')
+      }
+
+      function handleShowBox(dom) {
+        dom.classList.remove('hide-animation')
+        dom.classList.add('show-animation')
+      }
+
+      function handleShowOrCloseEntry(tag, e) {
+        let handleFn = tag === 'show' ? handleShowBox : handleCloseBox
         handleCloseEventDOMList.forEach((i) => {
-          i.classList.add('hide-animation')
+          handleFn(i)
         })
       }
 
-      registerDOMEvent(['.close', '.modal'], 'click', handleCloseBox)
+      registerDOMEvent(['.cad-btn'], false, 'click', (e) => {
+        handleShowOrCloseEntry('show', e)
+      })
+
+      registerDOMEvent(['.close', '.modal'], handleCloseEventDOMList, 'click', (e) => {
+        handleShowOrCloseEntry('close', e)
+      })
     })()
   </script>
 </html>
