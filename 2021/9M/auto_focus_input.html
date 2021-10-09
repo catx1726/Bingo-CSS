@@ -53,6 +53,7 @@
         text-align: center;
         width: var(--comp-input-hw);
         height: var(--comp-input-hw);
+        transition: all 0.3s ease;
       }
       .list .item:first-child {
         margin-left: 0;
@@ -227,8 +228,6 @@
       console.log('hi!')
     }
 
-    eventBusOn('inputEventBus', 'testSubscrib', testSubscrib)
-
     function getPasteData(e) {
       let data = (e.clipboardData || window.clipboardData).getData('text')
 
@@ -242,12 +241,15 @@
         strLen = strArr.length
       inputList.forEach((e, index) => {
         // let validStrIndex = index < strLen ? index : strLen
-        e.value = strArr[index] || ''
+        setTimeout(() => {
+          e.value = strArr[index] || ''
+        }, 100 * index)
       })
     }
 
     registerDOM(inputList, 'keyup', handleInputEntry)
-    registerDOM([G_OBJ.DOC], 'paste', getPasteData)
+    registerDOM([G_OBJ.DOC, ...inputList], 'paste', getPasteData)
+    eventBusOn('inputEventBus', 'testSubscrib', testSubscrib)
 
     console.log('js loaded:', inputList)
   </script>
