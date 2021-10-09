@@ -72,7 +72,7 @@
   <script src="../../js/normal.js"></script>
   <script>
     const G_OBJ = {
-      DOM: document,
+      DOC: document,
       WIN: window,
       inputEventBus: {
         // 这里有一个小技巧，将特殊的键位监控放在第一位，数字和字母的判断放在最后，如果字母和数字在最上面，那么 del 将不会执行，因为 del => ['d','e','l']
@@ -81,17 +81,21 @@
       }
     }
 
-    let inputList = G_OBJ.DOM.querySelectorAll('.m-input')
+    let inputList = G_OBJ.DOC.querySelectorAll('.m-input')
 
     function registerDOM(domList, type, handler) {
-      if (!domList || !domList.length) return
+      try {
+        if (!domList || !domList.length) return
 
-      let pureArrayDOMList = [...domList]
-      pureArrayDOMList.forEach((e, index) => {
-        !index ? e.select() : ''
-        e.value = ''
-        e.addEventListener(type, handler)
-      })
+        let pureArrayDOMList = [...domList]
+        pureArrayDOMList.forEach((e, index) => {
+          !index && e.nodeName === 'INPUT' ? e.select() : ''
+          e.value = ''
+          e.addEventListener(type, handler)
+        })
+      } catch (error) {
+        console.log('registerDOM error:', error)
+      }
     }
 
     /* 响应字母和数字输入的DOM更新 */
@@ -142,11 +146,7 @@
     /* 检测删除 */
     function checkInputIsDel(e) {
       const { keyCode } = e
-      if (
-        Object.prototype.toString.call(keyCode) !== '[object Number]' &&
-        Object.prototype.toString.call(keyCode) !== '[object String]'
-      )
-        return false
+      if (Object.prototype.toString.call(keyCode) !== '[object Number]' && Object.prototype.toString.call(keyCode) !== '[object String]') return false
 
       let conditionObj = {
         isDel: keyCode === 46,
@@ -161,11 +161,7 @@
       let { value } = e.target,
         { keyCode } = e
 
-      if (
-        Object.prototype.toString.call(value) !== '[object Number]' &&
-        Object.prototype.toString.call(value) !== '[object String]'
-      )
-        return false
+      if (Object.prototype.toString.call(value) !== '[object Number]' && Object.prototype.toString.call(value) !== '[object String]') return false
 
       let pureList = value.toString().split(''),
         conditionObj = {
@@ -193,7 +189,7 @@
       // 移动端不判断keyCode，因为只能拿到 value，所以只要 value 正确就进行切换
       if (checkIsMobile().isMobile) return true
 
-      // 只要有一个条件满足即视为正确，执行后续 DOM 操作
+      // 只要有一个条件满足即视为正确，执行后续 DOC 操作
       for (const key in conditionObj) {
         if (conditionObj[key](keyCode)) return true
       }
@@ -233,13 +229,25 @@
 
     eventBusOn('inputEventBus', 'testSubscrib', testSubscrib)
 
-    registerDOM(
-      inputList,
-      'keyup',
-      handleInputEntry,
-      G_OBJ.inputEventBus['testSubscrib'](),
-      eventBusShow('inputEventBus')
-    )
+    function getPasteData(e) {
+      let data = (e.clipboardData || window.clipboardData).getData('text')
+
+      return handlePasteDataIntoInput(data)
+    }
+
+    function handlePasteDataIntoInput(data) {
+      if (Object.prototype.toString.call(data) !== '[object String]' || !data) return
+
+      let strArr = data.split(''),
+        strLen = strArr.length
+      inputList.forEach((e, index) => {
+        // let validStrIndex = index < strLen ? index : strLen
+        e.value = strArr[index] || ''
+      })
+    }
+
+    registerDOM(inputList, 'keyup', handleInputEntry)
+    registerDOM([G_OBJ.DOC], 'paste', getPasteData)
 
     console.log('js loaded:', inputList)
   </script>
