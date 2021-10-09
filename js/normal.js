@@ -53,42 +53,42 @@ const checkTypeEnum = {
     c_undefined: { index: 7, tag: '[object Undefined]' },
     c_NaN: { index: 8, tag: 'NaN' }
   },
-  checkTypes = [checkTypeEnum.c_function, false, checkTypeEnum.c_string, checkTypeEnum.c_null, checkTypeEnum.c_number]
+  checkTypes = [checkTypeEnum.c_boolean, false, checkTypeEnum.c_function, checkTypeEnum.c_undefined]
 /**
  *
- * @description 根据你传入的允许类型 checkTypes 进行匹配，只要有一个满足就返回 true
- * @param {Array} checkTypes 允许通过的类型
+ * @description 根据你传入的允许类型 validOptions 进行匹配，只要有一个满足就返回 true
+ * @param {Array} validOptions 允许通过的类型
  * @param {String} val 需要校验的值
- * @param {Boolean} checkTypesPramsValid 是否开启对 checkTypes 的校验
+ * @param {Boolean} checkTypesPramsValid 是否开启对 validOptions 的校验
  * @returns {Object} { valid:boolean , msg:string }
  */
-function typeValidator(checkTypes, val, checkTypesPramsValid) {
-  /* 对 checkTypes 容器进行检查 */
-  if (!checkTypes || Object.prototype.toString.call(checkTypes) !== checkTypeEnum.c_array.tag || !checkTypes.length)
-    return { valid: false, msg: 'checkTypes 容器内容有误，请检查!' }
+function typeValidator(validOptions, val, validOptionsPramsValid) {
+  /* 对 validOptions 容器进行检查 */
+  if (!validOptions || Object.prototype.toString.call(validOptions) !== checkTypeEnum.c_array.tag || !validOptions.length)
+    return { valid: false, msg: 'validOptions 容器内容有误，请检查!' }
 
-  let typsCheckInfo = handleCheckTypesValidator(checkTypes)
-  /* 是否开启对 checkTypes 每项参数的校验 */
-  if (checkTypesPramsValid && !typsCheckInfo.valid) return typsCheckInfo.msg
-
-  /* 对特殊内容单独进行校验，如 NaN */
-  if (Number.isNaN(val)) return { valid: true, msg: checkTypeEnum.c_NaN.tag }
+  let typsCheckInfo = handleCheckTypesValidator(validOptions)
+  /* 是否开启对 validOptions 每项参数的校验 */
+  if (validOptionsPramsValid && !typsCheckInfo.valid) return typsCheckInfo.msg
 
   let curValType = Object.prototype.toString.call(val)
-  for (let index = 0; index < checkTypes.length; index++) {
-    if (!checkTypes[index].tag) continue
-    let curType = checkTypes[index].tag
+  for (let index = 0; index < validOptions.length; index++) {
+    if (!validOptions[index].tag) continue
+    let curType = validOptions[index].tag
+    /* 对特殊内容单独进行校验，如 NaN */
+    if (Number.isNaN(val) && curType === checkTypeEnum.c_NaN.tag) return { valid: true, msg: checkTypeEnum.c_NaN.tag }
+    /* 能够使用 prototype.toString.call 进行校验的普通内容 */
     if (curValType === curType) return { valid: true, msg: curType }
   }
 
-  return { valid: false, msg: '未匹配到指定的类型!' }
+  return { valid: false, msg: '未匹配到指定的类型，请检查 validOptions 是否正确配置!' }
 }
 
-function handleCheckTypesValidator(typesList) {
+function handleCheckTypesValidator(validOptions) {
   let lock = false
-  /* 校验 typesList 的所有参数 */
-  for (let index = 0; index < typesList.length; index++) {
-    let curType = typesList[index]
+  /* 校验 validOptions 的所有参数 */
+  for (let index = 0; index < validOptions.length; index++) {
+    let curType = validOptions[index]
     for (const key in checkTypeEnum) {
       if (curType === checkTypeEnum[key]) {
         lock = false
@@ -105,4 +105,4 @@ function handleValidtorRes(valid, msg, data) {
   return { valid, msg, data }
 }
 
-console.log(typeValidator(checkTypes, ';', true))
+console.log(typeValidator(checkTypes, undefined, false))
