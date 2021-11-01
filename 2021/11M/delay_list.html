@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>delayList</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+      body {
+        --base-radius: 6px;
+        --base-ft-weight: 500;
+        --base-bg-color: #dbdbdb;
+        --base-ft-color: black;
+
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        background-color: var(--base-bg-color);
+        font-family: 'Cinzel', 'Courier New', Courier, monospace;
+
+        position: relative;
+        box-sizing: border-box;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-image: url(https://img.dpm.org.cn/Uploads/Picture/2021/08/31/s612df6cca9258.jpg);
+      }
+
+      .main-container {
+        --comp-default-fill-color: #e6e6e6;
+        --comp-active-fill-color: #fcd93a;
+        --comp-box-h: 100px;
+        --comp-box-w: 200px;
+        --comp-radius: 6px;
+        --comp-pd: 4px;
+
+        height: 100%;
+        width: 100%;
+        font-size: 1.6rem;
+      }
+
+      .delay_list-container {
+        --delay-index: 1;
+        --delay-default: 0.3s;
+        /* counter-reset: delay-index; 为每个容器创建新的计数器实例 */
+      }
+      .delay_item {
+        transition: all 0.3s ease;
+        color: var(--test-color);
+        /* counter-increment: delay-index 1; 只增加计数器的当前实例 */
+        /* REF: https://stackoverflow.com/questions/20490704/combine-calc-with-attr-in-css */
+        /* transition-delay: calc(attr(data-index) * 0.3); */
+        /* REF:https://stackoverflow.com/questions/43539203/use-css-counter-in-calc */
+        /* transition-delay: calc(counter(delay-index) * 0.3s); */
+      }
+      
+      .header {
+        font-size: 3rem;
+      }
+
+      .header:hover ~ .delay_list-container .delay_item,
+      .delay_list-container:hover .delay_item {
+        opacity: 1;
+        transition-delay: calc(var(--delay-index) * var(--delay-default));
+      }
+
+      .hide {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container m-flex flex-dir-col flex-jc-center flex-an-center">
+      <div class="header">Lorem</div>
+      <div class="delay_list-container">
+        <div class="delay_item hide" style="--delay-index: 1" data-index="1">SHOW1</div>
+        <div class="delay_item hide" style="--delay-index: 2" data-index="2">SHOW2</div>
+        <div class="delay_item hide" style="--delay-index: 3" data-index="3">SHOW3</div>
+        <div class="delay_item hide" style="--delay-index: 4" data-index="4">SHOW4</div>
+        <div class="delay_item hide" style="--delay-index: 5" data-index="5">SHOW5</div>
+        <div class="delay_item hide" style="--delay-index: 6" data-index="6">SHOW6</div>
+        <div class="delay_item hide" style="--delay-index: 7" data-index="7">SHOW7</div>
+        <div class="delay_item hide" style="--delay-index: 8" data-index="8">SHOW8</div>
+        <div class="delay_item hide" style="--delay-index: 9" data-index="9">SHOW9</div>
+        <div class="delay_item hide" style="--delay-index: 10" data-index="10">SHOW10</div>
+      </div>
+    </main>
+  </body>
+</html>
