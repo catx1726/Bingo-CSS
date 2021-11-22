@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <title>delayList</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+      body {
+        --base-radius: 6px;
+        --base-ft-weight: 500;
+        --base-bg-color: #dbdbdb;
+        --base-ft-color: black;
+
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        background-color: var(--base-bg-color);
+        font-family: 'Cinzel', 'Courier New', Courier, monospace;
+
+        position: relative;
+        box-sizing: border-box;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-image: url(https://img.dpm.org.cn/Uploads/Picture/2021/08/31/s612df6cca9258.jpg);
+      }
+
+      .main-container {
+        --comp-default-fill-color: white;
+        --comp-active-fill-color: #fcd93a;
+        --comp-box-h: 100px;
+        --comp-box-w: 200px;
+        --comp-radius: 6px;
+        --comp-pd: 4px;
+
+        height: 100%;
+        width: 100%;
+        font-size: 1.6rem;
+      }
+      .box {
+        height: 500px;
+        width: 400px;
+        min-width: 300px;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        background-color: var(--comp-default-fill-color);
+      }
+      .header {
+        width: 100%;
+        height: 150px;
+        flex-shrink: 0;
+        text-align: center;
+        font-size: 5rem;
+        background-color: var(--comp-active-fill-color);
+      }
+      .content {
+        width: 80%;
+        word-break: normal;
+        word-wrap: normal;
+        box-sizing: border-box;
+        padding: 0 calc(var(--comp-pd) * 6);
+        box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.1), 0 3px 20px rgba(0, 0, 0, 0.1);
+      }
+      .full-width {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container m-flex flex-jc-center flex-an-center">
+      <div class="box m-flex flex-jc-start flex-an-center flex-dir-col">
+        <header class="header m-flex flex-an-center flex-jc-center">header</header>
+        <div class="content">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel et consequatur soluta voluptatem doloremque illo, unde itaque aliquam earum, laudantium
+          est sit cumque beatae? Repellendus facilis quae blanditiis fugiat quibusdam! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci
+          accusamus cumque eos voluptatibus, ab sed deserunt voluptatum labore dicta minima non repellat consectetur tenetur sequi veniam eaque incidunt
+          blanditiis perferendis! Similique architecto, at fuga praesentium quis rerum vel enim error laudantium, dolore perferendis fugiat, officiis aspernatur
+          ut sequi. Dolores laboriosam repellendus amet ea itaque odit quidem ratione dolor ad? Dignissimos. Libero vel harum illo. Incidunt natus accusantium
+          suscipit enim perferendis fugiat, quasi iure impedit ex earum similique, fuga iste adipisci sed culpa perspiciatis, laborum nam possimus recusandae.
+          Pariatur, vel expedita. Tempora cupiditate sequi consectetur nobis quidem repellendus eos ex veritatis officiis deleniti delectus, voluptates, ratione
+          accusamus. Nulla exercitationem molestias hic sit temporibus. Iure, dignissimos magni modi quisquam facere nesciunt saepe? Unde quae fugiat, possimus
+          ullam quaerat magni molestias. Necessitatibus earum consequuntur fugit repellendus atque facilis similique fugiat magni laudantium, distinctio
+          accusantium labore aliquam ipsa fuga nihil? Animi facilis architecto atque!
+        </div>
+      </div>
+    </main>
+    <script>
+      const G_INFO = { DOC: document, WIN: window },
+        boxDOM = G_INFO.DOC.querySelector('.box'),
+        boxContentDOM = boxDOM.children[1],
+        handlerList = [handleContentWidth]
+
+      function handleScroll(event) {
+        handlerList.forEach((handler) => handler(event))
+      }
+
+      function handleContentWidth(event) {
+        let dom = event.target || event.srcElement
+        if (dom.scrollTop < 100) return boxContentDOM.classList.remove('full-width')
+        boxContentDOM.classList.add('full-width')
+      }
+
+      boxDOM.addEventListener('scroll', function (event) {
+        G_INFO.WIN.requestAnimationFrame((e) => {
+          handleScroll(event)
+        })
+      })
+    </script>
+  </body>
+</html>
