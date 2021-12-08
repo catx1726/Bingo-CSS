@@ -72,22 +72,21 @@
         box-sizing: border-box;
         background-color: white;
         border-radius: var(--comp-radius);
-     
+
         /* 如果要改变 pop 的定位，配合 left、right 加上这个即可 */
         /* margin-top: var(--step-popover-arrow-h); */
       }
-      .step-popover.left{
-        
+      .step-popover.left {
       }
-      .step-popover.top{
+      .step-popover.top {
         bottom: 100%;
         transform: translateY(calc(-1 * var(--step-popover-arrow-h)));
       }
-      .step-popover.top::before{
+      .step-popover.top::before {
         transform: rotate(180deg);
         top: calc(100% - 5px);
       }
-      .step-popover.bottom{
+      .step-popover.bottom {
         bottom: 0;
         transform: translateY(calc(100% + var(--step-popover-arrow-h)));
       }
@@ -101,8 +100,8 @@
         border-bottom-color: white;
         /* background-color: white; */
       }
-      
-      .test-bigger-box{
+
+      .test-bigger-box {
         height: 400px;
       }
     </style>
@@ -178,7 +177,7 @@
 
         let popInstance = G_INFO.DOC.createElement('div')
         popInstance.innerText = `hi ${targetDOM.innerText}`
-        popInstance.classList.add('step-popover','bottom')
+        popInstance.classList.add('step-popover', 'bottom')
 
         targetDOM.appendChild(popInstance)
       }

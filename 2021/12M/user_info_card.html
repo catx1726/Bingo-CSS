@@ -20,7 +20,7 @@
         max-height: 100%;
         max-width: 100%;
         background-color: var(--twenty-one-year-color);
-        font-family: 'Quicksand','Cinzel', 'Courier New', Courier, monospace;
+        font-family: 'Quicksand', 'Cinzel', 'Courier New', Courier, monospace;
 
         position: relative;
         box-sizing: border-box;
@@ -34,6 +34,7 @@
       .main-container {
         --comp-default-fill-color: white;
         --comp-active-fill-color: #fcd93a;
+        --comp-hover-color-num: 203, 238, 255;
         --comp-box-h: 100px;
         --comp-box-w: 200px;
         --comp-radius: 6px;
@@ -49,36 +50,41 @@
         width: 400px;
         height: 200px;
 
+        overflow: hidden;
         position: relative;
         box-sizing: border-box;
         padding: var(--comp-pd);
         border-radius: var(--base-radius);
         background-color: var(--comp-default-fill-color);
       }
-
-      .avatar {
-        user-select: none;
-        cursor: pointer;
-
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        position: absolute;
-      }
-
-      .avatar::before {
+      .user-card-box::before {
         content: 'catx';
-        height: 0;
-        width: 0;
+        height: 100%;
+        width: 100%;
+        left: 0;
         position: absolute;
         border-radius: 50%;
         box-sizing: border-box;
         transition: all 0.6s ease;
-        transform-origin:left;
-        padding: var(--comp-pd);
+        transform-origin: left;
         filter: brightness(1.1);
-        left: calc(var(--comp-box-h) / 2);
+        padding: var(--comp-pd);
+        border-radius: var(--base-radius);
+        transform: scaleX(0) translateX(-100%);
         background-color: var(--twenty-one-year-color);
+      }
+
+      .avatar,
+      .avatar img,
+      .avatar::before {
+        cursor: pointer;
+        user-select: none;
+        border-radius: 50%;
+      }
+
+      .avatar {
+        z-index: 1;
+        position: absolute;
       }
 
       .avatar img {
@@ -89,27 +95,49 @@
         border-radius: 50%;
         height: var(--comp-box-h);
         width: var(--comp-box-h);
+        position: relative;
+      }
+
+      .avatar::before {
+        content: '';
+        height: 100%;
+        width: 100%;
+        z-index: 30;
+        position: absolute;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+        animation: 0.3s 0.3s linear forwards;
+        /* border: 1px solid pink; */
       }
 
       .info {
         z-index: 10;
         word-wrap: normal;
-        /* word-break: break-all; */
         width: calc(100% - var(--comp-box-h));
         margin-left: calc((var(--comp-box-h) + var(--comp-pd)));
       }
 
-      .user-card-box:hover .avatar::before {
-        /* transform: scale(4); */
-        height: 100%;
-        width: 100%;
-        left: 0;
-        border-radius: var(--base-radius);
-        margin-left: calc(-1 * var(--comp-pd));
+      .avatar:hover::before {
+        animation-name: avatar-breath;
+        box-shadow: 0 0 10px rgba(var(--comp-hover-color-num), 0.4);
       }
 
-      .user-card-box:hover{
+      .user-card-box:hover::before {
+        left: 0;
+        transform: scaleX(1);
+      }
+
+      .user-card-box:hover {
         box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05), 0 3px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      @keyframes avatar-breath {
+        from {
+          outline: 5px solid rgba(var(--comp-hover-color-num), 0.8);
+        }
+        to {
+          outline: 40px solid rgba(var(--comp-hover-color-num), 0);
+        }
       }
     </style>
   </head>
