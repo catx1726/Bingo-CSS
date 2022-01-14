@@ -12,5 +12,6 @@
   transition: all 0.3s ease;
 }
 :root {
-  --twenty-one-year-color: #cbeeffcf;
+  --twenty-one-year-color: rgba(203, 238, 255, 0.812);
+  --years-color-2022: rgb(245, 215, 160);
 }

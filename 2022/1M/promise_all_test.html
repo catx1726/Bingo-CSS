@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PromiseALLTest</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+      body {
+        --base-radius: 6px;
+        --base-ft-weight: 500;
+        --base-bg-color: #dbdbdb;
+        --base-ft-color: black;
+
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        background-color: var(--years-color-2022);
+        font-family: 'Quicksand', 'Cinzel', 'Courier New', Courier, monospace;
+
+        position: relative;
+        box-sizing: border-box;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center top;
+        /* background-image: url(https://img.dpm.org.cn/Uploads/Picture/2021/08/31/s612df6cca9258.jpg); */
+      }
+
+      .main-container {
+        --comp-ft-size: 2rem;
+        --comp-ft-weight: 500;
+        --comp-ft-color: black;
+
+        height: 100%;
+        width: 100%;
+        font-weight: 500;
+        transition: all 0.5s 0.3s ease;
+        color: var(--comp-ft-color);
+        font-weight: var(--comp-ft-weight);
+        font-size: var(--comp-ft-size, 2rem);
+      }
+
+      .main-container:hover {
+        --comp-ft-size: 10rem;
+        --comp-ft-color: white;
+        --comp-ft-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container m-flex flex-jc-center flex-an-center">2022</main>
+  </body>
+  <script>
+    function testPromise(tag) {
+      let min = 100,
+        max = 1000
+
+      let randomDelay = Math.random() * (max - min) + min
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log('running times:', tag, 'delay:', randomDelay)
+          resolve(`${tag} ok~`)
+        }, randomDelay)
+      })
+    }
+
+    async function getPromiseAllSyncFn() {
+      console.log('getPromiseAllSyncFn running!')
+      return Promise.all([await testPromise('sync-A'), await testPromise('sync-B')])
+    }
+
+    function getPromiseAllASyncFn() {
+      console.log('getPromiseAllASyncFn running!')
+      return Promise.all([testPromise('async-A'), testPromise('async-B')])
+    }
+
+    let syncRes = getPromiseAllSyncFn(),
+      asyncRes = null
+
+    syncRes.then((r) => {
+      console.log('getPromiseAllSyncFn done:', r)
+
+      asyncRes = getPromiseAllASyncFn()
+      asyncRes.then((r) => console.log('getPromiseAllASyncFn done:', r))
+    })
+  </script>
+</html>
