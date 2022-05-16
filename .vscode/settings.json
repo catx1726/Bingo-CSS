@@ -7,5 +7,6 @@
   //   "key": "D:\\代码\\ide\\git\\Git\\usr\\ssl\\cad.clientservice.key", //full path of the private key
   //   "passphrase": "123456"
   // },
-  "liveServer.settings.fullReload": true // 修改css后会reload
+  "liveServer.settings.fullReload": true,
+  "nuxt.isNuxtApp": false // 修改css后会reload
 }
