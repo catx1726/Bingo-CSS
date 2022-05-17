@@ -57,15 +57,15 @@
         cursor: pointer;
       }
 
-      .cus-ft-sm{
+      .cus-ft-sm {
         font-size: 14px;
       }
 
-      .cus-ft-base{
+      .cus-ft-base {
         font-size: 16px;
       }
 
-      .cus-ft-lg{
+      .cus-ft-lg {
         font-size: 24px;
       }
     </style>
@@ -79,7 +79,7 @@
           class="cad-cursor-pointer"
           v-for="size of pgInfo.textSizes"
           :key="size.text"
-          @click="pgInfo.richText = handleRichFontSizeEntry(pgInfo.richText,size)"
+          @click="pgInfo.richText = handleRichFontSizeEntry(pgInfo.richText,pgInfo.backupRichText,size)"
         >
           {{size.text}}
         </span>
@@ -95,30 +95,49 @@
           g_document: document,
           pgInfo: {
             curTextSize: null,
-            textSizes: { sm: { text: 'A-', val: 14, add: -2,cusClass:'cus-ft-sm' }, base: { text: 'A', val: 18, add: 2,cusClass:'cus-ft-base' }, lg: { text: 'A+', val: 24, add: 4,cusClass:'cus-ft-lg' } },
-            richText: `<div id="w-e-textarea-1" data-slate-editor="" data-slate-node="value" suppresscontenteditablewarning="" role="textarea" spellcheck="true" autocorrect="true" autocapitalize="true"><p id="w-e-element-3" style="text-indent: 28pt; line-height: 150%;" data-slate-node="element"><span id="w-e-text-4" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">为增进新入职员工与公司的双向互通，促进全咨核心人才团队打造，根据部门“团队建设年”活动安排，全咨事业部于5月14日召开了新员工畅谈会，特邀请严帆、邹力、郭焱枝3位项目部同志参会，部门经理吴红涛主持了本次会议。</span></span></span></p><p id="w-e-element-5" style="text-indent: 28pt; line-height: 150%;" data-slate-node="element"><span id="w-e-text-6" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">7名新员工结合入职中韬华胜后的所思、所见、所闻、所做，畅谈了对全咨岗位的认知和困惑，为公司发展和部门建设提了很多很好的建议，3名项目部同志分享了自己的工作经历，回答了部分新员工的疑问，就工作思路、方式方法、更快融入华胜等给出了见解。畅谈间，发言踊跃，气氛活跃。</span></span></span></p><p id="w-e-element-7" style="text-indent: 28pt; line-height: 150%;" data-slate-node="element"><span id="w-e-text-8" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">公司副总经理黄欣做了总结发言。他表示，参会的新员工是历经两轮面试才入职公司，最好的你们遇到了最好的中韬华胜，你们为公司发展注入了新鲜血液和力量。今天的畅谈，大家坦诚以待，知己知彼，选对人、培养员工做对事，是为企业赋能和提升核心竞争力的重要手段。同时，黄总要求新员工正确认识自己，迅速转变角色，找准自身定位，希望大家能够脚踏实地，发扬钉钉子精神，主动出击，在管理工作中通过履责和相互监督搭建信任平台，在岗位中凸显个人价值，在提升自我中促中韬华胜事业长青，共创未来！</span></span></span></p><p id="w-e-element-9" style="text-indent: 28pt; text-align: right; line-height: 150%;" data-slate-node="element"><span id="w-e-text-10" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">                      </span></span></span><span id="w-e-text-11" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-string="true">易家墩村还建房项目管理部  郭焱枝</span></strong></span></span></p><p id="w-e-element-20" style="text-indent: 28.1pt; text-align: right; line-height: 150%;" data-slate-node="element"><span id="w-e-text-13" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-string="true">二〇二二年五月十六日</span></strong></span></span></p><p id="w-e-element-23" style="text-indent: 28.1pt; text-align: right; line-height: 150%;" data-slate-node="element"><span id="w-e-text-22" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-zero-width="n"><br></span></strong></span></span></p><p id="w-e-element-24" style="text-indent: 28.1pt; text-align: center; line-height: 150%;" data-slate-node="element"><span id="w-e-text-25" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-zero-width="z"></span></strong></span></span><span id="w-e-element-26" style="position: relative;" data-slate-node="element" data-slate-inline="true" data-slate-void="true"></span></p><span style="height: 0px; color: transparent; outline: currentcolor none medium; position: absolute;" data-slate-spacer="true"><span id="w-e-text-27" data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z"></span></span></span></span><span id="w-e-text-28" data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="n"><br></span></span></span><p></p><p id="w-e-element-14" data-slate-node="element"><span id="w-e-text-15" data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="n"><br></span></span></span></p></div>`
+            textSizes: {
+              sm: { text: 'A-', val: 14, add: -2, cusClass: 'cus-ft-sm' },
+              base: { text: 'A', val: 18, add: 0, cusClass: 'cus-ft-base' },
+              lg: { text: 'A+', val: 24, add: 4, cusClass: 'cus-ft-lg' }
+            },
+            richText: `<div id="w-e-textarea-1" data-slate-editor="" data-slate-node="value" suppresscontenteditablewarning="" role="textarea" spellcheck="true" autocorrect="true" autocapitalize="true"><p id="w-e-element-3" style="text-indent: 28pt; line-height: 150%;" data-slate-node="element"><span id="w-e-text-4" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">为增进新入职员工与公司的双向互通，促进全咨核心人才团队打造，根据部门“团队建设年”活动安排，全咨事业部于5月14日召开了新员工畅谈会，特邀请严帆、邹力、郭焱枝3位项目部同志参会，部门经理吴红涛主持了本次会议。</span></span></span></p><p id="w-e-element-5" style="text-indent: 28pt; line-height: 150%;" data-slate-node="element"><span id="w-e-text-6" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">7名新员工结合入职中韬华胜后的所思、所见、所闻、所做，畅谈了对全咨岗位的认知和困惑，为公司发展和部门建设提了很多很好的建议，3名项目部同志分享了自己的工作经历，回答了部分新员工的疑问，就工作思路、方式方法、更快融入华胜等给出了见解。畅谈间，发言踊跃，气氛活跃。</span></span></span></p><p id="w-e-element-7" style="text-indent: 28pt; line-height: 150%;" data-slate-node="element"><span id="w-e-text-8" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">公司副总经理黄欣做了总结发言。他表示，参会的新员工是历经两轮面试才入职公司，最好的你们遇到了最好的中韬华胜，你们为公司发展注入了新鲜血液和力量。今天的畅谈，大家坦诚以待，知己知彼，选对人、培养员工做对事，是为企业赋能和提升核心竞争力的重要手段。同时，黄总要求新员工正确认识自己，迅速转变角色，找准自身定位，希望大家能够脚踏实地，发扬钉钉子精神，主动出击，在管理工作中通过履责和相互监督搭建信任平台，在岗位中凸显个人价值，在提升自我中促中韬华胜事业长青，共创未来！</span></span></span></p><p id="w-e-element-9" style="text-indent: 28pt; text-align: right; line-height: 150%;" data-slate-node="element"><span id="w-e-text-10" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">                      </span></span></span><span id="w-e-text-11" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-string="true">易家墩村还建房项目管理部  郭焱枝</span></strong></span></span></p><p id="w-e-element-20" style="text-indent: 28.1pt; text-align: right; line-height: 150%;" data-slate-node="element"><span id="w-e-text-13" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-string="true">二〇二二年五月十六日</span></strong></span></span></p><p id="w-e-element-23" style="text-indent: 28.1pt; text-align: right; line-height: 150%;" data-slate-node="element"><span id="w-e-text-22" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-zero-width="n"><br></span></strong></span></span></p><p id="w-e-element-24" style="text-indent: 28.1pt; text-align: center; line-height: 150%;" data-slate-node="element"><span id="w-e-text-25" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-zero-width="z"></span></strong></span></span><span id="w-e-element-26" style="position: relative;" data-slate-node="element" data-slate-inline="true" data-slate-void="true"></span></p><span style="height: 0px; color: transparent; outline: currentcolor none medium; position: absolute;" data-slate-spacer="true"><span id="w-e-text-27" data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z"></span></span></span></span><span id="w-e-text-28" data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="n"><br></span></span></span><p></p><p id="w-e-element-14" data-slate-node="element"><span id="w-e-text-15" data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="n"><br></span></span></span></p></div>`,
+            backupRichText: `<div id="w-e-textarea-1" data-slate-editor="" data-slate-node="value" suppresscontenteditablewarning="" role="textarea" spellcheck="true" autocorrect="true" autocapitalize="true"><p id="w-e-element-3" style="text-indent: 28pt; line-height: 150%;" data-slate-node="element"><span id="w-e-text-4" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">为增进新入职员工与公司的双向互通，促进全咨核心人才团队打造，根据部门“团队建设年”活动安排，全咨事业部于5月14日召开了新员工畅谈会，特邀请严帆、邹力、郭焱枝3位项目部同志参会，部门经理吴红涛主持了本次会议。</span></span></span></p><p id="w-e-element-5" style="text-indent: 28pt; line-height: 150%;" data-slate-node="element"><span id="w-e-text-6" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">7名新员工结合入职中韬华胜后的所思、所见、所闻、所做，畅谈了对全咨岗位的认知和困惑，为公司发展和部门建设提了很多很好的建议，3名项目部同志分享了自己的工作经历，回答了部分新员工的疑问，就工作思路、方式方法、更快融入华胜等给出了见解。畅谈间，发言踊跃，气氛活跃。</span></span></span></p><p id="w-e-element-7" style="text-indent: 28pt; line-height: 150%;" data-slate-node="element"><span id="w-e-text-8" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">公司副总经理黄欣做了总结发言。他表示，参会的新员工是历经两轮面试才入职公司，最好的你们遇到了最好的中韬华胜，你们为公司发展注入了新鲜血液和力量。今天的畅谈，大家坦诚以待，知己知彼，选对人、培养员工做对事，是为企业赋能和提升核心竞争力的重要手段。同时，黄总要求新员工正确认识自己，迅速转变角色，找准自身定位，希望大家能够脚踏实地，发扬钉钉子精神，主动出击，在管理工作中通过履责和相互监督搭建信任平台，在岗位中凸显个人价值，在提升自我中促中韬华胜事业长青，共创未来！</span></span></span></p><p id="w-e-element-9" style="text-indent: 28pt; text-align: right; line-height: 150%;" data-slate-node="element"><span id="w-e-text-10" data-slate-node="text"><span data-slate-leaf="true"><span style="font-family: 微软雅黑;" data-slate-string="true">                      </span></span></span><span id="w-e-text-11" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-string="true">易家墩村还建房项目管理部  郭焱枝</span></strong></span></span></p><p id="w-e-element-20" style="text-indent: 28.1pt; text-align: right; line-height: 150%;" data-slate-node="element"><span id="w-e-text-13" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-string="true">二〇二二年五月十六日</span></strong></span></span></p><p id="w-e-element-23" style="text-indent: 28.1pt; text-align: right; line-height: 150%;" data-slate-node="element"><span id="w-e-text-22" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-zero-width="n"><br></span></strong></span></span></p><p id="w-e-element-24" style="text-indent: 28.1pt; text-align: center; line-height: 150%;" data-slate-node="element"><span id="w-e-text-25" data-slate-node="text"><span data-slate-leaf="true"><strong class="token bold" style="font-family: 微软雅黑;"><span data-slate-zero-width="z"></span></strong></span></span><span id="w-e-element-26" style="position: relative;" data-slate-node="element" data-slate-inline="true" data-slate-void="true"></span></p><span style="height: 0px; color: transparent; outline: currentcolor none medium; position: absolute;" data-slate-spacer="true"><span id="w-e-text-27" data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z"></span></span></span></span><span id="w-e-text-28" data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="n"><br></span></span></span><p></p><p id="w-e-element-14" data-slate-node="element"><span id="w-e-text-15" data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="n"><br></span></span></span></p></div>`
           }
         }
       },
       methods: {
-        handleRichFontSizeEntry(html, size) {
+        handleRichFontSizeEntry(realHtml, backupHtml, size) {
           // 递归拿到所有元素
           // dom 已指定 font-size 则在本身上增加
           // dom 未指定 font-size 则直接添加样式
-          if (this.pgInfo.curTextSize && this.pgInfo.curTextSize.text === size.text) return html
+
+          console.log('handleRichFontSizeEntry:', size)
+
+          // 防止反复点击，curTextSize === 传入的 size 直接退出，将传入的 html 返回
+          if (this.pgInfo.curTextSize && this.pgInfo.curTextSize.text === size.text) return realHtml
 
           this.pgInfo.curTextSize = size
 
-          const _d = document
+          const _d = document,
+            fragment = _d.createDocumentFragment(),
+            dom = _d.createRange().createContextualFragment(backupHtml)
 
-          const fragment = _d.createDocumentFragment(),
-            dom = _d.createRange().createContextualFragment(html)
+          let result = this.handleRichFontSize(dom, size),
+            outsetDOM = null
 
-          console.log('handleRichFontSizeEntry:', fragment, dom, this.pgInfo.curTextSize)
+          outsetDOM = result.childNodes[0] ? result.childNodes[0] : null
 
-          let result = this.handleRichFontSize(dom, size)
+          if (!outsetDOM) return realHtml
 
-          // TODO 可优化，这里只用了一个简单得兼容，outerHTML 是节点之内的所有元素(包含本身)，innerHTML 是节点之内的所有元素(不包括本身)
+          // 将最外层父元素上加上 fontSize，其没有指定 fontSize 的子元素就可以直接继承，递归中可以少执行一部分逻辑
+          const outsetFontSize = (outsetDOM.style.fontSize || outsetDOM.style['font-size']).split('px')[0]
+
+          // 存在就 add，不存在就直接赋值
+          outsetDOM.style['font-size'] = (outsetFontSize ? outsetFontSize + size.add : size.val) + 'px'
+          // 兼容性考虑
+          outsetDOM.style.fontSize = (outsetFontSize ? outsetFontSize + size.add : size.val) + 'px'
+
+          // outerHTML 是节点之内的所有元素(包含本身)，innerHTML 是节点之内的所有元素(不包括本身)
           result = result.childNodes[0].outerHTML || result.childNodes[0].innerHTML
 
           console.log('handleRichFontSizeEntry done:', result)
@@ -140,8 +159,8 @@
 
             console.log('handleRichFontSize:', i, fontSize)
 
-            // TODO 可优化，textSize 根据用户的选择配置
-            i.style.fontSize = uchooseSize.val + 'px'
+            // 如果有 fontSize 则只需增量，如果没有指定，那么去继承之前设置的 outestFontSize
+            i.style.fontSize = (fontSize ? +fontSize + uchooseSize.add : '') + 'px'
 
             if (i.childNodes.length) return this.handleRichFontSize(i, uchooseSize)
           })
