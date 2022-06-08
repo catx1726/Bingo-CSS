@@ -113,21 +113,18 @@
 
           console.log('handleRichFontSizeEntry:', size)
 
-          // 防止反复点击，curTextSize === 传入的 size 直接退出，将传入的 html 返回
-          if (this.pgInfo.curTextSize && this.pgInfo.curTextSize.text === size.text) return realHtml
+          // 防止反复点击，textChoose === 传入的 size 直接退出，将传入的 html 返回
+          if (this.pgInfo.textChoose && this.pgInfo.textChoose.text === size.text) return realHtml
 
-          this.pgInfo.curTextSize = size
+          this.pgInfo.textChoose = size
 
           const _d = document,
-            fragment = _d.createDocumentFragment(),
             dom = _d.createRange().createContextualFragment(backupHtml)
 
           let result = this.handleRichFontSize(dom, size),
-            outsetDOM = null
+            outsetDOM = _d.createElement('div')
 
-          outsetDOM = result.childNodes[0] ? result.childNodes[0] : null
-
-          if (!outsetDOM) return realHtml
+          // if (!outsetDOM) return realHtml
 
           // 将最外层父元素上加上 fontSize，其没有指定 fontSize 的子元素就可以直接继承，递归中可以少执行一部分逻辑
           const outsetFontSize = (outsetDOM.style.fontSize || outsetDOM.style['font-size']).split('px')[0]
@@ -137,8 +134,10 @@
           // 兼容性考虑
           outsetDOM.style.fontSize = (outsetFontSize ? outsetFontSize + size.add : size.val) + 'px'
 
+          outsetDOM.append(result)
+
           // outerHTML 是节点之内的所有元素(包含本身)，innerHTML 是节点之内的所有元素(不包括本身)
-          result = result.childNodes[0].outerHTML || result.childNodes[0].innerHTML
+          result = outsetDOM.outerHTML
 
           console.log('handleRichFontSizeEntry done:', result)
 
@@ -147,6 +146,7 @@
         handleRichFontSize(dom, uchooseSize) {
           let fontSize = null
 
+          console.log('handleRichFontSize:', dom)
           if (!dom.childNodes.length) return
 
           dom.childNodes.forEach((i) => {
@@ -157,10 +157,10 @@
             // DES 富文本中字体调节都是 px 单位
             fontSize = fontSize.split('px')[0]
 
-            console.log('handleRichFontSize:', i, fontSize)
-
             // 如果有 fontSize 则只需增量，如果没有指定，那么去继承之前设置的 outestFontSize
             i.style.fontSize = (fontSize ? +fontSize + uchooseSize.add : '') + 'px'
+
+            console.log('handleRichFontSize looping:', i.style)
 
             if (i.childNodes.length) return this.handleRichFontSize(i, uchooseSize)
           })
