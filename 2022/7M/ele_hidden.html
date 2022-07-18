@@ -2,92 +2,142 @@
  * @Author: cad catx1726@foxmail.com
  * @Date: 2022-07-17 16:22:43
  * @LastEditors: cad catx1726@foxmail.com
- * @LastEditTime: 2022-07-17 17:35:18
+ * @LastEditTime: 2022-07-18 21:41:32
  * @FilePath: /CSS-Inspired-Factory/2022/7M/ele_hidden.html
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>customPropertyAnimate</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>customPropertyAnimate</title>
-  <link rel="stylesheet" href="../../css/main.css" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+      body {
+        --base-radius: 6px;
+        --base-ft-weight: 500;
+        --base-bg-color: #dbdbdb;
+        --base-ft-color: black;
 
-    body {
-      --base-radius: 6px;
-      --base-ft-weight: 500;
-      --base-bg-color: #dbdbdb;
-      --base-ft-color: black;
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        background-color: var(--years-color-2022);
+        font-family: 'Quicksand', 'Cinzel', 'Courier New', Courier, monospace;
 
-      height: 100vh;
-      width: 100vw;
-      max-height: 100%;
-      max-width: 100%;
-      background-color: var(--years-color-2022);
-      font-family: 'Quicksand', 'Cinzel', 'Courier New', Courier, monospace;
+        position: relative;
+        box-sizing: border-box;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center top;
+        font-size: 2rem;
+        /* background-image: url(https://img.dpm.org.cn/Uploads/Picture/2021/08/31/s612df6cca9258.jpg); */
+      }
 
-      position: relative;
-      box-sizing: border-box;
-      background-size: cover;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      background-position: center top;
-      font-size: 2rem;
-      /* background-image: url(https://img.dpm.org.cn/Uploads/Picture/2021/08/31/s612df6cca9258.jpg); */
-    }
+      .main-container {
+        height: 100%;
+      }
 
-    .main-container {
-      height: 100%;
-    }
+      ul {
+        list-style: none;
+      }
 
-    ul {
-      list-style: none;
-    }
+      .ele__box {
+        height: 100%;
+        user-select: none;
+        position: relative;
+        cursor: pointer;
+        margin: 36px 0;
+        padding: 6px 0;
+        border-bottom: 1px solid black;
+      }
 
-    .ele__box {
-      max-height: 150px;
-      user-select: none;
-      position: relative;
-      cursor: pointer;
-      margin: 36px 0;
-      padding: 6px 0;
-      overflow: hidden;
-      border-bottom: 1px solid black;
-    }
+      .ele__inner {
+        height: 100%;
+        display: inherit;
+        position: relative;
+      }
 
-    .ele__inner {
-      height: 100%;
-      display: inherit;
-      position: relative;
-    }
+      .hidden {
+        overflow: hidden;
+        transition: transform 0.3s calc(var(--data-index) * 0.05s) ease;
+      }
 
-    .hidden {
-      transition: transform 0.3s calc(var(--data-index) * 0.05s) ease;
-    }
+      .hidden__bottom {
+        transform: translateY(100%);
+      }
 
-    .main-container:hover .hidden__bottom {
-      transform: translateY(100%);
-    }
-  </style>
-</head>
+      .main-container:hover .hidden__bottom {
+        transform: translateY(0%);
+      }
 
-<body>
-  <main class="main-container m-flex flex-jc-center flex-an-center">
-    <ul>
-      <li class="ele__box"><span class="ele__inner hidden hidden__bottom" style="--data-index: 1">Lorem</span></li>
-      <li class="ele__box"><span class="ele__inner hidden hidden__bottom" style="--data-index: 2">Lorem</span></li>
-      <li class="ele__box"><span class="ele__inner hidden hidden__bottom" style="--data-index: 3">Lorem</span></li>
-      <li class="ele__box"><span class="ele__inner hidden hidden__bottom" style="--data-index: 4">Lorem</span></li>
-      <li class="ele__box"><span class="ele__inner hidden hidden__bottom" style="--data-index: 5">Lorem</span></li>
-      <li class="ele__box"><span class="ele__inner hidden hidden__bottom" style="--data-index: 6">Lorem</span></li>
-    </ul>
-  </main>
-</body>
+      .radio__box {
+        opacity: 0;
+        display: none;
+      }
 
+      .radio__name {
+        padding: 6px;
+        margin: 12px;
+        border-bottom: 1px solid transparent;
+      }
+
+      .radio__name:first-of-type {
+        user-select: none;
+        margin-right: 0;
+      }
+
+      .radio__box:checked ~ .radio__name { 
+        border-bottom-color: black;
+      }
+
+      .radio__box:checked ~ .section-container {
+        opacity: 1;
+      }
+
+      .radio__box ~ .section-container {
+        opacity: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="main-container m-flex flex-jc-start">
+      <div>
+        <input type="radio" class="radio__box" name="page__radio" id="page__one" value="page__one" />
+        <label for="page__one" class="radio__name">pageOne</label>
+        <section class="page__one section-container m-flex flex-jc-center flex-an-center">
+          <ul>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 1">Lorem</span></li>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 2">Lorem</span></li>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 3">Lorem</span></li>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 4">Lorem</span></li>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 5">Lorem</span></li>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 6">Lorem</span></li>
+          </ul>
+        </section>
+      </div>
+      <div>
+        <input type="radio" class="radio__box" name="page__radio" id="page__two" value="page__two" />
+        <label for="page__two" class="radio__name">pageTwo</label>
+        <section class="page__two section-container m-flex flex-jc-center flex-an-center">
+          <ul>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 1">Lorem</span></li>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 2">Lorem</span></li>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 3">Lorem</span></li>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 4">Lorem</span></li>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 5">Lorem</span></li>
+            <li class="ele__box hidden"><span class="ele__inner hidden__bottom" style="--data-index: 6">Lorem</span></li>
+          </ul>
+        </section>
+      </div>
+    </main>
+  </body>
 </html>
