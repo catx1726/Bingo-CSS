@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>letter</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+      :root {
+        --base-bg-light: F5F7F9;
+        --base-white: #fff;
+        --base-gray-1: #ebedf0;
+        --base-gray-2: #cccccc;
+        --base-gray-3: #999999;
+        --base-gray-4: #666;
+        --base-black-1: #000;
+        --base-brand: CC2728;
+        --base-pd-md: 12px;
+      }
+
+      .main-container {
+        max-width: 1200px;
+        font-size: 1.6rem;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .editor,
+      .preview {
+        width: 100%;
+        height: 730px;
+        min-width: 350px;
+        max-width: 515px;
+        position: relative;
+        margin-bottom: var(--base-pd-md);
+        background-color: var(--base-gray-1);
+      }
+
+      .editor::after,
+      .preview::after {
+        content: '';
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        /* background-repeat: no-repeat; */
+        /* background-size: contain; */
+        background-image: url('./imgs/accent.svg');
+      }
+
+      .content,
+      .title {
+        box-sizing: border-box;
+      }
+
+      .title {
+        position: relative;
+        font-size: 3.6rem;
+        margin-top: calc(var(--base-pd-md) * 5);
+        margin-bottom: calc(var(--base-pd-md) * 2);
+        margin-left: calc(var(--base-pd-md) * 2);
+      }
+      .title::after {
+        content: '';
+        left: 0;
+        width: 36px;
+        position: absolute;
+        bottom: calc(-1 * var(--base-pd-md));
+        border-bottom: 2px solid var(--base-black-1);
+      }
+
+      .content {
+        max-height: 545px;
+        width: 100%;
+        max-width: 495px;
+        min-width: 300px;
+        position: relative;
+        padding: calc(2 * var(--base-pd-md));
+      }
+
+      .content .topic,
+      .content .desc,
+      .content .footer {
+        z-index: 20;
+        position: relative;
+      }
+
+      .content .topic {
+        margin-bottom: calc(2 * var(--base-pd-md));
+      }
+
+      .content .desc {
+        width: 100%;
+        height: 350px;
+        max-height: 350px;
+        max-width: 100%;
+        overflow-y: auto;
+
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        word-break: break-all;
+      }
+
+      .content::after {
+        content: '';
+        top: 0;
+        left: 0;
+        z-index: 10;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        opacity: 0.9;
+        background-color: var(--base-white);
+      }
+
+      .content .footer {
+        height: 60px;
+        width: 100%;
+        margin-top: var(--base-pd-md);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .content .footer .logo,
+      .content .footer .date-author {
+        height: 50px;
+      }
+
+      .content .footer .date-author {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .content .footer .radio-item:first-child {
+        margin-right: var(--base-pd-md);
+      }
+
+      .content .footer .radio-item label {
+        margin-left: 6px;
+      }
+
+      .content .footer .edit-box,
+      .content .footer .preview-box {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .content .trigger-box {
+        z-index: 20;
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .preview-btn,
+      .submit-btn {
+        z-index: 20;
+      }
+      .preview-btn {
+        right: calc(var(--base-pd-md) * 2);
+        position: absolute;
+      }
+
+      button {
+        cursor: pointer;
+        border: none;
+        padding: 6px 12px;
+        font-size: 1.6rem;
+        color: var(--base-white);
+        background-color: var(--base-black-1);
+      }
+
+      button:first-child {
+        margin-right: 6px;
+      }
+
+      textarea {
+        resize: none;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container" id="app">
+      <section class="editor">
+        <div class="title">{{pgInfo.title}}</div>
+        <div class="content">
+          <input class="topic" v-model="pgInfo.topic" />
+          <button class="preview-btn" @click="pgInfo.choseMode = pgInfo.choseMode.tag === pgInfo.mode.preview.tag ? pgInfo.mode.edit : pgInfo.mode.preview">
+            {{pgInfo.choseMode.tag === pgInfo.mode.preview.tag ? pgInfo.mode.edit.text : pgInfo.mode.preview.text}}
+          </button>
+          <textarea class="desc" maxlength="400" v-model="pgInfo.desc"></textarea>
+          <div class="footer">
+            <div class="edit-box" v-if="pgInfo.choseMode.tag === pgInfo.mode.edit.tag">
+              <div class="radio-box">
+                <span v-for="item of pgInfo.putRadios" :key="item.tag" class="radio-item">
+                  <input type="radio" :id="item.tag" name="putType" :value="item.value" />
+                  <label :for="item.tag">{{item.text}}</label>
+                </span>
+              </div>
+              <button class="submit-btn">提交</button>
+            </div>
+
+            <div class="preview-box" v-if="pgInfo.choseMode.tag === pgInfo.mode.preview.tag">
+              <img class="logo" src="./imgs/logo-around.png" />
+              <div class="date-author">
+                <span class="author">{{pgInfo.author}}</span>
+                <span class="date">{{pgInfo.date}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>
+      const { createApp } = Vue
+
+      createApp({
+        data() {
+          return {
+            message: 'Hello Vue!',
+            pgInfo: {
+              choseMode: { text: '编辑', tag: 'edit' },
+              mode: {
+                preview: { text: '预览', tag: 'preview' },
+                edit: { text: '编辑', tag: 'edit' }
+              },
+              putRadios: [
+                { text: '匿名', tag: 'anonymous', value: 'anonymous' },
+                { text: '实名', tag: 'real', value: 'real' }
+              ],
+              rule: [
+                { text: '用户', tag: 'user' },
+                { text: '处理人', tag: 'processor' }
+              ],
+              title: '意见',
+              topic: '关于XXXX意见',
+              desc: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit corporis aliquid minima deleniti ratione cupiditate! Modi, at natus iure animi, itaque tempore repudiandae quibusdam unde exercitationem sed corrupti sequi? Ipsa.      
+Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit corporis aliquid minima deleniti ratione cupiditate! Modi, at natus iure animi, itaque tempore repudiandae quibusdam unde exercitationem sed corrupti sequi? Ipsa.`,
+              author: '张三',
+              date: '2022年8月12日'
+            }
+          }
+        },
+        methods: {
+          handleMode() {}
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>
