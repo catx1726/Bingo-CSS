@@ -124,7 +124,7 @@
         margin-top: var(--base-pd-md);
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
       }
 
       .content .footer .logo,
@@ -165,8 +165,9 @@
         z-index: 20;
       }
       .preview-btn {
-        right: calc(var(--base-pd-md) * 2);
         position: absolute;
+        top: calc(var(--base-pd-md) * 2);
+        right: calc(var(--base-pd-md) * 2);
       }
 
       button {
@@ -193,16 +194,24 @@
       <section class="editor">
         <div class="title">{{pgInfo.title}}</div>
         <div class="content">
-          <input class="topic" v-model="pgInfo.topic" />
+          <!-- topic -->
+          <input v-if="pgInfo.choseMode.tag === pgInfo.mode.edit.tag" class="topic" v-model="pgInfo.topic" autofocus />
+          <div v-else class="topic">{{pgInfo.topic}}</div>
+
           <button class="preview-btn" @click="pgInfo.choseMode = pgInfo.choseMode.tag === pgInfo.mode.preview.tag ? pgInfo.mode.edit : pgInfo.mode.preview">
             {{pgInfo.choseMode.tag === pgInfo.mode.preview.tag ? pgInfo.mode.edit.text : pgInfo.mode.preview.text}}
           </button>
-          <textarea class="desc" maxlength="400" v-model="pgInfo.desc"></textarea>
+
+          <!-- content -->
+          <textarea v-if="pgInfo.choseMode.tag === pgInfo.mode.edit.tag" class="desc" maxlength="400" v-model="pgInfo.desc" autofocus></textarea>
+          <div v-else class="desc">{{pgInfo.desc}}</div>
+
+          <!-- footer -->
           <div class="footer">
             <div class="edit-box" v-if="pgInfo.choseMode.tag === pgInfo.mode.edit.tag">
               <div class="radio-box">
                 <span v-for="item of pgInfo.putRadios" :key="item.tag" class="radio-item">
-                  <input type="radio" :id="item.tag" name="putType" :value="item.value" />
+                  <input type="radio" :id="item.tag" name="putType" :value="item" v-model="pgInfo.choseRadio" />
                   <label :for="item.tag">{{item.text}}</label>
                 </span>
               </div>
@@ -212,7 +221,7 @@
             <div class="preview-box" v-if="pgInfo.choseMode.tag === pgInfo.mode.preview.tag">
               <img class="logo" src="./imgs/logo-around.png" />
               <div class="date-author">
-                <span class="author">{{pgInfo.author}}</span>
+                <span class="author">{{ pgInfo.choseRadio.tag === pgInfo.putRadios.anonymous.tag ? '佚名' : pgInfo.author}}</span>
                 <span class="date">{{pgInfo.date}}</span>
               </div>
             </div>
@@ -228,15 +237,16 @@
           return {
             message: 'Hello Vue!',
             pgInfo: {
+              choseRadio: { text: '实名', tag: 'real', value: 'real' },
               choseMode: { text: '编辑', tag: 'edit' },
               mode: {
                 preview: { text: '预览', tag: 'preview' },
                 edit: { text: '编辑', tag: 'edit' }
               },
-              putRadios: [
-                { text: '匿名', tag: 'anonymous', value: 'anonymous' },
-                { text: '实名', tag: 'real', value: 'real' }
-              ],
+              putRadios: {
+                anonymous: { text: '匿名', tag: 'anonymous', value: 'anonymous' },
+                real: { text: '实名', tag: 'real', value: 'real' }
+              },
               rule: [
                 { text: '用户', tag: 'user' },
                 { text: '处理人', tag: 'processor' }
