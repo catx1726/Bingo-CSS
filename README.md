@@ -1,1 +1,3 @@
-# 2022 demo[2022/1M/custom_property_animate.html](https://www.adba.club/CSS-Inspired-Factory/2022/1M/custom_property_animate.html) <br/>[2022/1M/flex_wrap.html](https://www.adba.club/CSS-Inspired-Factory/2022/1M/flex_wrap.html) <br/>[2022/1M/promise_all_test.html](https://www.adba.club/CSS-Inspired-Factory/2022/1M/promise_all_test.html) <br/>
+# 2022-demo-list
+
+[2022/5M/rich_text_font_size.html](https://www.adba.club/CSS-Inspired-Factory/2022/5M/rich_text_font_size.html) <br/>[2022/7M/ele_hidden.html](https://www.adba.club/CSS-Inspired-Factory/2022/7M/ele_hidden.html) <br/>[2022/8M/sort.html](https://www.adba.club/CSS-Inspired-Factory/2022/8M/sort.html) <br/>[2022/8M/letter.html](https://www.adba.club/CSS-Inspired-Factory/2022/8M/letter.html) <br/>
