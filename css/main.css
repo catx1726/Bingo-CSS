@@ -14,6 +14,16 @@
 :root {
   --twenty-one-year-color: rgba(203, 238, 255, 0.812);
   --years-color-2022: rgb(245, 215, 160);
+
+  --base-bg-light: F5F7F9;
+  --base-white: #fff;
+  --base-gray-1: #ebedf0;
+  --base-gray-2: #cccccc;
+  --base-gray-3: #999999;
+  --base-gray-4: #666;
+  --base-black-1: #000;
+  --base-brand: CC2728;
+  --base-pd-md: 12px;
 }
 
 img {
@@ -25,4 +35,13 @@ input,
 textarea {
   padding: 12px 0;
   border: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  padding: 6px 12px;
+  font-size: 1.6rem;
+  color: var(--base-white);
+  background-color: var(--base-black-1);
 }

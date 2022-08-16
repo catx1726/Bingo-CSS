@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sort</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+      .main-container {
+        --sort-item-h: 50px;
+
+        max-width: 1200px;
+        font-size: 1.6rem;
+        margin: 0 auto;
+      }
+      .sort-box,
+      .sort-item {
+        transition: all 1s ease;
+      }
+      .sort-box {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+      }
+      .sort-item {
+        position: absolute;
+        height: var(--sort-item-h);
+        transform: translateY(0px);
+      }
+      .sort-button {
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app" class="main-container">
+      <div class="sort-box" :style="`height:${config.itemHeight * list.length}px`">
+        <span v-for="item of list" :key="item.name" class="sort-item" :style="`transform:translateY(${config.itemHeight * (item.rank - 1)}px)`">
+          {{item.name}}-{{item.rank}}
+        </span>
+      </div>
+      <button class="sort-button" @click="list = randomRank()">{{list.length ? 'shuffle':'load'}}</button>
+    </main>
+    <script>
+      const { createApp } = Vue
+
+      createApp({
+        data() {
+          return {
+            config: { itemHeight: 50, itemRefAffix: 'ref-sort-item-', min: 1, max: 10 },
+            list: [],
+            userNameList: ['jack', 'lee', 'coco', 'cat', 'cod', 'jay', 'bob', 'chik', 'dot', 'px', 'biggie']
+          }
+        },
+        mounted() {},
+        methods: {
+          makeUniqueRank(list, min = this.config.min, max = this.config.max) {
+            let uniqueRank = Math.floor(Math.random() * (max - min + 1)) + min
+
+            if (!list.find((i) => i.rank === uniqueRank)) return uniqueRank
+
+            console.log('find same rank:', uniqueRank, list)
+
+            // 存在同级，则继续生成排名
+            return this.makeUniqueRank(list)
+          },
+          randomRank(min = this.config.min, max = this.config.max) {
+            let randomList = [],
+              curRandomRank = null
+
+            for (let index = min; index <= max; index++) {
+              curRandomRank = this.makeUniqueRank(randomList)
+              randomList.push({ name: `${this.userNameList[index]}`, rank: curRandomRank })
+            }
+            return randomList
+          }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>
