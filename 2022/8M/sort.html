@@ -1,0 +1,58 @@
+<!--
+ * @Author: cad catx1726@foxmail.com
+ * @Date: 2022-08-15 20:18:42
+ * @LastEditors: cad catx1726@foxmail.com
+ * @LastEditTime: 2022-08-17 19:53:06
+ * @FilePath: /CSS-Inspired-Factory/2022/8M/sort.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sort</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+      .main-container {
+        max-width: 1200px;
+        font-size: 1.6rem;
+        margin: 0 auto;
+        font-family: 'Times New Roman', Times, serif;
+      }
+
+      .sort-item {
+        margin: 10px 0;
+        transition: all 10s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app" class="main-container">
+      <div class="sort-box m-flex flex-dir-col">
+        <span class="sort-item" v-for="item of list" :key="item">{{item}}</span>
+      </div>
+      <button @click="randomSort">sort</button>
+    </main>
+    <script>
+      const { createApp } = Vue
+
+      createApp({
+        data() {
+          return {
+            list: [1, 2, 3, 4, 5]
+          }
+        },
+        methods: {
+          randomSort() {
+            let temp = this.list.splice(2, 1)
+            this.list.splice(1, 0, temp[0])
+            console.log('randomSort:', temp, this.list)
+          }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>
