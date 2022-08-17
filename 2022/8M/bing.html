@@ -97,16 +97,18 @@
         data() {
           return {
             list: [],
-            contentDOM: null
+            contentDOM: null,
+            boxDOM: null
           }
         },
         mounted() {
           this.readyDOM()
-          this.initEventListener(this.contentDOM, 'scroll', [this.handleContentWidth])
+          this.initEventListener(this.boxDOM, 'scroll', [this.handleContentWidth])
         },
         methods: {
           readyDOM() {
             this.contentDOM = G_INFO.DOC.querySelector('.content')
+            this.boxDOM = G_INFO.DOC.querySelector('.box')
             console.log('readyDOM:', this.contentDOM)
           },
 
