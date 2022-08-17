@@ -4,11 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <title>delayList</title>
+    <title>bing</title>
     <link rel="stylesheet" href="../../css/main.css" />
+    <script src="https://unpkg.com/vue@3"></script>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
       body {
         --base-radius: 6px;
         --base-ft-weight: 500;
@@ -73,7 +72,7 @@
     </style>
   </head>
   <body>
-    <main class="main-container m-flex flex-jc-center flex-an-center">
+    <main id="app" class="main-container m-flex flex-jc-center flex-an-center">
       <div class="box m-flex flex-jc-start flex-an-center flex-dir-col">
         <header class="header m-flex flex-an-center flex-jc-center">header</header>
         <div class="content">
@@ -91,24 +90,46 @@
       </div>
     </main>
     <script>
-      const G_INFO = { DOC: document, WIN: window },
-        boxDOM = G_INFO.DOC.querySelector('.box'),
-        boxContentDOM = boxDOM.children[1],
-        handlerList = [handleContentWidth]
+      const { createApp } = Vue,
+        G_INFO = { DOC: document, WIN: window }
 
-      function handleScroll(event) {
-        handlerList.forEach((handler) => handler(event))
-      }
+      createApp({
+        data() {
+          return {
+            list: [],
+            contentDOM: null
+          }
+        },
+        mounted() {
+          this.readyDOM()
+          this.initEventListener(this.contentDOM, 'scroll', [this.handleContentWidth])
+        },
+        methods: {
+          readyDOM() {
+            this.contentDOM = G_INFO.DOC.querySelector('.content')
+            console.log('readyDOM:', this.contentDOM)
+          },
 
-      function handleContentWidth(event) {
-        let dom = event.target || event.srcElement
-        if (dom.scrollTop < 100) return boxContentDOM.classList.remove('full-width')
-        boxContentDOM.classList.add('full-width')
-      }
+          getBingIMGAPI() {
+            // REF https://cn.bing.com/hp/api/model MediaContents
+          },
 
-      boxDOM.addEventListener('scroll', function (event) {
-        G_INFO.WIN.requestAnimationFrame((e) => handleScroll(event))
-      })
+          handleContentWidth(event) {
+            console.log('handleContentWidth:', event)
+            let dom = event.target || event.srcElement
+            if (dom.scrollTop < 100) return this.contentDOM.classList.remove('full-width')
+            this.contentDOM.classList.add('full-width')
+          },
+
+          initEventListener(dom, type, func = []) {
+            console.log('initEventListener:', dom, type, func)
+            const funcHandler = (event) => func.forEach((fn) => fn(event))
+            dom.addEventListener(type, function (event) {
+              G_INFO.WIN.requestAnimationFrame((e) => funcHandler(event))
+            })
+          }
+        }
+      }).mount('#app')
     </script>
   </body>
 </html>
