@@ -1,9 +1,17 @@
+<!--
+ * @Author: cad catx1726@foxmail.com
+ * @Date: 2022-08-18 20:03:01
+ * @LastEditors: cad catx1726@foxmail.com
+ * @LastEditTime: 2022-08-18 20:08:36
+ * @FilePath: /CSS-Inspired-Factory/2022/8M/bing.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <!DOCTYPE html>
 <html lang="cn">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content-box="IE=edge" />
-    <meta name="viewport" content-box="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>bing</title>
     <link rel="stylesheet" href="../../css/main.css" />
     <script src="https://unpkg.com/vue@3"></script>
@@ -225,23 +233,21 @@
 
           async handleNext() {
             this.curIndex < this.list.length - 1 ? this.curIndex++ : (this.curIndex = 0)
-            await setTimeout(() => {
-              this.readyDOM()
-            }, 300)
+            this.readyDOM()
           },
 
           async handlePrev() {
             this.curIndex === 0 ? (this.curIndex = this.list.length - 1) : this.curIndex--
-            await setTimeout(() => {
-              this.readyDOM()
-            }, 300)
+            this.readyDOM()
           },
 
           readyDOM() {
-            this.boxDOM = G_INFO.DOC.querySelector('.show.box')
-            this.contentDOM = G_INFO.DOC.querySelector('.show .content-box')
-            this.initEventListener(this.boxDOM, 'scroll', [this.handleContentWidth])
-            console.log('readyDOM:', this.contentDOM)
+            setTimeout(() => {
+              this.boxDOM = G_INFO.DOC.querySelector('.show.box')
+              this.contentDOM = G_INFO.DOC.querySelector('.show .content-box')
+              this.initEventListener(this.boxDOM, 'scroll', [this.handleContentWidth])
+              console.log('readyDOM:', this.contentDOM)
+            }, 300)
           },
 
           async getBingIMGAPI() {
