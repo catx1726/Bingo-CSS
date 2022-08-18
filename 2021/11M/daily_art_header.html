@@ -107,9 +107,7 @@
       }
 
       boxDOM.addEventListener('scroll', function (event) {
-        G_INFO.WIN.requestAnimationFrame((e) => {
-          handleScroll(event)
-        })
+        G_INFO.WIN.requestAnimationFrame((e) => handleScroll(event))
       })
     </script>
   </body>

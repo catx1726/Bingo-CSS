@@ -5,6 +5,8 @@
   3. 后续新增接口，判断输入的文件层级，第一个参数必须是最外层，检测单个文件夹然后添加到 readme
 */
 
+const BASE_URL = 'http://love.peace.css.adoba.site/'
+
 class FileCheck {
   fs = require('fs')
   join = require('path').join
@@ -103,7 +105,7 @@ class FileCheck {
         // TODO 可将项目地址提取成环境变量
         let htmlInner = `<a href="./${item}" target="_blank">${item}</a><br/>`
         // DES markdown超链接的方式 [文件名](地址)
-        let mdInner = `[${item}](https://www.adba.club/CSS-Inspired-Factory/${item}) <br/>`
+        let mdInner = `[${item}](${BASE_URL}${item}) <br/>`
 
         this.fs.appendFileSync('index.html', htmlInner, 'utf8', (fd) => {
           this.fs.close(fd)
