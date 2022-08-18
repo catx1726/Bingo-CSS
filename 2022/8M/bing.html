@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content-box="IE=edge" />
+    <meta name="viewport" content-box="width=device-width, initial-scale=1.0" />
     <title>bing</title>
     <link rel="stylesheet" href="../../css/main.css" />
     <script src="https://unpkg.com/vue@3"></script>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&display=swap');
       body {
         --base-radius: 6px;
         --base-ft-weight: 500;
@@ -18,8 +19,9 @@
         width: 100vw;
         max-height: 100%;
         max-width: 100%;
-        background-color: var(--base-bg-color);
-        font-family: 'Cinzel', 'Courier New', Courier, monospace;
+        background-color: var(--base-ft-color);
+
+        font-family: 'Noto Serif SC', serif, '微软雅黑';
 
         position: relative;
         box-sizing: border-box;
@@ -27,7 +29,7 @@
         background-attachment: fixed;
         background-repeat: no-repeat;
         background-position: center top;
-        background-image: url(https://img.dpm.org.cn/Uploads/Picture/2021/08/31/s612df6cca9258.jpg);
+        /* background-image: url(https://img.dpm.org.cn/Uploads/Picture/2021/08/31/s612df6cca9258.jpg); */
       }
 
       .main-container {
@@ -37,55 +39,159 @@
         --comp-box-w: 200px;
         --comp-radius: 6px;
         --comp-pd: 4px;
+        --text-sm: 12px;
+        --text-base: 16px;
+        --text-lg: 18px;
+        --text-xxxl: 24px;
 
         height: 100%;
         width: 100%;
-        font-size: 1.6rem;
+        font-size: var(--text-base);
       }
-      .box {
-        height: 500px;
+
+      .slide-box {
+        overflow: hidden;
+      }
+
+      .slide-box,
+      .slide-show-box {
+        display: flex;
         width: 400px;
+        position: relative;
+      }
+
+      .box {
+        flex: 1 0 100%;
+        width: 100%;
+        height: 500px;
         min-width: 300px;
         overflow-y: scroll;
         scroll-behavior: smooth;
         background-color: var(--comp-default-fill-color);
       }
+
       .header {
         width: 100%;
-        height: 150px;
+        height: 200px;
         flex-shrink: 0;
         text-align: center;
         font-size: 5rem;
+        position: relative;
         background-color: var(--comp-active-fill-color);
       }
-      .content {
+
+      .content-box {
         width: 80%;
-        word-break: normal;
-        word-wrap: normal;
+        display: flex;
+        flex-direction: column;
         box-sizing: border-box;
-        padding: 0 calc(var(--comp-pd) * 6);
+        padding: calc(var(--comp-pd) * 8);
         box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.1), 0 3px 20px rgba(0, 0, 0, 0.1);
       }
+
+      .content-box .title {
+        font-size: var(--text-lg);
+        margin-bottom: calc(var(--comp-pd) * 6);
+      }
+
+      .content-box .content {
+        min-height: 400px;
+        word-break: break-all;
+        word-wrap: break-word;
+        white-space: inherit;
+        text-align: justify;
+        text-justify: inter-character;
+        letter-spacing: 2px;
+        line-height: var(--text-xxxl);
+      }
+
+      .cover {
+        width: 100%;
+        cursor: pointer;
+        object-fit: cover;
+        position: relative;
+      }
+
+      .info {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+        bottom: 0;
+        right: 0;
+        font-size: var(--text-sm);
+        position: absolute;
+      }
+
       .full-width {
         width: 100%;
+      }
+
+      .button-box {
+        z-index: 10;
+        width: 100%;
+        /* top: 50%; */
+        bottom: 0;
+        display: flex;
+        position: absolute;
+        justify-content: space-between;
+        background-color: var(--comp-default-fill-color);
+      }
+
+      .button-box .prev,
+      .button-box .next {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .next {
+        rotate: 180deg;
+        background-image: url('./imgs/arrow-left-s-fill.svg');
+      }
+
+      .prev {
+        background-image: url('./imgs/arrow-left-s-fill.svg');
+      }
+
+      .header:hover .info {
+        color: var(--base-bg-color);
       }
     </style>
   </head>
   <body>
     <main id="app" class="main-container m-flex flex-jc-center flex-an-center">
-      <div class="box m-flex flex-jc-start flex-an-center flex-dir-col">
-        <header class="header m-flex flex-an-center flex-jc-center">header</header>
-        <div class="content">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel et consequatur soluta voluptatem doloremque illo, unde itaque aliquam earum, laudantium
-          est sit cumque beatae? Repellendus facilis quae blanditiis fugiat quibusdam! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci
-          accusamus cumque eos voluptatibus, ab sed deserunt voluptatum labore dicta minima non repellat consectetur tenetur sequi veniam eaque incidunt
-          blanditiis perferendis! Similique architecto, at fuga praesentium quis rerum vel enim error laudantium, dolore perferendis fugiat, officiis aspernatur
-          ut sequi. Dolores laboriosam repellendus amet ea itaque odit quidem ratione dolor ad? Dignissimos. Libero vel harum illo. Incidunt natus accusantium
-          suscipit enim perferendis fugiat, quasi iure impedit ex earum similique, fuga iste adipisci sed culpa perspiciatis, laborum nam possimus recusandae.
-          Pariatur, vel expedita. Tempora cupiditate sequi consectetur nobis quidem repellendus eos ex veritatis officiis deleniti delectus, voluptates, ratione
-          accusamus. Nulla exercitationem molestias hic sit temporibus. Iure, dignissimos magni modi quisquam facere nesciunt saepe? Unde quae fugiat, possimus
-          ullam quaerat magni molestias. Necessitatibus earum consequuntur fugit repellendus atque facilis similique fugiat magni laudantium, distinctio
-          accusantium labore aliquam ipsa fuga nihil? Animi facilis architecto atque!
+      <div class="slide-box">
+        <div class="slide-show-box" :style="`transform:translateX(${curIndex * -400}px)`">
+          <div
+            class="box m-flex flex-jc-start flex-an-center flex-dir-col"
+            v-for="(item,index) of list"
+            :key="item.ImageContent.Copyright"
+            :class="index === curIndex ? 'show' : ''"
+          >
+            <header class="header m-flex flex-an-center flex-jc-center">
+              <img
+                class="cover"
+                @click="handleImgCover(item) "
+                :src="`https://s.cn.bing.net/${item.ImageContent.Image.Wallpaper}`"
+                :alt="item.ImageContent.Title"
+              />
+              <div class="info">
+                <span class="local">{{item.ImageContent.Title}}</span>
+                <span class="copyright">{{item.ImageContent.Copyright}}</span>
+              </div>
+            </header>
+            <div class="content-box">
+              <span class="title">{{item.ImageContent.Headline}}</span>
+              <span class="content">{{item.ImageContent.QuickFact.MainText + item.ImageContent.Description}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="button-box">
+          <span class="prev" @click="handlePrev()"></span>
+          <span class="next" @click="handleNext()"></span>
         </div>
       </div>
     </main>
@@ -96,31 +202,58 @@
       createApp({
         data() {
           return {
-            list: [],
+            curIndex: 0,
+            curInfo: {},
+            imgURLAffix: 'https://s.cn.bing.net/',
+            list: [{ ImageContent: { Description: '', Image: { Url: '' }, QuickFact: { MainText: '' }, Title: '', Headline: '' } }],
             contentDOM: null,
             boxDOM: null
           }
         },
         mounted() {
-          this.readyDOM()
-          this.initEventListener(this.boxDOM, 'scroll', [this.handleContentWidth])
+          this.mountedEntry()
         },
         methods: {
+          async mountedEntry() {
+            await this.getBingIMGAPI()
+            this.readyDOM()
+          },
+
+          handleImgCover(item) {
+            window.open(`https://s.cn.bing.net/${item.ImageContent.Image.Wallpaper}`, 'target')
+          },
+
+          async handleNext() {
+            this.curIndex < this.list.length - 1 ? this.curIndex++ : (this.curIndex = 0)
+            await setTimeout(() => {
+              this.readyDOM()
+            }, 300)
+          },
+
+          async handlePrev() {
+            this.curIndex === 0 ? (this.curIndex = this.list.length - 1) : this.curIndex--
+            await setTimeout(() => {
+              this.readyDOM()
+            }, 300)
+          },
+
           readyDOM() {
-            this.contentDOM = G_INFO.DOC.querySelector('.content')
-            this.boxDOM = G_INFO.DOC.querySelector('.box')
+            this.boxDOM = G_INFO.DOC.querySelector('.show.box')
+            this.contentDOM = G_INFO.DOC.querySelector('.show .content-box')
+            this.initEventListener(this.boxDOM, 'scroll', [this.handleContentWidth])
             console.log('readyDOM:', this.contentDOM)
           },
 
-          getBingIMGAPI() {
+          async getBingIMGAPI() {
             // REF https://cn.bing.com/hp/api/model MediaContents
-            // TODO 过滤数据
-            // TODO 本地存储
-            // TODO swiper 切换
+            const url = 'https://free.api.adoba.site/hp/api/model',
+              init = { method: 'GET', headers: new Headers(), mode: 'cors' }
+            res = (await (await fetch(url, init)).json()).MediaContents
+            this.list = res
+            console.log('getBingIMGAPI:', res, this.curInfo)
           },
 
           handleContentWidth(event) {
-            console.log('handleContentWidth:', event)
             let dom = event.target || event.srcElement
             if (dom.scrollTop < 100) return this.contentDOM.classList.remove('full-width')
             this.contentDOM.classList.add('full-width')
@@ -129,6 +262,7 @@
           initEventListener(dom, type, func = []) {
             console.log('initEventListener:', dom, type, func)
             const funcHandler = (event) => func.forEach((fn) => fn(event))
+            dom.removeEventListener(type, funcHandler)
             dom.addEventListener(type, function (event) {
               G_INFO.WIN.requestAnimationFrame((e) => funcHandler(event))
             })
