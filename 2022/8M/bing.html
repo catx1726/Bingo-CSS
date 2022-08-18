@@ -2,7 +2,7 @@
  * @Author: cad catx1726@foxmail.com
  * @Date: 2022-08-18 20:03:01
  * @LastEditors: cad catx1726@foxmail.com
- * @LastEditTime: 2022-08-18 20:08:36
+ * @LastEditTime: 2022-08-18 21:29:41
  * @FilePath: /CSS-Inspired-Factory/2022/8M/bing.html
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -198,8 +198,8 @@
           </div>
         </div>
         <div class="button-box">
-          <span class="prev" @click="handlePrev()"></span>
-          <span class="next" @click="handleNext()"></span>
+          <span class="prev" @click.capture="handlePrev()"></span>
+          <span class="next" @click.capture="handleNext()"></span>
         </div>
       </div>
     </main>
@@ -215,7 +215,8 @@
             imgURLAffix: 'https://s.cn.bing.net/',
             list: [{ ImageContent: { Description: '', Image: { Url: '' }, QuickFact: { MainText: '' }, Title: '', Headline: '' } }],
             contentDOM: null,
-            boxDOM: null
+            boxDOM: null,
+            mobileUserAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:103.0) Gecko/20100101 Firefox/103.0'
           }
         },
         mounted() {
@@ -256,10 +257,11 @@
               init = { method: 'GET', headers: new Headers(), mode: 'cors' }
             res = (await (await fetch(url, init)).json()).MediaContents
             this.list = res
-            console.log('getBingIMGAPI:', res, this.curInfo)
+            console.log('getBingIMGAPI:', res, this.curInfo, headers)
           },
 
           handleContentWidth(event) {
+            console.log('handleContentWidth:', event)
             let dom = event.target || event.srcElement
             if (dom.scrollTop < 100) return this.contentDOM.classList.remove('full-width')
             this.contentDOM.classList.add('full-width')
@@ -271,6 +273,26 @@
             dom.removeEventListener(type, funcHandler)
             dom.addEventListener(type, function (event) {
               G_INFO.WIN.requestAnimationFrame((e) => funcHandler(event))
+            })
+          },
+
+          changeUserAgent() {
+            let isMobile = this.checkIsMobile()
+            if (!isMobile) return
+            // 当用户是移动端时将user-agent改为pc,因为 bing api 移动端只返回了一张照片 🐷
+            Object.defineProperty(navigator, 'userAgent', {
+              get: function () {
+                return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:103.0) Gecko/20100101 Firefox/103.0'
+              }
+            })
+            console.log('changeUserAgent:', isMobile)
+          },
+
+          checkIsMobile() {
+            const toMatch = [/Android/i, /webOS/i, /iPhone/i, /iPad/i, /iPod/i, /BlackBerry/i, /Windows Phone/i]
+
+            return toMatch.some((toMatchItem) => {
+              return navigator.userAgent.match(toMatchItem)
             })
           }
         }
