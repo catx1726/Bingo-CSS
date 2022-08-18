@@ -2,7 +2,7 @@
  * @Author: cad catx1726@foxmail.com
  * @Date: 2022-08-18 20:03:01
  * @LastEditors: cad catx1726@foxmail.com
- * @LastEditTime: 2022-08-18 21:29:41
+ * @LastEditTime: 2022-08-18 21:50:58
  * @FilePath: /CSS-Inspired-Factory/2022/8M/bing.html
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -64,7 +64,7 @@
       .slide-box,
       .slide-show-box {
         display: flex;
-        width: 400px;
+        width: 350px;
         position: relative;
       }
 
@@ -172,7 +172,7 @@
   <body>
     <main id="app" class="main-container m-flex flex-jc-center flex-an-center">
       <div class="slide-box">
-        <div class="slide-show-box" :style="`transform:translateX(${curIndex * -400}px)`">
+        <div class="slide-show-box" :style="`transform:translateX(${curIndex * -350}px)`">
           <div
             class="box m-flex flex-jc-start flex-an-center flex-dir-col"
             v-for="(item,index) of list"
