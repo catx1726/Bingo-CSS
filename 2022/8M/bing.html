@@ -134,6 +134,7 @@
 
       .full-width {
         width: 100%;
+        padding: calc(var(--comp-pd) * 8) calc(var(--comp-pd) * 8 + 10%);
       }
 
       .button-box {
@@ -255,7 +256,6 @@
               this.boxDOM = G_INFO.DOC.querySelector('.show.box')
               this.contentDOM = G_INFO.DOC.querySelector('.show .content-box')
               this.initEventListener(this.boxDOM, 'scroll', [this.handleContentWidth])
-              console.log('readyDOM:', this.contentDOM)
             }, 300)
           },
 
@@ -265,18 +265,15 @@
               init = { method: 'GET', headers: new Headers(), mode: 'cors' }
             res = (await (await fetch(url, init)).json()).MediaContents
             this.list = res
-            console.log('getBingIMGAPI:', res, this.curInfo)
           },
 
           handleContentWidth(event) {
-            console.log('handleContentWidth:', event)
             let dom = event.target || event.srcElement
             if (dom.scrollTop < 100) return this.contentDOM.classList.remove('full-width')
             this.contentDOM.classList.add('full-width')
           },
 
           initEventListener(dom, type, func = []) {
-            console.log('initEventListener:', dom, type, func)
             const funcHandler = (event) => func.forEach((fn) => fn(event))
             dom.removeEventListener(type, funcHandler)
             dom.addEventListener(type, function (event) {
