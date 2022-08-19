@@ -10,7 +10,7 @@
 <html lang="cn">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content-box="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>bing</title>
     <link rel="stylesheet" href="../../css/main.css" />
@@ -41,7 +41,7 @@
       }
 
       .main-container {
-        --comp-default-fill-color: white;
+        --comp-default-fill-color: #fdfdfd;
         --comp-active-fill-color: #fcd93a;
         --comp-box-h: 100px;
         --comp-box-w: 200px;
@@ -76,7 +76,7 @@
         min-width: 300px;
         overflow-y: scroll;
         scroll-behavior: smooth;
-        background-color: var(--comp-default-fill-color);
+        background-color: white;
       }
 
       .header {
@@ -97,6 +97,7 @@
         flex-direction: column;
         box-sizing: border-box;
         padding: calc(var(--comp-pd) * 8);
+        background-color: var(--comp-default-fill-color);
         box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.1), 0 3px 20px rgba(0, 0, 0, 0.1);
       }
 
@@ -142,8 +143,6 @@
         position: absolute;
       }
 
-     
-
       .button-box {
         z-index: 10;
         width: 100%;
@@ -175,7 +174,7 @@
       }
 
       .header:hover .info {
-        color: var(--base-bg-color);
+        color: var(--comp-default-fill-color);
       }
 
       .full-width {
