@@ -93,6 +93,7 @@
       .content-box {
         width: 80%;
         display: flex;
+        position: relative;
         flex-direction: column;
         box-sizing: border-box;
         padding: calc(var(--comp-pd) * 8);
@@ -115,6 +116,15 @@
         line-height: var(--text-xxxl);
       }
 
+      .decorate {
+        left: 0;
+        top: 0;
+        text-align: center;
+        position: absolute;
+        transform: scale(3);
+        font-size: var(--text-xxxl);
+      }
+
       .cover {
         width: 100%;
         cursor: pointer;
@@ -132,10 +142,7 @@
         position: absolute;
       }
 
-      .full-width {
-        width: 100%;
-        padding: calc(var(--comp-pd) * 8) calc(var(--comp-pd) * 8 + 10%);
-      }
+     
 
       .button-box {
         z-index: 10;
@@ -171,6 +178,11 @@
         color: var(--base-bg-color);
       }
 
+      .full-width {
+        width: 100%;
+        padding: calc(var(--comp-pd) * 8) calc(var(--comp-pd) * 8 + 10%);
+      }
+
       @media screen and (max-width: 500px) {
         .main-container {
           --container-width: 100vw;
@@ -201,6 +213,7 @@
               </div>
             </header>
             <div class="content-box">
+              <span class="decorate">“</span>
               <span class="title">{{item.ImageContent.Headline}}</span>
               <span class="content">{{item.ImageContent.QuickFact.MainText + item.ImageContent.Description}}</span>
             </div>
