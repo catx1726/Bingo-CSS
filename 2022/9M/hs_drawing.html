@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>安康杯抽签</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .main-container * {
+        transition: all 0.3s ease;
+      }
+
+      .main-container img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .main-container {
+        --base-ft-sm: 14px;
+        --base-ft: 18px;
+        --base-ft-xl: 18px;
+        --base-color: white;
+        max-width: 100%;
+        max-height: 100%;
+        height: 100vh;
+        width: 100vw;
+        font-size: var(--base-ft);
+
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-image: url('https://img02.mockplus.cn/image/2022-09-16/c462a6e6-6942-7415-92ef-8cee8f0687bd.png');
+      }
+
+      .title-box {
+        top: 10%;
+        width: 100%;
+        text-align: center;
+        position: relative;
+      }
+
+      .title-box .title-img {
+        width: 80%;
+      }
+
+      .drawing-container,
+      .result-container {
+        top: 35%;
+        position: absolute;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .drawing-container .title {
+        margin-right: 20px;
+        font-weight: bold;
+        color: var(--base-color);
+      }
+
+      .drawing-container .phone {
+        width: 60%;
+        border: none;
+        padding: 10px 0;
+        font-size: var(--base-ft);
+      }
+
+      .drawing-container .submit {
+        width: 158px;
+        cursor: pointer;
+        margin-top: 110px;
+        z-index: 10;
+      }
+
+      .result-container {
+        top: 15%;
+      }
+      .result-container .info-box,
+      .result-container .barframe {
+        width: 90%;
+      }
+      .result-container .info-box {
+        top: 65%;
+        left: 5%;
+        padding: 0 20px;
+        text-align: start;
+        position: absolute;
+        box-sizing: border-box;
+        color: #00489e;
+        font-size: var(--base-ft-sm);
+      }
+      .info-box ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+      .info-box li {
+        width: 100%;
+        padding: 5px 0;
+        overflow-y: scroll;
+        display: inline-block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main id="app" class="main-container">
+      <div class="title-box">
+        <img src="https://img02.mockplus.cn/image/2022-09-16/7de932e9-f23b-3737-9e04-f340947062c2.png" class="title-img" />
+      </div>
+      <!-- 抽签 -->
+      <div class="drawing-container" v-show="!pgInfo.showResult">
+        <div>
+          <span class="title">{{pgInfo.inputInfo.title}}</span>
+          <input class="phone" type="text" v-model="pgInfo.inputInfo.phone" />
+        </div>
+        <div>
+          <img class="submit" src="https://img02.mockplus.cn/image/2022-09-16/95b23b77-7988-db3c-1383-82d6da3b0cb3.png" @click="handleDrawingBtn" />
+        </div>
+      </div>
+
+      <!-- 结果 -->
+      <div class="result-container" v-show="pgInfo.showResult">
+        <div style="text-align: center">
+          <img class="barframe" src="https://img02.mockplus.cn/image/2022-09-16/db0dc63a-7a0c-cf76-a044-256b664052d3.png" alt="" />
+          <div class="info-box">
+            <ul>
+              <li v-for="item of pgInfo.resultInfo.infoList" :key="item">{{'● '+item}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script>
+    const { createApp } = Vue
+    const APP_CONFIG = { base_url: 'https://www.huaskj.com/an-kang-api/', local_url: 'http://192.168.2.36:5505/' }
+
+    createApp({
+      data() {
+        return {
+          pgInfo: {
+            static: {
+              bg: 'https://img02.mockplus.cn/image/2022-09-16/c462a6e6-6942-7415-92ef-8cee8f0687bd.png',
+              title: 'https://img02.mockplus.cn/image/2022-09-16/7de932e9-f23b-3737-9e04-f340947062c2.png',
+              result_bar: 'https://img02.mockplus.cn/image/2022-09-16/db0dc63a-7a0c-cf76-a044-256b664052d3.png',
+              btn: 'https://img02.mockplus.cn/image/2022-09-16/95b23b77-7988-db3c-1383-82d6da3b0cb3.png'
+            },
+            inputInfo: {
+              title: '手机号码',
+              phone: '',
+              btn: '抽取出场顺序'
+            },
+            resultInfo: {
+              infoList: {
+                enterprise: '',
+                location: '比赛地点：湖北省武汉市东湖新技术开发区大学园路 13号-1华中科技大学科技园现代服务业基地1号研发楼B座12层',
+                time: '比赛时间：2022年8月24日9:00',
+                orderNum: ''
+              }
+            },
+            showResult: false
+          }
+        }
+      },
+      methods: {
+        async handleDrawingBtn() {
+          console.log('handleDrawingBtn:', this.pgInfo.inputInfo.phone)
+          const init = {
+              method: 'GET',
+              mode: 'cors',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            },
+            url = `${APP_CONFIG.local_url}api/order/${this.pgInfo.inputInfo.phone}`
+
+          let res = await (await fetch(url, init)).json()
+
+          this.pgInfo.resultInfo.infoList.enterprise = `战队名称：${res.info.contestant.name}`
+
+          this.pgInfo.resultInfo.infoList.orderNum = `出场顺序：${res.info.orderNum}`
+
+          this.pgInfo.showResult = true
+
+          console.log('handleDrawingBtn res:', this.pgInfo.resultInfo)
+        }
+      }
+    }).mount('#app')
+  </script>
+</html>
