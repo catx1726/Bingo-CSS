@@ -185,7 +185,11 @@
             },
             url = `${APP_CONFIG.local_url}api/order/${this.pgInfo.inputInfo.phone}`
 
+          if (!this.pgInfo.inputInfo.phone) return
+
           let res = await (await fetch(url, init)).json()
+
+          if (res.code !== '00000') return window.alert(res.message)
 
           this.pgInfo.resultInfo.infoList.enterprise = `战队名称：${res.info.contestant.name}`
 
