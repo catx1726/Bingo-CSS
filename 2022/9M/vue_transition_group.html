@@ -103,7 +103,7 @@
         <div class="trigger">
           <button @click="addList">add num</button>
           <button @click="geList">generate list</button>
-          <button @click="stepChange(10000)">generate step</button>
+          <button @click="geStep(10000)">generate step</button>
         </div>
 
         <div class="step" :data-step="pgInfo.step"></div>
@@ -140,7 +140,7 @@
             this.pgInfo.list.push(Math.floor(Math.random() * (max - min + 1) + min))
           }
         },
-        async stepChange(duration) {
+        async geStep(duration) {
           let max = 317,
             min = 1,
             line = Math.floor(Math.random() * (max - min + 1) + min),
