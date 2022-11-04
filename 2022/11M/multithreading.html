@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multithreading</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      :root {
+        --base-bg-light: F5F7F9;
+        --base-white: #fff;
+        --base-gray-1: #ebedf0;
+        --base-gray-2: #cccccc;
+        --base-gray-3: #999999;
+        --base-gray-4: #666;
+        --base-black-1: #000;
+        --base-brand: CC2728;
+        --base-pd-md: 12px;
+      }
+
+      .main-container {
+        word-wrap: break-word;
+        text-align: justify;
+        font-family: 'Times New Roman', Times, serif;
+      }
+
+      .template {
+        max-width: 70ch;
+        padding: 3em 1em;
+        margin: auto;
+        line-height: 1.75;
+        font-size: 1.6em;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 3em 0 1em;
+      }
+
+      p,
+      ul,
+      ol {
+        margin-bottom: 2em;
+        color: #1d1d1d;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container template">Multithreading</main>
+    <script>
+      const runAsync = (fn) => {
+        const worker = new Worker(
+          URL.createObjectURL(new Blob([`postMessage((${fn})());`]), {
+            type: 'application/javascript; charset=utf-8'
+          })
+        )
+        return new Promise((res, rej) => {
+          worker.onmessage = ({ data }) => {
+            res(data), worker.terminate()
+          }
+          worker.onerror = (err) => {
+            rej(err), worker.terminate()
+          }
+        })
+      }
+
+      // Examples
+      const longRunningFunction = () => {
+        let result = 0
+        for (let i = 0; i < 1000; i++) for (let j = 0; j < 700; j++) for (let k = 0; k < 300; k++) result = result + i + j + k
+
+        return result
+      }
+
+      async function getComputed() {
+        let res = await runAsync(longRunningFunction) // 209685000000
+        console.log('getComputed:', res)
+      }
+
+      getComputed()
+
+      console.log('script end')
+    </script>
+  </body>
+</html>
