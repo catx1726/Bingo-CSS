@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CommentDemo</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <style>
+      :root {
+        --base-bg-light: F5F7F9;
+        --base-white: #fff;
+        --base-gray-1: #ebedf0;
+        --base-gray-2: #cccccc;
+        --base-gray-3: #999999;
+        --base-gray-4: #666;
+        --base-black-1: #000;
+        --base-brand: CC2728;
+        --base-pd-md: 12px;
+        --base-radius: 6px;
+      }
+
+      .main-container {
+        word-wrap: break-word;
+        text-align: justify;
+        font-family: 'Times New Roman', Times, serif;
+      }
+
+      .template {
+        max-width: 70ch;
+        padding: 3em 1em;
+        margin: auto;
+        line-height: 1.75;
+        font-size: 1.6em;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 3em 0 1em;
+      }
+
+      p,
+      ul,
+      ol {
+        margin-bottom: 2em;
+        color: #1d1d1d;
+        font-family: sans-serif;
+      }
+
+      .owner,
+      .reply {
+        z-index: 100;
+        position: relative;
+        box-sizing: border-box;
+        padding: var(--base-pd-md);
+        margin: var(--base-pd-md) 0;
+        border-radius: var(--base-radius);
+        background-color: var(--base-white);
+        /* box-shadow: -5px 0px 0px 0px black; */
+      }
+
+      .reply {
+        margin-left: 30px;
+      }
+
+      .owner {
+        outline: 2px dotted black;
+      }
+
+      .owner:first-child {
+        outline: transparent;
+      }
+
+      .outer-line::after {
+        content: '';
+        left: -16px;
+        width: 10px;
+        position: absolute;
+        height: calc(100% + 50px);
+        top: calc((100% + 5px) * -1);
+        border: 1px solid transparent;
+        border-bottom-color: white;
+        border-left-color: white;
+        border-radius: 0px 0px 0px 6px;
+      }
+
+      .outer-line:nth-of-type(1)::after {
+        border: transparent;
+      }
+
+      .outer-line:nth-of-type(1)::after,
+      .outer-line:nth-of-type(2)::after {
+        top: -5px;
+        height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container template">
+      <div class="comment-box">
+        <div class="owner outer-line">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis magni labore esse ad perspiciatis aliquam tempora quo nesciunt enim, assumenda
+          laboriosam nisi quaerat adipisci quae molestias autem officiis perferendis quis.
+        </div>
+        <div class="reply outer-line">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima obcaecati quibusdam, id sunt autem sed et eveniet assumenda impedit doloribus aperiam
+          unde fuga quos quia magnam hic atque! Magni, iusto!
+        </div>
+        <div class="reply owner outer-line">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima obcaecati quibusdam, id sunt autem sed et eveniet assumenda impedit doloribus aperiam
+          unde fuga quos quia magnam hic atque! Magni, iusto!
+        </div>
+        <div class="reply outer-line">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima obcaecati quibusdam, id sunt autem sed et eveniet assumenda impedit doloribus aperiam
+          unde fuga quos quia magnam hic atque! Magni, iusto!
+        </div>
+        <div class="reply owner outer-line">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima obcaecati quibusdam, id sunt autem sed et eveniet assumenda impedit doloribus aperiam
+          unde fuga quos quia magnam hic atque! Magni, iusto!
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
