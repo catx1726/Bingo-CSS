@@ -85,7 +85,7 @@
         top: calc((100% + 5px) * -1);
 
         border: 2px solid white;
-        
+
         border-top-width: 0px;
         border-right-width: 0px;
 
@@ -103,6 +103,17 @@
       .outer-line:nth-of-type(2)::after {
         top: -5px;
         height: 50px;
+      }
+
+      .box {
+        height: 50px;
+        width: 50px;
+        border: 10px solid transparent;
+        border-top-color: blue;
+        border-left-width: 0px;
+        border-bottom-width: 0px;
+        border-right-color: seagreen;
+        border-radius: var(--base-radius);
       }
     </style>
   </head>
@@ -130,6 +141,8 @@
           unde fuga quos quia magnam hic atque! Magni, iusto!
         </div>
       </div>
+
+      <div class="box"></div>
     </main>
   </body>
 </html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>screenStageAnnouncement</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+      :root {
+        --base-bg-light: F5F7F9;
+        --base-white: #fff;
+        --base-gray-1: #ebedf0;
+        --base-gray-2: #cccccc;
+        --base-gray-3: #999999;
+        --base-gray-4: #666;
+        --base-black-1: #000;
+        --base-brand: CC2728;
+        --base-pd-md: 12px;
+        --base-radius: 6px;
+      }
+
+      .main-container {
+        word-wrap: break-word;
+        text-align: justify;
+        font-family: 'Times New Roman', Times, serif;
+      }
+
+      .template {
+        max-width: 70ch;
+        padding: 3em 1em;
+        margin: auto;
+        line-height: 1.75;
+        font-size: 1.6em;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 3em 0 1em;
+      }
+
+      p,
+      ul,
+      ol {
+        margin-bottom: 2em;
+        color: #1d1d1d;
+        font-family: sans-serif;
+      }
+
+      .slide-box {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid black;
+        padding: var(--base-pd-md);
+      }
+
+      .slide-item {
+        top: 0;
+        height: 30px;
+        position: relative;
+      }
+
+      .modal {
+        position: relative;
+      }
+
+      .slide-anime-enter-active,
+      .slide-anime-leave-active {
+        transition: all 0.3s ease;
+      }
+      .slide-anime-enter {
+        top: 30px;
+      }
+      .slide-anime-leave-to {
+        top: -30px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container template" id="app">
+      <div class="slide-box">
+        <div class="modal" :style="{'top':(slideIndex * -30)+'px','opacity':hidden?'0':'1'}">
+          <transition-group name="slide-anime">
+            <div v-for="item of list" :key="item" class="slide-item">{{item}}</div>
+          </transition-group>
+        </div>
+      </div>
+    </main>
+    <script>
+      const { createApp } = Vue
+
+      createApp({
+        data() {
+          return {
+            slideIndex: 0,
+            hidden: false,
+            intervalTimer: null,
+            timeoutTimer: null,
+            list: ['cad', 'cad2', 'cad3', 'cad4', 'cad5']
+          }
+        },
+        mounted() {
+          this.scroll()
+        },
+        methods: {
+          scroll() {
+            let temp = null,
+              len = this.list.length - 1
+            this.intervalTimer = setInterval(() => {
+              if (this.slideIndex === len) {
+                this.slideIndex = 0
+              } else {
+                this.slideIndex++
+              }
+            }, 2000)
+          }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>
