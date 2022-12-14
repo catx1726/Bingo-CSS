@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>中国传统色：故宫里的色彩美学</title>
     <link rel="stylesheet" href="../../css/main.css" />
+    <script src="https://unpkg.com/vue@3"></script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&display=swap');
       :root {
@@ -35,7 +36,7 @@
       }
 
       .template {
-        max-width: 70ch;
+        max-width: 70sch;
         padding: 3em 1em;
         margin: auto;
         line-height: 1.75;
@@ -55,12 +56,96 @@
       ul,
       ol {
         margin-bottom: 2em;
-        color: #1d1d1d;
         font-family: sans-serif;
+      }
+
+      .white {
+        color: #fff;
+      }
+
+      .black {
+        color: #000;
+      }
+
+      .solar-card {
+        width: 90%;
+        position: relative;
+        background-color: #fff;
+        box-sizing: border-box;
+        margin: var(--base-pd-md) 0;
+        border-radius: var(--comp-radius);
+        padding: var(--base-pd-md) calc(var(--base-pd-md) * 6);
+      }
+
+      .color-card {
+        width: 20%;
+        height: 100px;
+        padding: var(--base-pd-md);
+      }
+
+      .title {
+        top: 0;
+        font-size: 3rem;
+        position: absolute;
+        font-weight: bold;
+        left: var(--base-pd-md);
+      }
+
+      .colors .info:first-child {
+        font-size: 2rem;
+        font-weight: bold;
       }
     </style>
   </head>
   <body>
-    <main class="main-container template">中国传统色：故宫里的色彩美学</main>
+    <main id="app" class="main-container m-flex flex-dir-col flex-an-center">
+      <h1>中国传统色：故宫里的色彩美学</h1>
+      <section class="solar-card m_box-shadow-obt-xs m-flex flex-wrap flex-jc-center flex-an-center" v-for="(sItem,sIndex) of solarList" :key="sIndex">
+        <div class="title">{{ sItem.solarName }}</div>
+        <div
+          class="color-card m-flex flex-an-center"
+          :style="{'background-color': cItem.list[2]}"
+          :class="handleFontColor(cItem.list[3])"
+          v-for="cItem of sItem.solarColors"
+          :key="cItem.colorName"
+        >
+          <div class="colors m-flex flex-dir-col">
+            <span class="info" v-for="(item,index) of cItem.list" :key="`${item}-${index}`">{{ item }}</span>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
+  <script src="./data.js"></script>
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return { solarList: handleData(Solar) }
+      },
+      mounted() {
+        console.log('mounted:', this.solarList)
+      },
+      methods: {
+        /* 根据当前 rgb,选择字体颜色 */
+        handleFontColor(rgbStr) {
+          // rgb 其中2个小于 100 就用白色字体
+          let rgbs = rgbStr.split(' '),
+            lower_100_times = 0,
+            splitList = ['R', 'G', 'B']
+          handler = (rgbArr, num) => {
+            rgbArr.forEach((i, index) => {
+              if (i.split(splitList[index]).join(' ') <= 100) num++
+            })
+            return num
+          }
+
+          lower_100_times = handler(rgbs, lower_100_times)
+
+          return lower_100_times > 1 ? 'white' : 'black'
+        }
+      }
+    }).mount('#app')
+  </script>
 </html>

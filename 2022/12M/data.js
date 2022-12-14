@@ -90,7 +90,7 @@ let Solar = [
   'C35 M45 Y55 K0',
   '黄埃',
   'R164 G98 B68',
-  '#A4624',
+  '#A46244',
   'C40 M70 Y75 K5',
   '老僧衣',
   'R107 G84 B88',
@@ -806,7 +806,7 @@ let Solar = [
   '竹月',
   'R102 G136 B158',
   '#66889E',
-  'C65 M40 Y30 K0 待确定',
+  'C65 M40 Y30 K0',
   '空青',
   'R84 G118 B137',
   '#547689',
@@ -1567,10 +1567,28 @@ let Solar = [
  * @param {Array} arr
  */
 function handleData(arr) {
-  // [0 + (4*16) * index] 为 节气名称
-  // 4*16 为当前节气颜色的名称和颜色
+  let handledList = [],
+    len = arr.length - 1,
+    index = 0,
+    tempSItem = null,
+    tempCItem = null
 
-  return arr.indexOf('雨水')
+  while (index <= len) {
+    // 节气 
+    tempSItem = { solarName: arr[index], solarColors: [] }
+    // 颜色 
+    tempCItem = arr.slice(index + 1, index + 65)
+
+    tempCItem.forEach((item, index) => {
+      if ((index + 1) % 4 === 0) {
+        tempSItem.solarColors.push({ colorName: item, list: tempCItem.slice(index - 3, index + 1).reverse()})
+      }
+    })
+    handledList.push(tempSItem)
+
+    index = index + 65
+    console.log('looping:', index)
+  }
+
+  return handledList
 }
-
-console.log('demo:', handleData(Solar))
