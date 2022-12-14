@@ -73,19 +73,24 @@
         background-color: #fff;
         box-sizing: border-box;
         margin: var(--base-pd-md) 0;
-        border-radius: var(--comp-radius);
-        padding: var(--base-pd-md) calc(var(--base-pd-md) * 6);
+        /* border-radius: var(--comp-radius); */
+        padding: var(--base-pd-md);
+        padding-left: 15rem;
       }
 
       .color-card {
-        width: 20%;
+        width: 22.5%;
         height: 100px;
         padding: var(--base-pd-md);
       }
 
+      .page-title{
+        font-size: 6rem;
+      }
+
       .title {
-        top: 0;
-        font-size: 3rem;
+        top: 12px;
+        font-size: 5rem;
         position: absolute;
         font-weight: bold;
         left: var(--base-pd-md);
@@ -99,8 +104,8 @@
   </head>
   <body>
     <main id="app" class="main-container m-flex flex-dir-col flex-an-center">
-      <h1>中国传统色：故宫里的色彩美学</h1>
-      <section class="solar-card m_box-shadow-obt-xs m-flex flex-wrap flex-jc-center flex-an-center" v-for="(sItem,sIndex) of solarList" :key="sIndex">
+      <div class="page-title">中国传统色：故宫里的色彩美学</div class="title">
+      <section class="solar-card m_box-shadow-obt-xs m-flex flex-wrap flex-jc-end flex-an-center" v-for="(sItem,sIndex) of solarList" :key="sIndex">
         <div class="title">{{ sItem.solarName }}</div>
         <div
           class="color-card m-flex flex-an-center"
