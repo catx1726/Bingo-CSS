@@ -147,7 +147,7 @@
       },
       methods: {
         async copyThat(val) {
-          if (!navigator.clipboard) return Notify.create('请在 https 域名下访问，以使用完整功能。')
+          if (!navigator.clipboard) return Notify.create('请在 https 协议下访问，以使用完整功能。')
 
           let text = await navigator.clipboard.writeText(val)
 
