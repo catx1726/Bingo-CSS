@@ -1574,20 +1574,19 @@ function handleData(arr) {
     tempCItem = null
 
   while (index <= len) {
-    // 节气 
+    // 节气
     tempSItem = { solarName: arr[index], solarColors: [] }
-    // 颜色 
+    // 颜色
     tempCItem = arr.slice(index + 1, index + 65)
 
     tempCItem.forEach((item, index) => {
       if ((index + 1) % 4 === 0) {
-        tempSItem.solarColors.push({ colorName: item, list: tempCItem.slice(index - 3, index + 1).reverse()})
+        tempSItem.solarColors.push({ colorName: item, list: tempCItem.slice(index - 3, index + 1).reverse() })
       }
     })
     handledList.push(tempSItem)
 
     index = index + 65
-    console.log('looping:', index)
   }
 
   return handledList

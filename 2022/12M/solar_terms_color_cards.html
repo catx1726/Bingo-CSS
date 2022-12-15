@@ -26,6 +26,7 @@
 
       body {
         background-color: var(--comp-default-fill-color);
+        background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/papyrus.png');
       }
 
       .main-container {
@@ -68,7 +69,7 @@
       }
 
       .solar-card {
-        width: 90%;
+        width: 60%;
         position: relative;
         background-color: #fff;
         box-sizing: border-box;
@@ -80,17 +81,17 @@
 
       .color-card {
         width: 22.5%;
-        height: 100px;
+        height: 80px;
         padding: var(--base-pd-md);
       }
 
-      .page-title{
-        font-size: 6rem;
+      .page-title {
+        font-size: 5rem;
       }
 
       .title {
         top: 12px;
-        font-size: 5rem;
+        font-size: 4rem;
         position: absolute;
         font-weight: bold;
         left: var(--base-pd-md);
@@ -104,8 +105,8 @@
   </head>
   <body>
     <main id="app" class="main-container m-flex flex-dir-col flex-an-center">
-      <div class="page-title">中国传统色：故宫里的色彩美学</div class="title">
-      <section class="solar-card m_box-shadow-obt-xs m-flex flex-wrap flex-jc-end flex-an-center" v-for="(sItem,sIndex) of solarList" :key="sIndex">
+      <div class="page-title">中国传统色：故宫里的色彩美学</div>
+      <section class="solar-card m-flex flex-wrap flex-jc-end flex-an-center" v-for="(sItem,sIndex) of solarList" :key="sIndex">
         <div class="title">{{ sItem.solarName }}</div>
         <div
           class="color-card m-flex flex-an-center"
