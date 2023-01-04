@@ -128,6 +128,9 @@
       mounted() {},
       methods: {
         handleInput(e) {
+          this.sourceData = SourceList
+          this.outputList = []
+
           let va = e.target.value,
             findFromSourceData = (receiver, source, key) => {
               let pure = Object.assign([], receiver)
@@ -168,10 +171,7 @@
 
           console.log('handleInput:', va)
 
-          if (!va.length) {
-            this.outputList = []
-            return
-          }
+          if (!va.length) return
 
           // 找到
           this.outputList = findFromSourceData(this.outputList, this.sourceData, va)
