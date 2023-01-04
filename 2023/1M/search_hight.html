@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>让我们将搜索高亮起来!</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&display=swap');
+      :root {
+        --comp-default-fill-color: #fdfdfd;
+        --comp-active-fill-color: #fcd93a;
+        --comp-box-h: 100px;
+        --comp-box-w: 200px;
+        --comp-radius: 6px;
+        --comp-pd: 4px;
+        --container-width: 500px;
+        --text-sm: 12px;
+        --text-base: 16px;
+        --text-lg: 18px;
+        --text-xxxl: 24px;
+        --base-font-family: 'Roboto', 'consolas', 'Noto Serif SC', serif, '微软雅黑';
+      }
+
+      body {
+        line-height: normal;
+        background-color: var(--comp-default-fill-color);
+        background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/papyrus.png');
+      }
+
+      *,
+      ::after,
+      ::before {
+        box-sizing: content-box;
+      }
+
+      .main-container {
+        height: 100%;
+        width: 100%;
+        font-family: var(--base-font-family);
+        font-size: var(--text-base);
+      }
+
+      .template {
+        max-width: 70sch;
+        padding: 3em 1em;
+        margin: auto;
+        line-height: 1.75;
+        font-size: 1.6rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 3em 0 1em;
+      }
+
+      p,
+      ul,
+      ol {
+        margin-bottom: 2em;
+        font-family: sans-serif;
+      }
+
+      .demo-container {
+        min-height: 400px;
+        position: relative;
+        padding: var(--base-pd-md);
+      }
+
+      .search-input {
+        width: 40%;
+        position: relative;
+        padding: var(--base-pd-md);
+        outline: 1px solid transparent;
+      }
+
+      .search-input:focus {
+        outline: 1px solid var(--years-color-2023);
+      }
+
+      .nothing-here {
+        top: 50%;
+        font-size: 20px;
+        position: absolute;
+        transform: translateY(-50%);
+      }
+
+      .result-list-container {
+        overflow-y: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app" class="main-container">
+      <div class="demo-container m-flex flex-dir-col flex-an-center">
+        <input type="text" @change="handleInput" class="search-input shadow-sm" placeholder="输入你想要搜索的东西，我会在本地检索啦" />
+        <ul class="result-list-container" v-if="outputList.length">
+          <li v-for="item of outputList" :key="item" class="result-item">
+            <template v-if="item.length">
+              <p v-for="splitItem of item" :key="splitItem.content" :class="splitItem.classTag">{{splitItem.content}}</p>
+            </template>
+          </li>
+        </ul>
+        <div class="nothing-here" v-else>啥都没有啦</div>
+      </div>
+    </main>
+  </body>
+  <script src="./data.js"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+          sourceData: SourceList,
+          // [[{contnet:'生化',classTag:'highlight'},{contnet:'奇兵',classTag:''}]]
+          outputList: []
+        }
+      },
+      mounted() {},
+      methods: {
+        handleInput(e) {
+          let va = e.target.value,
+            findFromSourceData = (receiver, source, key) => {
+              let pure = Object.assign([], receiver)
+              for (const item of source) {
+                if (item.includes(key)) pure.push(item)
+              }
+              return pure
+            },
+            handleHightLight = (receiver, key) => {
+              let pure = Object.assign([], receiver),
+                regexp = RegExp(`${key}`, 'gi'),
+                temp = null,
+                returnData = []
+
+              console.log('handleHightLight:', pure)
+              for (const item of pure) {
+                // temp = item.match(regexp)
+                if (!item.includes(key.toLowerCase())) return
+
+                temp = item.toLowerCase().split(key.toLowerCase())
+                for (let ikun of temp) {
+                  // 如果第一个直接等于，那说明 split 是返回的整体
+                  if (ikun === key) {
+                    ikun = { content: ikun, classTag: 'highlight' }
+                    return returnData.push(ikun)
+                  }
+
+                  ikun = { content: ikun, classTag: '' }
+
+                  returnData.push(ikun)
+
+                  returnData.push({ content: key, classTag: 'highlight' })
+                }
+                console.log(`looping item:${item},key:${key} \n`, temp)
+              }
+              return returnData
+            }
+
+          console.log('handleInput:', va)
+
+          if (!va.length) {
+            this.outputList = []
+            return
+          }
+
+          // 找到
+          this.outputList = findFromSourceData(this.outputList, this.sourceData, va)
+
+          // 处理高亮
+          this.outputList = handleHightLight(this.outputList, va)
+        }
+      }
+    }).mount('#app')
+  </script>
+</html>

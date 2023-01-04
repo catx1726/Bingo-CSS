@@ -14,6 +14,7 @@
 :root {
   --years-color-2021: rgba(203, 238, 255, 0.812);
   --years-color-2022: rgb(245, 215, 160);
+  --years-color-2023: #bb2649;
 
   --base-bg-light: F5F7F9;
   --base-white: #fff;
@@ -27,7 +28,7 @@
 }
 
 body {
-  background-color: var(--years-color-2022);
+  background-color: var(--years-color-2023);
 }
 
 img {
