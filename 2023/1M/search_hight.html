@@ -94,20 +94,30 @@
       .result-list-container {
         overflow-y: auto;
       }
+
+      .result-item {
+        margin: var(--base-pd-md);
+        margin-bottom: 0;
+        display: inline-block;
+      }
+
+      .highlight {
+        color: var(--years-color-2023);
+      }
     </style>
   </head>
   <body>
     <main id="app" class="main-container">
       <div class="demo-container m-flex flex-dir-col flex-an-center">
         <input type="text" @change="handleInput" class="search-input shadow-sm" placeholder="输入你想要搜索的东西，我会在本地检索啦" />
-        <ul class="result-list-container" v-if="outputList.length">
+        <ul class="result-list-container flex flex-dir-col" v-if="outputList.length">
           <li v-for="item of outputList" :key="item" class="result-item">
             <template v-if="item.length">
-              <p v-for="splitItem of item" :key="splitItem.content" :class="splitItem.classTag">{{splitItem.content}}</p>
+              <span v-for="splitItem of item" :key="splitItem.content" :class="splitItem.classTag">{{splitItem.content}}</span>
             </template>
           </li>
         </ul>
-        <div class="nothing-here" v-else>啥都没有啦</div>
+        <div class="nothing-here" v-else>{{ queryKey ? '好像什么也没有' : '输入搜索内容后回车' }}</div>
       </div>
     </main>
   </body>
@@ -122,7 +132,8 @@
         return {
           sourceData: SourceList,
           // [[{contnet:'生化',classTag:'highlight'},{contnet:'奇兵',classTag:''}]]
-          outputList: []
+          outputList: [],
+          queryKey: ''
         }
       },
       mounted() {},
@@ -135,43 +146,67 @@
             findFromSourceData = (receiver, source, key) => {
               let pure = Object.assign([], receiver)
               for (const item of source) {
-                if (item.includes(key)) pure.push(item)
+                if (item.toLowerCase().includes(key.toLowerCase())) pure.push(item)
               }
               return pure
             },
             handleHightLight = (receiver, key) => {
+              console.log('handleHightLight:', receiver, key)
+              // [[{content,classTag}]]
               let pure = Object.assign([], receiver),
-                regexp = RegExp(`${key}`, 'gi'),
-                temp = null,
-                returnData = []
+                splited = [],
+                returnData = [],
+                tempItem = null,
+                tempArr = []
 
-              console.log('handleHightLight:', pure)
               for (const item of pure) {
-                // temp = item.match(regexp)
-                if (!item.includes(key.toLowerCase())) return
+                tempArr = []
 
-                temp = item.toLowerCase().split(key.toLowerCase())
-                for (let ikun of temp) {
-                  // 如果第一个直接等于，那说明 split 是返回的整体
-                  if (ikun === key) {
-                    ikun = { content: ikun, classTag: 'highlight' }
-                    return returnData.push(ikun)
+                console.log('looping:', item.includes(key))
+
+                if (!item.includes(key)) continue
+
+                // 全匹配
+                if (item === key) {
+                  returnData.push([{ content: key, classTag: 'highlight' }])
+                  continue
+                }
+
+                splited = item.split(key)
+
+                console.log('splited:', splited)
+
+                for (let index = 0; index < splited.length; index++) {
+                  tempItem = splited[index]
+
+                  // normal
+                  tempArr.push({ content: tempItem, classTag: '' })
+
+                  // 前后
+                  if (!tempItem || !tempItem.length) {
+                    tempArr.push({ content: key, classTag: 'highlight' })
+                    continue
                   }
 
-                  ikun = { content: ikun, classTag: '' }
-
-                  returnData.push(ikun)
-
-                  returnData.push({ content: key, classTag: 'highlight' })
+                  // 中间
+                  if (splited[index + 1]) {
+                    tempArr.push({ content: key, classTag: 'highlight' })
+                    continue
+                  }
                 }
-                console.log(`looping item:${item},key:${key} \n`, temp)
+
+                returnData.push(tempArr)
               }
+
+              console.log('handleHightLight done:', returnData)
               return returnData
             }
 
           console.log('handleInput:', va)
 
-          if (!va.length) return
+          this.queryKey = va
+
+          if (!va.length || !va.trim().length) return
 
           // 找到
           this.outputList = findFromSourceData(this.outputList, this.sourceData, va)
