@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UnnameDemo</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&display=swap');
+      :root {
+        --comp-default-fill-color: #fdfdfd;
+        --comp-active-fill-color: #fcd93a;
+        --comp-box-h: 100px;
+        --comp-box-w: 200px;
+        --comp-radius: 6px;
+        --comp-pd: 4px;
+        --container-width: 500px;
+        --text-sm: 12px;
+        --text-base: 16px;
+        --text-lg: 18px;
+        --text-xxxl: 24px;
+        --base-font-family: 'Roboto', 'consolas', 'Noto Serif SC', serif, '微软雅黑';
+      }
+
+      body {
+        line-height: normal;
+        background-color: black;
+        /* background-color: var(years-colors-2023); */
+        /* background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/papyrus.png'); */
+      }
+
+      *,
+      ::after,
+      ::before {
+        box-sizing: content-box;
+      }
+
+      .main-container {
+        height: 100%;
+        width: 100%;
+        font-family: var(--base-font-family);
+        font-size: var(--text-base);
+      }
+
+      .template {
+        max-width: 70sch;
+        padding: 3em 1em;
+        margin: auto;
+        line-height: 1.75;
+        font-size: 1.6rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 3em 0 1em;
+      }
+
+      p,
+      ul,
+      ol {
+        margin-bottom: 2em;
+        font-family: sans-serif;
+      }
+
+      .title-box {
+        height: 40px;
+        position: relative;
+      }
+
+      .left-icon {
+        left: 4px;
+        height: 30px;
+        position: absolute;
+      }
+
+      .content {
+        left: 50px;
+        position: absolute;
+      }
+
+      .text-color-white {
+        color: white;
+      }
+
+      .text-2xl {
+        word-spacing: 5px;
+        font-size: calc(var(--base-ft-size-lg) * 2);
+        font-size: 46px;
+      }
+
+      .light-font-1 {
+        --shadow-color: #9ed2ff;
+        --shadow-color-light: white;
+        text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light),
+          1px 1px 1px var(--shadow-color-light), 0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+          0 0 10px var(--shadow-color), 0 0 20px var(--shadow-color), 0 0 30px var(--shadow-color), 0 0 0px var(--shadow-color), 0 0 0px var(--shadow-color),
+          0 0 0px var(--shadow-color);
+      }
+
+      .info-box .title {
+        position: relative;
+      }
+
+      .info-box .title,
+      .info-box .unit {
+        margin: 0 var(--base-pd-md);
+        margin: 0 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container" id="app">
+      <div class="title-box text-color-white m-flex flex-an-center">
+        <img class="left-icon" src="https://view.bdip.com/data/img/7478/167747/n5rET90nY_1618286106453_Y-PswcVb69.png" alt="title-left-icon" />
+        <img class="bar" src="https://view.bdip.com/data/img/7478/167747/ee0_HotWB_1618286043212_9panKSDs4I.png" alt="title-left-bar" />
+        <span class="content">title here</span>
+      </div>
+
+      <div class="info-box m-flex flex-an-center">
+        <span class="title text-color-white">总建筑面积:</span>
+        <div class="light-font-box text-color-white">
+          <span class="light-font-1 text-2xl">1</span>
+          <span class="light-font-1 text-2xl">9</span>
+          <span class="light-font-1 text-2xl">0</span>
+          <span class="light-font-1 text-2xl">0</span>
+          <span class="unit">亿万平方米</span>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+          pgInfo: {
+            list: [],
+            step: 0,
+            lock: false,
+            nums: { one: [1, 8, 0, 0] }
+          }
+        }
+      },
+      methods: {
+        addList() {
+          this.pgInfo.list.push(Math.floor(Math.random() * (99 - 9 + 1) + 1))
+        },
+        async geList() {
+          let max = 20,
+            min = 1,
+            len = 20
+
+          this.pgInfo.list = []
+
+          await this.$nextTick()
+
+          for (let index = 1; index <= len; index++) {
+            this.pgInfo.list.push(Math.floor(Math.random() * (max - min + 1) + min))
+          }
+        },
+        async geStep(line) {
+          let max = 2500,
+            min = 1,
+            timer = null
+
+          if (this.pgInfo.lock) return
+
+          this.pgInfo.lock = true
+
+          this.pgInfo.step = 0
+
+          let animationStep = () => {
+            console.log(`animationStep line:${line}`)
+            if (this.pgInfo.step === line) {
+              this.pgInfo.lock = false
+              // clearInterval(timer)
+              // timer = null
+              return
+            }
+
+            this.pgInfo.step++
+
+            // if (duration) {
+            //   console.log('use setInterval duration:', duration / line)
+            //   if (!timer) timer = setInterval(animationStep, 0)
+            // } else {
+            console.log('use requestAnimationFrame')
+            window.requestAnimationFrame(animationStep)
+            // }
+          }
+
+          return animationStep()
+        }
+      }
+    }).mount('#app')
+  </script>
+</html>

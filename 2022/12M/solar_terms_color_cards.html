@@ -77,7 +77,7 @@
       }
 
       .solar-card {
-        width: 60%;
+        width: 40%;
         position: relative;
         background-color: #fff;
         box-sizing: border-box;
@@ -88,8 +88,9 @@
       }
 
       .color-card {
-        width: 22.5%;
-        height: 80px;
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
         padding: var(--base-pd-md);
       }
 
@@ -105,9 +106,27 @@
         left: var(--base-pd-md);
       }
 
+      .colors {
+        height: 100%;
+      }
+      .colors .info {
+        opacity: 0;
+        transform-origin: bottom;
+        transform: translateY(100%);
+      }
       .colors .info:first-child {
+        opacity: 1;
         font-size: 2rem;
         font-weight: bold;
+        transform: translateY(0%);
+      }
+
+      .color-card:hover .info {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .color-card:hover {
+        width: 200px;
       }
     </style>
   </head>

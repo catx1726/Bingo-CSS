@@ -103,7 +103,7 @@
         <div class="trigger">
           <button @click="addList">add num</button>
           <button @click="geList">generate list</button>
-          <button @click="geStep(10000)">generate step</button>
+          <button @click="geStep(2000)">generate step</button>
         </div>
 
         <div class="step" :data-step="pgInfo.step"></div>
@@ -141,7 +141,7 @@
           }
         },
         async geStep(duration) {
-          let max = 317,
+          let max = 2500,
             min = 1,
             line = Math.floor(Math.random() * (max - min + 1) + min),
             timer = null
@@ -153,21 +153,23 @@
           this.pgInfo.step = 0
 
           let animationStep = () => {
-            console.log(`requestAnimationFrame line:${line}, duration:${duration},timer:${timer}`)
+            console.log(`animationStep line:${line}, duration:${duration},timer:${timer}`)
             if (this.pgInfo.step === line) {
               this.pgInfo.lock = false
-              clearInterval(timer)
-              timer = null
+              // clearInterval(timer)
+              // timer = null
               return
             }
 
             this.pgInfo.step++
 
-            if (duration) {
-              if (!timer) timer = setInterval(animationStep, duration / line)
-            } else {
-              window.requestAnimationFrame(animationStep)
-            }
+            // if (duration) {
+            //   console.log('use setInterval duration:', duration / line)
+            //   if (!timer) timer = setInterval(animationStep, 0)
+            // } else {
+            console.log('use requestAnimationFrame')
+            window.requestAnimationFrame(animationStep)
+            // }
           }
 
           return animationStep()
