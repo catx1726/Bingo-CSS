@@ -77,7 +77,9 @@
       }
 
       .solar-card {
-        width: 40%;
+        width: 100%;
+        max-width: 840px;
+        min-width: 350px;
         position: relative;
         background-color: #fff;
         box-sizing: border-box;
@@ -88,8 +90,8 @@
       }
 
       .color-card {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         overflow: hidden;
         padding: var(--base-pd-md);
       }
@@ -116,6 +118,7 @@
       }
       .colors .info:first-child {
         opacity: 1;
+        width: min-content;
         font-size: 2rem;
         font-weight: bold;
         transform: translateY(0%);
@@ -123,6 +126,7 @@
 
       .color-card:hover .info {
         opacity: 1;
+        width: auto;
         transform: translateY(0);
       }
       .color-card:hover {
