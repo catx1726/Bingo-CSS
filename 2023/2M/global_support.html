@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GlobalSupport</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/quasar@2.10.2/dist/quasar.prod.css" rel="stylesheet" type="text/css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&display=swap');
+      :root {
+        --comp-default-fill-color: #fdfdfd;
+        --comp-active-fill-color: #fcd93a;
+        --comp-box-h: 100px;
+        --comp-box-w: 200px;
+        --comp-radius: 6px;
+        --comp-pd: 4px;
+        --container-width: 500px;
+        --text-sm: 12px;
+        --text-base: 16px;
+        --text-lg: 18px;
+        --text-xxxl: 24px;
+        --base-font-family: 'Roboto', 'consolas', 'Noto Serif SC', serif, '微软雅黑';
+        --base-black: #000;
+        --base-white: #f5f5f5;
+      }
+
+      body {
+        line-height: normal;
+        background-color: var(--comp-default-fill-color);
+        background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/papyrus.png');
+      }
+
+      *,
+      ::after,
+      ::before {
+        box-sizing: content-box;
+      }
+
+      .main-container {
+        height: 100%;
+        width: 100%;
+        font-family: var(--base-font-family);
+        font-size: var(--text-base);
+      }
+
+      .template {
+        max-width: 70sch;
+        padding: 3em 1em;
+        margin: auto;
+        line-height: 1.75;
+        font-size: 1.6rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 3em 0 1em;
+      }
+
+      p,
+      ul,
+      ol {
+        margin-bottom: 2em;
+        font-family: sans-serif;
+      }
+
+      .white {
+        color: var(--base-white);
+      }
+
+      .black {
+        color: var(--base-black);
+      }
+
+      .support-container {
+        overflow: hidden;
+        text-align: center;
+        box-sizing: border-box;
+        bottom: var(--base-pd-md);
+        right: var(--base-pd-md);
+        position: fixed;
+      }
+
+      .support-container * {
+        transition: all 0.3s ease;
+      }
+
+      .list-box {
+        z-index: 1;
+        opacity: 0;
+        transform: translateY(210%);
+        color: var(--base-white);
+        background-color: var(--base-black);
+        animation-duration: 1s;
+        animation-timing-function: ease;
+        animation-fill-mode: forwards;
+        animation-name: slide-out;
+      }
+
+      .list-box .item {
+        display: block;
+        margin: var(--base-pd-md) 0;
+      }
+
+      .support-container .info-box {
+        width: 70px;
+        height: 70px;
+        line-height: 70px;
+        border-radius: 50%;
+        z-index: 10;
+        position: relative;
+        color: var(--base-white);
+        background-color: var(--base-black);
+      }
+
+      .info-box,
+      .list-box {
+        padding: 6px;
+      }
+
+      .item.handler {
+        cursor: pointer;
+      }
+
+      .support-container:hover .list-box {
+        animation-name: slide-in;
+      }
+
+      .support-container:hover .info-box {
+        border-radius: 0;
+      }
+
+      @keyframes slide-out {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        25% {
+          opacity: 0;
+          transform: translateY(50%);
+        }
+
+        50% {
+          opacity: 0;
+          transform: translateY(100%);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateY(210%);
+        }
+      }
+
+      @keyframes slide-in {
+        50% {
+          transform: translateY(0%);
+        }
+
+        100% {
+          opacity: 1;
+          transform: translateY(0%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app" class="main-container m-flex flex-dir-col flex-an-center">
+      <div class="support-container" v-if="show">
+        <div class="list-box">
+          <div class="item link" v-for="item of linkList">
+            <a :href="item.link" :target="item.targetMethod" :title="item.title">{{item.title}}</a>
+          </div>
+          <div class="item handler" v-for="item of handlerList" @click="item.handler">{{item.title}}</div>
+        </div>
+        <div class="info-box">Contact</div>
+      </div>
+    </main>
+  </body>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+          show: true,
+          linkList: [
+            { title: 'CSS', link: 'https://love.peace.css.adoba.site/', targetMethod: '_blank' },
+            { title: 'Corner', link: 'https://corner.adoba.site/', targetMethod: '_blank' }
+          ],
+          handlerList: [
+            {
+              title: 'Close It',
+              handler: () => {
+                this.show = false
+                console.log('handler done:', this.show)
+              }
+            }
+          ]
+        }
+      },
+      mounted() {},
+      methods: {}
+    }).mount('#app')
+  </script>
+</html>
