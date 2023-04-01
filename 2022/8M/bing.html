@@ -266,7 +266,7 @@
           async getBingIMGAPI() {
             // REF https://cn.bing.com/hp/api/model MediaContents
             // https 的 443 端口被防火墙封了
-            const url = 'http://free.api.adoba.site/hp/api/model',
+            const url = 'https://free.api.adoba.site/hp/api/model',
               init = { method: 'GET', headers: new Headers(), mode: 'cors' }
             res = (await (await fetch(url, init)).json()).MediaContents
             this.list = res
