@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>找不到该页面</title>
+    <style>
+      body {
+        margin: 0;
+        --base-accent: #cc2728;
+      }
+
+      .error-page-container {
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-image: url('https://img02.mockplus.cn/image/2023-06-6/aff33951-a049-9cea-30a6-962ff2ad576f.svg');
+      }
+
+      .custom-button {
+        right: 12px;
+        bottom: 12px;
+        color: black;
+        border: 1px solid black;
+        background-color: white;
+        padding: 6px 12px;
+        position: absolute;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .custom-button:hover {
+        color: white;
+        border-color: var(--base-accent);
+        background-color: var(--base-accent);
+      }
+
+      .error-info {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 36px;
+      }
+
+      .error-info p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="error-page-container 404">
+      <div class="error-info">
+        <p>Not Found</p>
+        <p>找不到该页面</p>
+      </div>
+      <a class="take-me-back custom-button" href="https://www.huaskj.com">带我回去</a>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Windows10Hover</title>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&display=swap');
+      :root {
+        --comp-default-fill-color: #fdfdfd;
+        --comp-active-fill-color: #fcd93a;
+        --comp-box-h: 100px;
+        --comp-box-w: 200px;
+        --comp-radius: 6px;
+        --comp-pd: 4px;
+        --container-width: 500px;
+        --text-sm: 12px;
+        --text-base: 16px;
+        --text-lg: 18px;
+        --text-xxxl: 24px;
+        --base-font-family: 'Roboto', 'consolas', 'Noto Serif SC', serif, '微软雅黑';
+      }
+      body {
+        margin: 0;
+        overflow: hidden;
+        --base-accent: #cc2728;
+      }
+
+      .page-container {
+        height: 100vh;
+        width: 100vw;
+        max-height: 100%;
+        max-width: 100%;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        /* background-color: var(--base-white); */
+      }
+
+      .icon-container {
+        box-sizing: border-box;
+        padding: 5px;
+        position: relative;
+        overflow: hidden;
+      }
+      .icon-box {
+        z-index: 30;
+        height: 100px;
+        width: 100px;
+        position: relative;
+        line-height: 100px;
+        color: var(--base-white);
+        background-color: var(--base-gray-3);
+      }
+
+      .icon-box + .icon-border {
+        content: '';
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 10;
+        position: absolute;
+        border: 5px solid black;
+      }
+
+      .mouse-box {
+        --x: null;
+        --y: null;
+        height: 200px;
+        width: 200px;
+        z-index: 20;
+        filter: blur(20px);
+        position: absolute;
+        border-radius: 50%;
+        top: var(--y);
+        left: var(--x);
+        transition-duration: 0.1s;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(circle closest-side, var(--base-white), transparent);
+        background-blend-mode: lighten;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page-container flex justify-center items-center">
+      <div class="icon-container">
+        <div class="icon-box text-6xl text-center">QQ</div>
+        <div class="icon-border"></div>
+      </div>
+      <div class="mouse-box"></div>
+    </main>
+
+    <script>
+      let DOC = document
+      ;(function initFollowMouse() {
+        let mouseBox = DOC.querySelector('.mouse-box')
+        window.addEventListener('mousemove', (e) => {
+          console.log('mousemove:', mouseBox, e)
+          let x = e.clientX,
+            y = e.clientY
+
+          mouseBox.style.setProperty('--x', x + 'px')
+          mouseBox.style.setProperty('--y', y + 'px')
+        })
+      })()
+    </script>
+  </body>
+</html>
