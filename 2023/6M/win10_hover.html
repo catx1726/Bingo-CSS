@@ -40,39 +40,36 @@
       }
 
       .icon-container {
-        box-sizing: border-box;
-        padding: 5px;
-        position: relative;
+        --border-w: 5px;
+        --hover-w: 20px;
+        --icon-w: 150px;
         overflow: hidden;
+        position: relative;
+        box-sizing: content-box;
+        border: var(--hover-w) solid transparent;
       }
       .icon-box {
         z-index: 30;
-        height: 100px;
-        width: 100px;
+        height: var(--icon-w);
+        width: var(--icon-w);
+        box-sizing: border-box;
         position: relative;
-        line-height: 100px;
+        line-height: var(--icon-w);
         color: var(--base-white);
-        background-color: var(--base-gray-3);
-      }
+        overflow: hidden;
 
-      .icon-box + .icon-border {
-        content: '';
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        z-index: 10;
-        position: absolute;
-        border: 5px solid black;
+        padding: var(--border-w);
+        border: var(--border-w) solid var(--years-color-2023);
       }
 
       .mouse-box {
         --x: null;
         --y: null;
-        height: 200px;
-        width: 200px;
+        height: var(--icon-w);
+        width: var(--icon-w);
         z-index: 20;
-        filter: blur(20px);
+        opacity: 0;
+        filter: blur(30px);
         position: absolute;
         border-radius: 50%;
         top: var(--y);
@@ -80,28 +77,55 @@
         transition-duration: 0.1s;
         transform: translate(-50%, -50%);
         background: radial-gradient(circle closest-side, var(--base-white), transparent);
-        background-blend-mode: lighten;
+      }
+
+      .icon-container:hover .mouse-box {
+        opacity: 1;
+      }
+
+      .text {
+        height: 100%;
+        width: 100%;
+        z-index: 30;
+        display: inline-block;
+        position: relative;
+        background-color: var(--base-gray-3);
       }
     </style>
   </head>
   <body>
     <main class="page-container flex justify-center items-center">
-      <div class="icon-container">
-        <div class="icon-box text-6xl text-center">QQ</div>
-        <div class="icon-border"></div>
+      <div class="icon-container flex">
+        <div class="icon-box text-6xl text-center">
+          <span class="text">QQ</span>
+        </div>
+        <div class="icon-box text-6xl text-center">
+          <span class="text">QQ</span>
+        </div>
+        <div class="icon-box text-6xl text-center">
+          <span class="text">QQ</span>
+        </div>
+        <div class="icon-box text-6xl text-center">
+          <span class="text">QQ</span>
+        </div>
+        <div class="icon-box text-6xl text-center">
+          <span class="text">QQ</span>
+        </div>
+
+        <div class="mouse-box"></div>
       </div>
-      <div class="mouse-box"></div>
     </main>
 
     <script>
-      let DOC = document
+      let DOC = document,
+        iconContainer = DOC.querySelector('.icon-container')
       ;(function initFollowMouse() {
         let mouseBox = DOC.querySelector('.mouse-box')
-        window.addEventListener('mousemove', (e) => {
-          console.log('mousemove:', mouseBox, e)
-          let x = e.clientX,
-            y = e.clientY
-
+        iconContainer.addEventListener('mousemove', (e) => {
+          console.log('move:', e, e.clientX, e.target.getBoundingClientRect())
+          let rect = iconContainer.getBoundingClientRect(),
+            x = e.clientX - rect.x,
+            y = e.clientY - rect.y
           mouseBox.style.setProperty('--x', x + 'px')
           mouseBox.style.setProperty('--y', y + 'px')
         })
