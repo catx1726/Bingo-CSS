@@ -171,10 +171,18 @@
       const { x, y } = getClickEleCenterPos(event)
       lastClickPos = { x: `${x}px`, y: `${y}px` }
 
+      copyInfoToDetailBox(event)
+
+      openAnimation()
+    }
+
+    function copyInfoToDetailBox(e) {
       // 复制点击元素的内容（文本、图片、所有样式）到 detailBox
       detailBox.innerHTML = event.target.innerHTML
       detailBox.style.backgroundImage = getComputedStyle(event.target).backgroundImage
+    }
 
+    function openAnimation() {
       // 1. 设置 CSS 变量来定位 detail-box 的初始位置
       detailBox.style.setProperty('--x', lastClickPos.x)
       detailBox.style.setProperty('--y', lastClickPos.y)
@@ -198,7 +206,7 @@
       )
     }
 
-    function closeDetail() {
+    function closeAnimation() {
       // 1. 设置 CSS 变量，用于关闭动画
       detailBox.style.setProperty('--x', lastClickPos.x)
       detailBox.style.setProperty('--y', lastClickPos.y)
@@ -227,7 +235,7 @@
 
       modal.addEventListener('click', (e) => {
         if (e.target.classList.contains('modal')) {
-          closeDetail()
+          closeAnimation()
         }
       })
     }
