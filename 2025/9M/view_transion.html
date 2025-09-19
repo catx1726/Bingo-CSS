@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ViewTransition</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+      }
+
+      .modal {
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
+      }
+
+      .detail-box {
+        position: fixed;
+        height: 300px;
+        width: 200px;
+        border-radius: 4px;
+        /* 使用 CSS 变量来设置初始位置，但不要在 transform 中使用 */
+        left: var(--x, 50%);
+        top: var(--y, 50%);
+        transform: translate(-50%, -50%); /* 确保元素中心点对齐 */
+        opacity: 0;
+        background: pink;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transform-origin: center;
+        transition: all 0.3s ease;
+      }
+
+      .modal.is-active {
+        opacity: 1;
+        pointer-events: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .detail-box.is-open {
+        left: 50%;
+        top: 50%;
+        width: 50vw;
+        height: 50vh;
+        opacity: 1;
+        border-radius: 4px;
+
+        transform: translate(-50%, -50%);
+      }
+
+      .detail-box.is-animating {
+        animation: open-modal 0.5s ease-in-out forwards;
+      }
+
+      .detail-box.is-closing {
+        animation: close-modal 0.5s ease-in-out forwards;
+      }
+
+      .custom-container {
+        width: 100%;
+        height: 100vh;
+      }
+
+      .box {
+        cursor: pointer;
+        height: 300px;
+        width: 200px;
+        border-radius: 4px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url(https://plus.unsplash.com/premium_photo-1699391583865-a81bb0769ccc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+      }
+
+      /* 打开动画 */
+      @keyframes open-modal {
+        0% {
+          /* 初始状态：只改变 scale 和 opacity，位置由 left/top 决定 */
+          left: var(--x);
+          top: var(--y);
+          transform: translate(-50%, -50%) scale(0);
+          opacity: 0;
+        }
+        50% {
+          /* 中间状态：展开到完整尺寸，位置不变，圆形 */
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+        100% {
+          /* 最终状态：移动到视窗中心，尺寸不变，变为方形 */
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+      }
+
+      /* 关闭动画 */
+      @keyframes close-modal {
+        0% {
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%) scale(1);
+          border-radius: 4px;
+          opacity: 1;
+        }
+        50% {
+          /* 中间状态：从中心回退到点击位置，尺寸不变，变为圆形 */
+          left: var(--x);
+          top: var(--y);
+          height: 300px;
+          width: 200px;
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+        100% {
+          /* 最终状态：收缩到零尺寸 */
+          left: var(--x);
+          top: var(--y);
+          height: 300px;
+          width: 200px;
+          transform: translate(-50%, -50%);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="custom-container flex flex-wrap justify-around items-center">
+      <section class="box"></section>
+      <section class="box"></section>
+      <section class="box"></section>
+      <section class="box"></section>
+      <section class="box"></section>
+      <section class="box"></section>
+      <section class="box"></section>
+      <section class="box"></section>
+    </main>
+
+    <main class="modal">
+      <div class="detail-box"></div>
+    </main>
+  </body>
+  <script>
+    const detailBox = document.querySelector('.detail-box')
+    const modal = document.querySelector('.modal')
+
+    // 使用变量存储点击位置，以便在关闭时使用
+    let lastClickPos = { x: 0, y: 0 }
+
+    function getClickEleCenterPos(event) {
+      const rect = event.target.getBoundingClientRect()
+      return {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2
+      }
+    }
+
+    function handleClickEle(event) {
+      const { x, y } = getClickEleCenterPos(event)
+      lastClickPos = { x: `${x}px`, y: `${y}px` }
+
+      // 复制点击元素的内容（文本、图片、所有样式）到 detailBox
+      detailBox.innerHTML = event.target.innerHTML
+      detailBox.style.backgroundImage = getComputedStyle(event.target).backgroundImage
+
+      // 1. 设置 CSS 变量来定位 detail-box 的初始位置
+      detailBox.style.setProperty('--x', lastClickPos.x)
+      detailBox.style.setProperty('--y', lastClickPos.y)
+
+      // 2. 移除关闭动画类，避免冲突
+      detailBox.classList.remove('is-closing')
+
+      // 3. 激活 modal 和 detail-box 的动画类
+      modal.classList.add('is-active')
+      detailBox.classList.add('is-animating')
+
+      // 4. 动画结束后，移除 is-animating 类，并保持最终状态
+      detailBox.addEventListener(
+        'animationend',
+        function handler() {
+          detailBox.removeEventListener('animationend', handler)
+          detailBox.classList.remove('is-animating')
+          detailBox.classList.add('is-open')
+        },
+        { once: true }
+      )
+    }
+
+    function closeDetail() {
+      // 1. 设置 CSS 变量，用于关闭动画
+      detailBox.style.setProperty('--x', lastClickPos.x)
+      detailBox.style.setProperty('--y', lastClickPos.y)
+
+      // 2. 启动关闭动画
+      detailBox.classList.add('is-closing')
+
+      // 3. 监听关闭动画结束
+      detailBox.addEventListener(
+        'animationend',
+        function handler() {
+          detailBox.removeEventListener('animationend', handler)
+          detailBox.classList.remove('is-closing')
+          detailBox.classList.remove('is-open')
+          modal.classList.remove('is-active')
+        },
+        { once: true }
+      )
+    }
+
+    function init() {
+      const boxs = document.querySelectorAll('.box')
+      boxs.forEach((box) => {
+        box.addEventListener('click', handleClickEle)
+      })
+
+      modal.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+          closeDetail()
+        }
+      })
+    }
+
+    window.onload = function () {
+      init()
+    }
+  </script>
+</html>
