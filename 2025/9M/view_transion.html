@@ -13,6 +13,52 @@
         box-sizing: border-box;
       }
 
+      .custom-container {
+        width: 100%;
+        height: 100vh;
+      }
+
+      .box {
+        cursor: pointer;
+        height: 300px;
+        width: 200px;
+        border-radius: 4px;
+      }
+
+      /* 随机给 box 添加 background image */
+      .box:nth-child(1) {
+        background-image: url('https://images.pexels.com/photos/9407824/pexels-photo-9407824.jpeg');
+      }
+      .box:nth-child(2) {
+        background-image: url('https://images.pexels.com/photos/5874965/pexels-photo-5874965.jpeg');
+      }
+      .box:nth-child(3) {
+        background-image: url('https://images.pexels.com/photos/6415077/pexels-photo-6415077.jpeg');
+      }
+      .box:nth-child(4) {
+        background-image: url('https://images.pexels.com/photos/27835917/pexels-photo-27835917.jpeg');
+      }
+      .box:nth-child(5) {
+        background-image: url('https://images.pexels.com/photos/23132306/pexels-photo-23132306.jpeg');
+      }
+      .box:nth-child(6) {
+        background-image: url('https://images.pexels.com/photos/14377436/pexels-photo-14377436.jpeg');
+      }
+      .box:nth-child(7) {
+        background-image: url('https://images.pexels.com/photos/15215349/pexels-photo-15215349.jpeg');
+      }
+      .box:nth-child(8) {
+        background-image: url('https://images.pexels.com/photos/8173839/pexels-photo-8173839.jpeg');
+      }
+
+      .detail-box,
+      .cover,
+      .box {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
       .modal {
         left: 0;
         top: 0;
@@ -22,6 +68,12 @@
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
+      }
+
+      .modal.is-active {
+        opacity: 1;
+        pointer-events: auto;
+        background-color: rgba(0, 0, 0, 0.5);
       }
 
       .detail-box {
@@ -34,18 +86,9 @@
         top: var(--y, 50%);
         transform: translate(-50%, -50%); /* 确保元素中心点对齐 */
         opacity: 0;
-        background: pink;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+
         transform-origin: center;
         transition: all 0.3s ease;
-      }
-
-      .modal.is-active {
-        opacity: 1;
-        pointer-events: auto;
-        background-color: rgba(0, 0, 0, 0.5);
       }
 
       .detail-box.is-open {
@@ -55,8 +98,53 @@
         height: 50vh;
         opacity: 1;
         border-radius: 4px;
-
         transform: translate(-50%, -50%);
+      }
+
+      .content {
+        border-radius: 0 4px 4px 0;
+      }
+
+      .cover {
+        border-radius: 4px 0 0 4px;
+      }
+
+      .detail-box .cover {
+        height: 100%;
+        width: 100%;
+      }
+
+      .detail-box .content {
+        /* 关键修改：使用 max-width 来控制占位 */
+        max-width: 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: scaleX(0);
+        overflow: hidden;
+
+        transition-delay: 0s;
+        background-color: white;
+        transform-origin: top left;
+      }
+
+      .detail-box.is-open > .content {
+        padding: 12px;
+
+        opacity: 1;
+        /* 展开后的宽度 */
+        max-width: 20vw;
+        visibility: visible;
+        transform: scaleY(1);
+      }
+
+      .detail-box.is-closing > .content {
+        padding: 0;
+
+        opacity: 0;
+        max-width: 0;
+        visibility: hidden;
+        overflow: hidden;
+        transform: scaleX(0);
       }
 
       .detail-box.is-animating {
@@ -65,22 +153,6 @@
 
       .detail-box.is-closing {
         animation: close-modal 0.5s ease-in-out forwards;
-      }
-
-      .custom-container {
-        width: 100%;
-        height: 100vh;
-      }
-
-      .box {
-        cursor: pointer;
-        height: 300px;
-        width: 200px;
-        border-radius: 4px;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-image: url(https://plus.unsplash.com/premium_photo-1699391583865-a81bb0769ccc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
       }
 
       /* 打开动画 */
@@ -138,18 +210,66 @@
   </head>
   <body>
     <main class="custom-container flex flex-wrap justify-around items-center">
-      <section class="box"></section>
-      <section class="box"></section>
-      <section class="box"></section>
-      <section class="box"></section>
-      <section class="box"></section>
-      <section class="box"></section>
-      <section class="box"></section>
-      <section class="box"></section>
+      <section class="box">
+        <!-- 随机内容 -->
+        <p class="text-white text-xl opacity-0 hidden">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+      </section>
+      <section class="box">
+        <!-- 随机内容，但要和其他元素区分开 -->
+        <p class="text-white text-xl opacity-0 hidden">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae earum reiciendis fugit in officiis, quos aliquam, qui adipisci eaque nobis
+          similique.
+        </p>
+      </section>
+      <section class="box">
+        <!-- 随机内容，但要和其他元素区分开 -->
+        <p class="text-white text-xl opacity-0 hidden">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati doloribus blanditiis velit iste. Itaque dignissimos rerum illo ea eius!
+          Consequuntur distinctio impedit, neque fugit magnam vel rerum facilis a nam?
+        </p>
+      </section>
+      <section class="box">
+        <!-- 随机内容，但要和其他元素区分开 -->
+        <p class="text-white text-xl opacity-0 hidden">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ratione nisi iure sunt sed quo. Dignissimos deleniti, eos numquam distinctio
+          tenetur nobis suscipit asperiores neque totam autem ipsum expedita aliquam.
+        </p>
+      </section>
+      <section class="box">
+        <!-- 随机内容，但要和其他元素区分开 -->
+        <p class="text-white text-xl opacity-0 hidden">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur alias numquam repellat, iure error obcaecati impedit optio nulla nemo reprehenderit
+          repudiandae veritatis quidem fuga beatae magnam! Vel iusto est iure?
+        </p>
+      </section>
+      <section class="box">
+        <p class="text-white text-xl opacity-0 hidden">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint saepe incidunt ex aspernatur consequatur! Error, eum. Ipsum eum mollitia explicabo hic,
+          ea dignissimos perferendis iusto sint, voluptatibus quam voluptates repellendus?
+        </p>
+      </section>
+      <section class="box">
+        <p class="text-white text-xl opacity-0 hidden">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas soluta inventore esse et. Impedit, incidunt? Nostrum illo officiis velit nulla obcaecati
+          deserunt culpa quidem! Cupiditate voluptas soluta quod laudantium et?
+        </p>
+      </section>
+      <section class="box">
+        <p class="text-white text-xl opacity-0 hidden">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas soluta inventore esse et. Impedit, incidunt? Nostrum illo officiis velit nulla obcaecati
+          deserunt culpa quidem! Cupiditate voluptas soluta quod laudantium et?
+        </p>
+      </section>
     </main>
 
     <main class="modal">
-      <div class="detail-box"></div>
+      <div class="detail-box flex">
+        <div class="cover"></div>
+        <div class="content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias incidunt hic molestiae doloremque dolores laudantium laboriosam reiciendis deserunt
+          quod consequatur necessitatibus ex, in voluptatum sit, blanditiis voluptas unde officiis rem.
+        </div>
+      </div>
     </main>
   </body>
   <script>
@@ -178,8 +298,12 @@
 
     function copyInfoToDetailBox(e) {
       // 复制点击元素的内容（文本、图片、所有样式）到 detailBox
-      detailBox.innerHTML = event.target.innerHTML
-      detailBox.style.backgroundImage = getComputedStyle(event.target).backgroundImage
+
+      detailBox.children[0].style.backgroundImage = getComputedStyle(e.target).backgroundImage
+      // 解决display:none 会拿不到 innerHtml,并且有可能为空
+      if (e.target.querySelector('p')) detailBox.children[1].innerHTML = e.target.querySelector('p')?.innerHTML
+
+      // detailBox.children[1].innerHTML += event.target.innerHTML
     }
 
     function openAnimation() {
