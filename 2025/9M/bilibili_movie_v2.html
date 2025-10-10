@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BibiliMoiveAnimation</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+      }
+
+      .row {
+        width: 100vw;
+        overflow-x: hidden;
+        transform-origin: center center;
+        transition: all 0.3s ease;
+      }
+
+      .item-box {
+        margin: 0 10px;
+        width: 150px;
+        height: 150px;
+        min-width: 150px;
+        left: 0;
+        cursor: pointer;
+        position: relative;
+        border-radius: 4px;
+        overflow: hidden;
+        transform-origin: center center;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+      }
+
+      .item-box video,
+      .item-box img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        display: block;
+        transform: translateX(0);
+        transform-origin: 50% 50%;
+        transition: all 0.3s ease;
+        position: absolute;
+        animation: 0.3s ease forwards;
+      }
+
+      .item-box video {
+        animation-name: fade-out;
+      }
+
+      .item-box:hover {
+        width: 300px;
+        flex-shrink: 0;
+      }
+
+      .row:hover .item-box {
+        /* 因为增加了 flex-shrink、min-width 属性，所以当伸缩的时候，只会移动一边的元素，导致不够自然，所以这里使用 translateX 来制造两边移动的效果 */
+        transform: translateX(-75px);
+      }
+
+      .item-box:hover video {
+        /* visibility: visible; */
+        /* display: block; */
+        animation-name: fade-in;
+      }
+
+      .item-box:hover img {
+        visibility: hidden;
+      }
+
+      .row:hover {
+        width: calc(100vw + 150px);
+      }
+
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fade-out {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="flex items-center h-screen">
+      <div class="row flex items-center">
+        <div class="item-box">
+          <img src="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" alt="" srcset="" />
+          <video poster="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" src="https://cdn.pixabay.com/video/2025/07/27/293788_large.mp4"></video>
+        </div>
+
+        <div class="item-box">
+          <img src="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" alt="" srcset="" />
+          <video poster="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" src="https://cdn.pixabay.com/video/2025/07/27/293788_large.mp4"></video>
+        </div>
+
+        <div class="item-box">
+          <img src="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" alt="" srcset="" />
+          <video poster="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" src="https://cdn.pixabay.com/video/2025/07/27/293788_large.mp4"></video>
+        </div>
+
+        <div class="item-box">
+          <img src="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" alt="" srcset="" />
+          <video poster="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" src="https://cdn.pixabay.com/video/2025/07/27/293788_large.mp4"></video>
+        </div>
+
+        <div class="item-box">
+          <img src="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" alt="" srcset="" />
+          <video poster="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" src="https://cdn.pixabay.com/video/2025/07/27/293788_large.mp4"></video>
+        </div>
+
+        <div class="item-box">
+          <img src="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" alt="" srcset="" />
+          <video poster="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" src="https://cdn.pixabay.com/video/2025/07/27/293788_large.mp4"></video>
+        </div>
+
+        <div class="item-box">
+          <img src="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" alt="" srcset="" />
+          <video poster="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" src="https://cdn.pixabay.com/video/2025/07/27/293788_large.mp4"></video>
+        </div>
+
+        <div class="item-box">
+          <img src="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" alt="" srcset="" />
+          <video poster="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" src="https://cdn.pixabay.com/video/2025/07/27/293788_large.mp4"></video>
+        </div>
+      </div>
+    </main>
+    <script>
+      function videoControl() {
+        const itemBoxs = document.querySelectorAll('.item-box')
+
+        itemBoxs.forEach((item) => {
+          const video = item.querySelector('video')
+          const img = item.querySelector('img')
+
+          item.addEventListener('mouseenter', () => {
+            video.currentTime = 0
+            video.play()
+          })
+
+          item.addEventListener('mouseleave', () => {
+            video.pause()
+          })
+        })
+      }
+
+      window.onload = () => videoControl()
+    </script>
+  </body>
+</html>
