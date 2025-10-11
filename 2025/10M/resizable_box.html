@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ResizableBox</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+      }
+
+      .row {
+        width: 100vw;
+        overflow-x: hidden;
+        transform-origin: center center;
+        transition: all 0.3s ease;
+      }
+
+      .item-box {
+        left: 0;
+        flex-shrink: 0;
+
+        margin: 0 10px;
+        width: 150px;
+        height: 150px;
+        min-width: 150px;
+        cursor: pointer;
+        position: relative;
+        border-radius: 4px;
+        overflow: hidden;
+        transform-origin: center center;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        user-select: none;
+      }
+
+      .item-box video,
+      .item-box img {
+        width: 100%;
+        height: 150px;
+        display: block;
+        object-fit: cover;
+        position: absolute;
+        transform: translateX(0);
+        transform-origin: 50% 50%;
+        transition: all 0.3s ease;
+        animation: 0.3s ease forwards;
+      }
+
+      .item-box video {
+        animation-name: fade-out;
+      }
+
+      .bar {
+        right: 0;
+        width: 5px;
+        height: 100%;
+        cursor: e-resize;
+        position: absolute;
+      }
+
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fade-out {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="flex items-center h-screen">
+      <div class="row flex items-center">
+        <div class="item-box" id="resize-item">
+          <img src="https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg" />
+          <div class="bar" data-direction="e"></div>
+        </div>
+      </div>
+    </main>
+    <script>
+      let resizableEle = document.getElementById('resize-item'),
+        resizeInfo = { startW: 0, startX: 0 },
+        resizeBar = resizableEle.querySelector('.bar'),
+        currentDir = ''
+
+      resizeBar.addEventListener('mousedown', initResize)
+
+      function initResize() {
+        resizeInfo.startW = resizableEle.offsetWidth
+        resizeInfo.startX = event.clientX
+
+        currentDir = event.target.dataset.direction
+
+        window.addEventListener('mousemove', resize)
+        window.addEventListener('mouseup', stopResize)
+      }
+
+      function resize(event) {
+        if (!currentDir) return
+
+        let handler = {
+          e: () => {
+            resizableEle.style.width = resizeInfo.startW + (event.clientX - resizeInfo.startX) + 'px'
+          }
+        }
+
+        handler[currentDir]?.()
+      }
+
+      function stopResize() {
+        currentDir = ''
+        window.removeEventListener('mousemove', resize)
+        window.removeEventListener('mouseup', stopResize)
+      }
+    </script>
+  </body>
+</html>
