@@ -191,9 +191,9 @@
             return num
           }
 
-          lower_100_times = handler(rgbs, lower_100_times)
+          console.log('handleFontColor:', rgbs)
 
-          return lower_100_times > 1 ? 'white' : 'black'
+          return getContrastColor(rgbs[0].slice(1), rgbs[1].slice(1), rgbs[2].slice(1))
         }
       }
     })

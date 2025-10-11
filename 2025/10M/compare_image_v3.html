@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CompareImage</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+      body {
+        --max-w: 250px;
+        margin: 0;
+      }
+
+      .row {
+        position: relative;
+        width: var(--max-w);
+        overflow-x: hidden;
+
+        background-size: cover;
+        background-position: left top;
+        background-repeat: no-repeat;
+        filter: invert(100%);
+        background-image: url(https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg);
+        transform-origin: center center;
+        transition: all 0.3s ease;
+      }
+
+      .item-box {
+        left: 0;
+        width: 50%;
+        height: 150px;
+        max-width: var(--max-w);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+
+        transform-origin: center center;
+        /* transition: all 0.1s ease; */
+        box-sizing: border-box;
+        user-select: none;
+      }
+
+      .item-box img {
+        width: 50%;
+        left: 50%;
+        height: 150px;
+        display: block;
+        object-fit: cover;
+        position: absolute;
+        transform: translateX(0);
+        transform-origin: 50% 50%;
+        transition: all 0.3s ease;
+        animation: 0.3s ease forwards;
+      }
+
+      .item-box video {
+        animation-name: fade-out;
+      }
+
+      .bar {
+        top: 0;
+        left: calc(50% - 2.5px);
+        width: 5px;
+        z-index: 10;
+        height: 100%;
+        cursor: e-resize;
+        position: absolute;
+        background-color: white;
+        right: calc(50% - 2.5px);
+      }
+
+      .range-box {
+        left: 0;
+        right: 0;
+        z-index: 20;
+        width: 100%;
+        opacity: 0;
+        cursor: e-resize;
+        top: calc(50% - 10px);
+        position: absolute;
+      }
+
+      .compare {
+        filter: invert(100%);
+        background-image: url(https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="flex items-center justify-center h-screen">
+      <div class="row flex items-center">
+        <div class="item-box compare" id="resize-item"></div>
+        <input type="range" class="range-box" name="range" value="50" max="100" />
+        <div class="bar" data-direction="e"></div>
+      </div>
+    </main>
+    <script>
+      const resizeBar = document.querySelector('.bar'),
+        rangeBox = document.querySelector('.range-box'),
+        resizeItem = document.querySelector('#resize-item')
+
+      let isDraggingBar = false
+
+      function updatePosition(e) {
+        let percent = e.target.value
+
+        resizeItem.style.width = percent + '%'
+        resizeBar.style.left = percent < 5 ? '0px' : `calc(${percent}% - 5px)`
+      }
+
+      function draggingBar(e) {
+        if (!isDraggingBar) return
+
+        let containerRect = resizeBar.parentElement.getBoundingClientRect(),
+          newLeft = e.clientX - containerRect.left,
+          percent = (newLeft / containerRect.width) * 100
+
+        percent = Math.max(0, Math.min(100, percent)) // Clamp percentage between 0 and 100
+
+        rangeBox.value = percent
+
+        updatePosition({ target: rangeBox })
+      }
+
+      function stopDraggingBar() {
+        isDraggingBar = false
+      }
+
+      function initDragBar() {
+        isDraggingBar = true
+      }
+
+      resizeBar.addEventListener('mousedown', initDragBar)
+
+      document.addEventListener('mousemove', draggingBar)
+
+      document.addEventListener('mouseup', stopDraggingBar)
+
+      rangeBox.addEventListener('input', updatePosition)
+    </script>
+  </body>
+</html>

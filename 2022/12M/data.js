@@ -1591,3 +1591,40 @@ function handleData(arr) {
 
   return handledList
 }
+
+/**
+ * 根据 RGB 背景色，自动确定最佳字体颜色（白色或黑色）。
+ * @param {number} r 红色值 (0-255)
+ * @param {number} g 绿色值 (0-255)
+ * @param {number} b 蓝色值 (0-255)
+ * @returns {string} 返回 'white' (白色) 或 'black' (黑色)
+ */
+function getContrastColor(r, g, b) {
+  // --- 1. 计算相对亮度 ---
+
+  // (a) 将 0-255 的 RGB 值转换为 0-1 的线性值 (不需要精确的 sRGB 线性化，简化处理)
+  // 尽管 W3C 标准要求更复杂的 sRGB 线性化，但对于简单的黑白判断，直接除以 255 通常足够且更快。
+  const R = r / 255
+  const G = g / 255
+  const B = b / 255
+
+  // (b) 应用 W3C 推荐的亮度公式 (ITU-R BT.709)
+  const luminance = 0.2126 * R + 0.7152 * G + 0.0722 * B
+
+  // --- 2. 设置亮度阈值 ---
+
+  // 亮度阈值 (Threshold):
+  // 0.5 是一个常见的分割点。如果亮度低于此值，则视为深色背景。
+  // 0.4 到 0.6 之间的值都可以根据设计偏好进行调整。
+  const threshold = 0.5
+
+  // --- 3. 返回对比色 ---
+
+  if (luminance < threshold) {
+    // 深色背景，使用白色字体
+    return 'white'
+  } else {
+    // 浅色背景，使用黑色字体
+    return 'black'
+  }
+}

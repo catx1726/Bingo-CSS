@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CompareImage</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+      body {
+        --max-w: 250px;
+        margin: 0;
+      }
+
+      .row {
+        position: relative;
+        width: var(--max-w);
+        overflow-x: hidden;
+        transform-origin: center center;
+        transition: all 0.3s ease;
+      }
+
+      .item-box {
+        left: 0;
+        width: 50%;
+        height: 150px;
+        max-width: var(--max-w);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+
+        transform-origin: center center;
+        /* transition: all 0.1s ease; */
+        box-sizing: border-box;
+        user-select: none;
+      }
+
+      .bar {
+        top: 0;
+        width: 5px;
+        z-index: 10;
+        height: 100%;
+        cursor: e-resize;
+        position: absolute;
+        background-color: black;
+        right: calc(50% - 2.5px);
+      }
+
+      .one {
+        /* JS 代替 CSS FLEX 计算宽度 */
+        flex-shrink: 1;
+        flex-grow: 0;
+        background-image: url(https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg);
+        background-size: var(--max-w) 150px;
+        background-position: left top;
+        background-repeat: no-repeat;
+      }
+      .two {
+        /* CSS FLEX 自动计算宽度,移除则需要手动 JS 计算 */
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 0;
+        filter: invert(1);
+        background-image: url(https://cdn.pixabay.com/video/2025/07/27/293788_tiny.jpg);
+        background-size: var(--max-w) 150px;
+        background-position: right top;
+        background-repeat: no-repeat;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="flex items-center justify-center h-screen">
+      <div class="row flex items-center">
+        <div class="item-box one" id="resize-item"></div>
+        <div class="bar" data-direction="e"></div>
+        <div class="item-box two"></div>
+      </div>
+    </main>
+    <script>
+      let resizableEle = document.getElementById('resize-item'),
+        resizeInfo = { startW: 0, startX: 0 },
+        resizeBar = document.querySelector('.bar'),
+        currentDir = '',
+        parentWidth = resizableEle.parentElement.offsetWidth,
+        isDragging = false,
+        nextClientX = 0
+
+      resizeBar.addEventListener('mousedown', initResize)
+
+      function initResize() {
+        resizeInfo.startW = resizableEle.offsetWidth
+        resizeInfo.startX = event.clientX
+
+        nextClientX = event.clientX
+        currentDir = event.target.dataset.direction
+
+        window.addEventListener('mousemove', resize)
+        window.addEventListener('mouseup', stopResize)
+      }
+
+      function updateDOM() {
+        let handler = {
+          e: () => {
+            let newWidth = resizeInfo.startW + (nextClientX - resizeInfo.startX)
+
+            newWidth = newWidth < 0 ? 0 : newWidth
+
+            resizableEle.style.width = newWidth > parentWidth ? parentWidth + 'px' : newWidth + 'px'
+
+            resizeBar.style.left = newWidth > parentWidth ? parentWidth - 5 + 'px' : newWidth + 'px'
+          }
+        }
+
+        handler[currentDir]?.()
+
+        isDragging = false
+      }
+
+      function resize(event) {
+        if (!currentDir) return
+
+        nextClientX = event.clientX
+
+        if (!isDragging) {
+          isDragging = true
+          window.requestAnimationFrame(updateDOM)
+        }
+      }
+
+      function stopResize() {
+        currentDir = ''
+        isDragging = false
+        window.removeEventListener('mousemove', resize)
+        window.removeEventListener('mouseup', stopResize)
+      }
+    </script>
+  </body>
+</html>
