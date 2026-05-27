@@ -1,0 +1,28 @@
+.digit-counter {
+    display: flex;
+    font-family: monospace;
+    font-size: 50px;
+    font-weight: bold;
+}
+.digit-wrapper {
+    height: 60px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    margin: 0 2px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in, width 0.5s ease-in;
+}
+.digit-wrapper.show {
+    opacity: 1;
+}
+.digit-strip {
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+}
+.digit {
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    width: 40px;
+}

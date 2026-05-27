@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>数字老虎机组件测试</title>
+    <link rel="stylesheet" href="digit-counter.css" />
+  </head>
+  <body>
+    <div id="water-counter"></div>
+    <button onclick="counter.update(generateRandomNumber())">更新随机数值 (自动扩容)</button>
+    <button onclick="counter.update(0)">重置</button>
+
+    <script src="digit-counter.js"></script>
+    <script>
+      const counter = new DigitCounter('#water-counter')
+
+      function generateRandomNumber() {
+        // 直接返回 0 到 99999 之间的随机整数
+        return Math.floor(Math.random() * 100000)
+      }
+    </script>
+  </body>
+</html>

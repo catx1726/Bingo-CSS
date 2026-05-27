@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>数字老虎机实验</title>
+    <style>
+      .counter {
+        display: flex;
+        font-family: monospace;
+        font-size: 50px;
+        font-weight: bold;
+      }
+      .digit-wrapper {
+        height: 60px;
+        overflow: hidden;
+        border: 1px solid #ccc;
+      }
+      .digit-strip {
+        display: flex;
+        flex-direction: column;
+        transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        will-change: transform;
+      }
+      .digit {
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="counter" id="counter"></div>
+    <button onclick="update(987)">滚动到 987</button>
+
+    <script>
+    const container = document.getElementById('counter');
+
+    function createDigit() {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'digit-wrapper';
+        wrapper.style.width = '40px';
+
+        const strip = document.createElement('div');
+        strip.className = 'digit-strip';
+
+        for (let i = 0; i <= 9; i++) {
+            const digit = document.createElement('div');
+            digit.className = 'digit';
+            digit.innerText = i;
+            strip.appendChild(digit);
+        }
+
+        wrapper.appendChild(strip);
+        return wrapper;
+    }
+
+    [0, 0, 0].forEach(() => container.appendChild(createDigit()));
+
+    function update(target) {
+        const str = target.toString().padStart(3, '0');
+        const strips = Array.from(document.querySelectorAll('.digit-strip')).reverse(); // 个位在前
+
+        strips.forEach((strip, index) => {
+            const val = parseInt(str[str.length - 1 - index]);
+
+            // 个位(index=0)最先开始，延迟为0
+            // 时长：高位(百位 index=2)时长更短(更快)，低位(个位 index=0)时长更长
+            const duration = 1.5 - (index * 0.6); 
+
+            strip.style.transition = `transform ${duration}s cubic-bezier(0.19, 1, 0.22, 1)`;
+            strip.style.transitionDelay = `${index * 0.1}s`; 
+            strip.style.transform = `translateY(-${val * 60}px)`;
+        });
+    }
+    </script>
+  </body>
+</html>
